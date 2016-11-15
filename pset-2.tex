@@ -1,0 +1,295 @@
+\documentclass[letterpaper]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{nth}
+
+% Comment the following lines to use the default Computer Modern font
+% instead of the Palatino font provided by the mathpazo package.
+% Remove the 'osf' bit if you don't like the old style figures.
+\usepackage[T1]{fontenc}
+\usepackage[sc,osf]{mathpazo}
+
+% Set your name here
+\def\name{Problem Set 2}
+
+
+\geometry{
+  body={6.5in, 8.5in},
+  left=1.0in,
+  top=1.25in
+}
+
+% Customize page headers
+\pagestyle{myheadings}
+\markright{\name}
+\thispagestyle{empty}
+
+% Custom section fonts
+\usepackage{sectsty}
+\sectionfont{\rmfamily\mdseries\Large}
+\subsectionfont{\rmfamily\mdseries\itshape\large}
+
+% Other possible font commands include:
+% \ttfamily for teletype,
+% \sffamily for sans serif,
+% \bfseries for bold,
+% \scshape for small caps,
+% \normalsize, \large, \Large, \LARGE sizes.
+
+% Don't indent paragraphs.
+\setlength\parindent{0em}
+
+\begin{document}
+
+{\huge \name}
+
+% Alternatively, print name centered and bold:
+%\centerline{\huge \bf \name}
+
+\vspace{0.25in}
+
+Dev Dabke \\
+MATH 501: Introduction to Algebraic Structures I \\
+September 13, 2016 \\
+Prof.\ Calderbank \\
+
+\section{Question 1}
+\label{sec:Question1}
+
+Supposed we have a group $ G $ (n.b.\ the group operator here is shown as multiplication for convenience, but represents any arbitrary group operator without loss of generality; the identity is represented by $ 1 $).
+If element $ x $ is in group $ G $, then we know that $ xx = x^2 $, $ xxxx = x^4 $, $ xxxxxxx = x^7 $, $ xxxxxxxx = x^8 $, $ xxxxxxxxxxx = x^9 $, $ xxxxxxxxxxxxx = x^{13} $, and $ xxxxxxxxxxxxxx = x^{14} $ must also be in the group.
+Since by assumption element $ x $ has order $ 15 $, for all of the previously enumerated elements, they must also have order $ 15 $.
+This follows simply from the fact that the greatest common divisor of $ 15 $ and the particular exponents ($ 1, 2, 4, 7, 8, 9, 13, 14 $) is $ 1 $.
+Take for example $ x^7 $. $ x^{7^{15}} = x^{15^7} = 1^7 = 1 $.
+Raising $ x^7 $ to any power smaller than $ 15 $ would not yield the identity, since $ 15 $, by definition, is the smallest number of times we can apply the group operator $ x $ to yield the identity.
+Therefore, any ``extra'' $ x $'s that we had left over from a string of $ x $'s will not reduce to the identity.
+\\ \\
+In total, we have enumerated $ 8 $ elements of order $ 15 $, and thus any group with an element of order $ 15 $ must have \textit{at least} $ 8 $ elements of order $ 15 $.
+
+\section{Question 2}
+\label{sec:Question2}
+
+Note that for a particular element $ x $ in group $ G $ as defined in Question~\ref{sec:Question1}, we actually have precisely $ 8 $ other elements of order $ 15 $.
+This follows from the fact that all of the other possible powers of $ x $ with exponents less than or equal to $ 15 $ ($ 3, 5, 6, 9, 10, 12, 15 $) correspond to elements with order less than $ 15 $, i.e. $ |x^a| < 15 \forall a \in {3, 5, 6, 9, 10, 12, 15} $.
+Any power of $ x $ greater than $ 15 $, i.e.\ $ x^i : i > 15 $ can be reduced by the relation $ x^{15} = 1 $ to some other arbitrary power of $ x $ with exponent less than $ 15 $, i.e.\ $ x^j = x^i \; \forall j : j \equiv i \mod{15} $.
+\\ \\
+Now, imagine that we have another element $ y $ in group $ G $ that also has order $ 15 $.
+It also generates $ 8 $ elements that are powers of $ y $ that have order $ 15 $ by our proof in Question~\ref{sec:Question1}.
+However, how do we know that one of these elements $ y^i $ does not equal $ x^j $?
+What we will show is that if any of the powers of $ y^i = x^j : i, j \in \{1, 2, 4, 7, 8, 9, 13, 14\} $ then the set of elements that represent the arbitrary powers of $ y $ is actually equal to the set of the arbitrary powers of $ x $, i.e.\ there is a bijective correspondence between the powers of $ y $ and the powers of $ x $.
+\\ \\
+Since for $ x^i : i \in \{1, 2, 4, 7, 8, 9, 13, 14\} $ and we know that $ \gcd(i, 15) = 1 $, we can see that the set $ x^{(i^n) \mod{15}} : n \in \{1, 2, \ldots 15 \} $ has a bijective correspondence with the set of all powers of $ x^l : l \in \{1, 2, \ldots 15 \} $.
+Basically, this means that the arbitrary powers of $ x^i $ simply permute the set of the arbitrary powers of $ x $.
+With this in mind, if there is a situation where $ y^i = x^j $, this implies that $ y^{i^n} = x^{j^n} : n \in \{1, 2, \ldots 15 \} $.
+Since this will cycle through all arbitrary powers of $ y $ and $ x $, we see that the set of all arbitrary powers of $ x $ is equal to the set of arbitrary powers of $ y $.
+\\ \\
+Finally, we conclude: for elements $ x $ and $ y $ in group $ G $, either these elements coincide, in that the set of all arbitrary powers of $ x $ is equivalent to the set of arbitrary powers of $ y $, which is clearly a set of size $ 8 $; or they do not, and we have two distinct sets each containing exactly $ 8 $ elements, all of which have order $ 15 $.
+Thus the number of elements of group $ G $ that have order $ 15 $ must be divisible by $ 8 $.
+
+\section{Question 3}
+\label{sec:Question3}
+
+For the cyclic group $ C_5 $, we have a generator $ \langle x : x^5 = 1 \rangle $.
+Therefore, we can take arbitrary strings of $ x $, i.e.\ powers of $ x $, but for any power greater than $ 5 $, we have simply found an element that is equivalent to a power of $ x $ with exponent less than $ 5 $ due to the relation.
+Thus, we only have $ 5 $ possible unique strings of $ x $, which are $ x $, $ xx $, $ xxx $, $ xxxx $, and $ xxxxx $.
+Now, for functions $ g_1 : x \mapsto x $, $ g_2 : x \mapsto x^2 $, $ g_3 : x \mapsto x^3 $, and $ g_4 : x \mapsto x^4 $, we have automorphisms.
+This is true since the order of $ x^1 $ (trivially), $ x^2 $, $ x^3 $, $ x^4 $ is $ 5 $ ($ 5 $ is conveniently prime).
+Note that the function $ g_1 : x \mapsto x^5 $ in fact maps every element to the identity, which is quite unhelpful and is not an automorphism.
+\\ \\
+Thus, the functions $ g_1, g_2, g_3, g_4 $ are the automorphisms of $ C_5 $.
+
+\section{Question 4}
+\label{sec:Question4}
+
+\vspace{40 mm}
+
+\section{Question 5}
+\label{sec:Question5}
+
+The symmetric group $ S_7 $ contains an element of order $ 5 $ and $ 10 $, but not $ 15 $.
+The largest possible order of an element of $ S_7 $ is $ 12 $.
+\\ \\
+The bijection $ \phi $ that represents the permutation $ (1 2 3 4 5)(6)(7) $ has order $ 5 $ in $ S_7 $.
+The bijection $ \rho $ that represents the permutation $ (1 2 3 4 5)(6 7) $ has order $ 10 $ in $ S_7 $.
+\\ \\
+There are $ 7! $ possible bijections in $ S_7 $, so how do we know that the largest order of an element in $ S_7 $ is $ 12 $ without going through each one?
+To prove that the largest possible order of an element of $ S_7 $ is $ 12 $, we will prove that the largest order is equivalent to the largest \textit{least common multiple} (lcm) of the various partitions of $ 7 $.
+Essentially, this is true because for a particular permutation (i.e.\ bijection), we see that we create several ``cycles,'' wherein we rotate around several subsets of our group.
+For $ 7 $ elements, each ``cycle'' corresponds to a particular partition of $ 7 $, since if one element were in two ``cycles,'' then we would actually only have one ``cycle.''
+These ``cycles'' look something like $ (1 2 3)(4 5 6)(7) $.
+Therefore, the various ``cycles'' in our permutation will return us back to where we started when the total number of times $ n $ that we have applied the permutation is an integer multiple of the size of all of the cycles.
+The smallest $ n $ for which this is satisifed is the lcm of the sizes of each ``cycle'' or partition of $ 7 $.
+Take as an example the bijection $ \psi $ that represents the permutation $ (1 2 3 4)(5 6 7) $.
+Only after applying $ \psi $ $ 12 $ times will we return to our original ordering.
+\\ \\
+For $ 7 $, the greatest lcm of the various partitions of $ 7 $ happens to be $ 12 $.
+
+\section{Question 6}
+\label{sec:Question6}
+
+\subsection{Part i}
+\label{subsec:6Parti}
+
+\vspace{40 mm}
+
+\subsection{Part ii}
+\label{subsec:6Partii}
+
+\begin{itemize}
+    \item $ \langle y, z \rangle $
+    \item $ \langle y, yz \rangle $
+    \item $ \langle y, y^2z \rangle $
+    \item $ \langle y, y^3z \rangle $
+
+    \item $ \langle y^3, z \rangle $
+    \item $ \langle y^3, yz \rangle $
+    \item $ \langle y^3, y^2z \rangle $
+    \item $ \langle y^3, y^3z \rangle $
+
+    \item $ \langle y^2z, yz \rangle $
+    \item $ \langle y^3z, yz \rangle $
+    \item $ \langle y^2z, y^3z \rangle $
+    \item $ \langle y^3z, z \rangle $
+\end{itemize}
+
+\subsection{Part iii}
+\label{subsec:6Partiii}
+
+The subgroups with the following generators are fixed:
+\begin{itemize}
+    \item $ \langle y \rangle $
+    \item $ \langle y^2 \rangle $
+    \item $ \langle 1 \rangle $
+\end{itemize}
+
+\subsection{Part iv}
+\label{subsec:6Partiv}
+$ D_4 $ is not a normal subgroup of $ S_4 $.
+\\ \\
+We can describe a counterexample to illustrate why the claim is false.
+Use the numbers $ 1, 2, 3, 4 $ to label the vertices in a clockwise pattern.
+We can pick an arbitrary vertex and label it $ 1 $, as long as starting at that vertex and going clockwise we read off the labels $ 1, 2, 3, 4 $.
+Take the bijection $ \phi $ that permutes by $ (12)(3)(4) $, which is in $ S_4 $ but not in $ D_4 $.
+Fortunately, $ \phi $ is its own inverse.
+Now take the operation $ \rho $ that swaps the \nth{1} and \nth{3} vertices (i.e.\ a reflection across the line that connects the \nth{2} and \nth{4} vertices).
+$ \rho $ is in $ S_4 $ and $ D_4 $.
+Now, we take $ g = \phi \rho \phi $ and apply $ g $ to our original vertices $ (1, 2, 3, 4) $, we get $ (1, 3, 2, 4) $ back.
+The permutation $ \psi $ defined by $ (1)(23)(4) $ does not appear in $ D_4 $, thus $ D_4 $ is not a normal subgroup of $ S_4 $.
+
+\section{Question 7}
+\label{sec:Question7}
+To begin, we will introduce a small fact: for integers $ i, j : i < j $ and some element $ x $ in our multiplicative group of residues modulo $ p $, $ x^i = x^j \implies |x| \leq j - i $.
+This is quite simple to prove: $ x^i = x^j \implies x^i x^{-i} = x^j x^{-i} \implies 1 = x^{j - i} $.
+\\ \\
+In addition, we will introduce an interesting implication of Lagrange's Theorem.
+Let us suppose that we have a subgroup $ S $ of $ G $ that contains a particular residue class $ a \neq 1 $.
+Giving $ S $ the identity $ 1 $ and the inverse $ a^{-1} $ creates a well-defined subgroup that contains all of the arbitrary strings of $ a $.
+Since $ a \neq 1 $ by assumption, we see that $ S $ must have order at least $ 3 $.
+But, since the order of $ G $ is prime (in particular, $ |G| = p $), then by Lagrange's Theorem, the order of $ S $ actually has to be $ p $.
+\\ \\
+Let us consider the first $ p - 1 $ powers of $ a $, i.e.\ the set $ T = \{1, a, a^1, \ldots, a^{p - 2}\} $.
+Now, suppose there were some power $ k < p - 2 : a^k = a^{p - 2}$.
+By our first fact, we can see that the order of $ a $ would be less than $ p - 2 - k < p - 2 $.
+We could then reduce any element that were an arbitrary power of $ a $, i.e. $ \forall j : j > p - 2 - k \; a^j \equiv a^{j \mod{|a| < p - 2 - k}} $.
+Therefore, the order of $ S $ would have to be less than $ p $, which contradicts our second fact.
+Thus, we know that there cannot exist any power $ k < p - 2 $ for which $ a^k = a^{p - 2} $.
+Therefore, we know that the set $ T $ has $ p - 1 $ elements, which implies that $ T $, with the inverse $ a^{-1} $ forms a listing of all elements in $ S $ itself.
+Finally, let us consider $ a^{p - 1} $.
+If $ a^{p - 1} $ were distinct from the elements of $ T $, $ S $ would have order $ p + 1 $.
+Therefore, by contradiction, $ a^{p - 1} $ must indeed already be present in our set, i.e.\ equivalent to some other arbitrary power of $ a $ with exponent less than $ p - 1 $.
+If $ a^{p - 1} \equiv a^i : i \geq 1 $, then the order of $ S $ would be less than $ p $.
+Additionally, $ a^{p - 1} $ cannot be equivalent to $ a^{-1} $.
+Thus, $ a^{p - 1} \equiv 1 $.
+Finally, multiplying by $ a $ on the right yields $ a^p \equiv a $.
+By definition of the residue class, this means that we have proved Fermat's Little Theorem:
+$$ a^p \equiv a \mod{p} $$
+
+\section{Question 8}
+\label{sec:Question8}
+
+\subsection{Part i}
+\label{subsec:8Parti}
+
+First, $ gHg^{-1} $ is a subgroup of $ G $.
+This follows from the fact that for elements $ h, i \in H $ then $ ghg^{-1} gig^{-1} = ghig^{-1} \in H $.
+\\ \\
+Second, suppose $ ghg^{-1} = gig^{-1} $.
+Doing some manipulation:
+\begin{align}
+    ghg^{-1} &= gig^{-1} \\
+    g^{-1}ghg^{-1} &= g^{-1}gig^{-1} \\
+    hg^{-1} &= ig^{-1} \\
+    hg^{-1}g &= ig^{-1}g \\
+    h &= i
+\end{align}
+
+Therefore, we know that $ ghg^{-1} = gig^{-1} \implies h = i $.
+Thus, every element in $ H $ maps to a unique element in $ gHg^{-1} $, which implies that $ |H| = |gHh^{-1}| $.
+
+\subsection{Part ii}
+\label{subsec:8Partii}
+
+Since $ H $ is the unique subgroup with order $ N $ using the fact that $ |H| = |gHh^{-1}| $, we see that $ H = gHh^{-1} $.
+Thus, every element in $ gHh^{-1} $ must be in $ H $.
+By definition, $ H $ is normal in $ G $.
+
+
+\section{Question 9}
+\label{sec:Question9}
+
+\subsection{Part i}
+\label{subsec:9Parti}
+
+Take $ z \in Z(G) $ and $ g \in G $ with inverse $ g^{-1} $.
+$ gzg^{-1} = gg^{-1}z = z $.
+$ z \in Z(G) $ by assumption, so $ gzg^{-1} \in Z(G) $.
+Thus, $ Z(G) $ is a normal subgroup of $ G $.
+
+\subsection{Part ii}
+\label{subsec:9Partii}
+
+First, note that by Lagrange's Theorem, the order of $ Z(G) $ must be $ 1 $, $ p $, $ q $, or $ pq $.
+\\ \\
+Assume that $ G $ is abelian.
+This directly implies that $ G = Z(G) $.
+\\ \\
+If $ G $ is non-abelian, then we know that there must exist some element $ y \in G : y \notin Z(G) $.
+Now suppose that $ |Z(G)| \neq 1 $.
+Then, we see that the order of $ Z(G) $ must be either $ p $ or $ q $ (since it cannot be $ pq $, which would make $ |Z(G)| = G $, making $ G $ abelian).
+$ |G/Z(G)| $ is also prime (if $ |Z(G)| = p $, then $ |G/Z(G)| = q $, or vice versa).
+Therefore, we know there is a \textit{cyclic} subgroup generated by $ \langle z : zy = yz \rangle $.
+Moreover, for some integers $ i, j $, $ y^i y^j = y^{i + j} = y^j y^i $.
+So, since $ y $ commutes with itself and it commutes with $ z $, we see that $ y $ commutes with everything.
+However, this would make $ G $ abelian, a contradiction.
+Thus $ |Z(G)| = 1 $.
+
+\section{Question 10}
+\label{sec:Question10}
+
+\subsection{Part i}
+\label{subsec:10Parti}
+
+Essentially, there are two cases: the bit string will either be a Hamming code, or will be one bit away from a   Hamming code.
+In the case that the bit string is a Hamming code, then every player will realize that they can create a Hamming code by correctly ``setting'' their particular bit.
+However, they would set it to the bit that makes the opposite of a Hamming code, which would result in every single player making the wrong guess.
+In the case where the bit string is not a Hamming code, we will notice that we can actually find a ``syndrome'' that points to a particular bit that, if flipped, would create a Hamming code.
+For the $ i^{th} $ bit, the $ i^{th} $ player will notice that they can ``set'' their bit to create a Hamming code from the bit string.
+Therefore, when they pick the opposite bit that would make a Hamming code, which would be the correct guess.
+
+\subsection{Part ii/iii}
+\label{subsec:10Partii+iii}
+
+Interestingly, we still have the same total number of incorrect guesses and correct guesses.
+The difference is that these incorrect guesses are ``concentrated'' into all the players giving a bad guess at once.
+So, \textit{given} that a player makes a guess, they still have a $ 50\% $ chance of getting the guess right (or wrong).
+\\ \\
+However, we can also calculate the probability that we end up in the situation that only one player guesses, and also calculate the probability that we end up in the situation that every play guesses.
+First, notice that for $ n = 2^{m - 1} $ players, we have $ 2^n $ possible ``bit strings'' or possible hat distributions.
+However, we only have $ 2^{n - m} $ possible Hamming codes.
+Therefore, we will be in the situation of all players guessing at once (and incorrectly so) with probability $ \frac{2^{n - m}}{2^n} = \frac{1}{2^m} $.
+We will be in the situation of one player guessing (correctly) with probability $ 1 - \frac{1}{2^m} $.
+
+\end{document}
