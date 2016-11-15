@@ -1,0 +1,304 @@
+\documentclass[letterpaper]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{nth}
+
+% Comment the following lines to use the default Computer Modern font
+% instead of the Palatino font provided by the mathpazo package.
+% Remove the 'osf' bit if you don't like the old style figures.
+\usepackage[T1]{fontenc}
+\usepackage[sc,osf]{mathpazo}
+
+\newcommand*{\QED}{\hfill\ensuremath{\square}}%
+
+\makeatletter
+\renewcommand{\@seccntformat}[1]{%
+  \ifcsname prefix@#1\endcsname
+    \csname prefix@#1\endcsname
+  \else
+    \csname the#1\endcsname\quad
+  \fi}
+% define \prefix@section
+\newcommand\prefix@section{Question \thesection}
+\makeatother
+
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\tr}{Tr}
+
+% Set your name here
+\def\name{Problem Set 7}
+
+
+\geometry{
+  body={6.5in, 8.5in},
+  left=1.0in,
+  top=1.25in
+}
+
+% Customize page headers
+\pagestyle{myheadings}
+\markright{\name}
+\thispagestyle{empty}
+
+% Custom section fonts
+\usepackage{sectsty}
+\sectionfont{\rmfamily\mdseries\Large}
+\subsectionfont{\rmfamily\mdseries\itshape\large}
+
+% Other possible font commands include:
+% \ttfamily for teletype,
+% \sffamily for sans serif,
+% \bfseries for bold,
+% \scshape for small caps,
+% \normalsize, \large, \Large, \LARGE sizes.
+
+% Don't indent paragraphs.
+\setlength\parindent{0em}
+
+\begin{document}
+
+{\huge \name}
+
+% Alternatively, print name centered and bold:
+%\centerline{\huge \bf \name}
+
+\vspace{0.25in}
+
+Dev Dabke \\
+MATH 501: Introduction to Algebraic Structures I \\
+October 27, 2016 \\
+Prof.\ Calderbank \\
+
+\section{}
+\label{sec:Question1}
+
+First, let us apply Sylow's theorem.
+We know that $ 24 = 3 \times 2^3 $.
+Let us find $ P_3 $ and $ P_2 $ and correspondingly, $ n_3 $ and $ n_2 $.
+Note that $ n_3 | 2^3 $ and $ n_3 = 1 \mod{3} $, so can only be $ 1 $ or $ 4 $.
+Similarly, $ n_2 | 3 $ and $ n_2 = 1 \mod{2} $ (this last condition does not add anything new), and thus can only be $ 1 $ or $ 3 $.
+\\ \\
+However, consider the case where $ n_2 = 1 $ or (an inclusive or, so both could be true, but we only need at least $ 1 $) $ n_3 = 1 $.
+By Theorem 11.4, we see that we would have found the unique subgroup of that order and it would be normal.
+In addition, these Sylow subgroups are cyclic since they have prime power order.
+Without loss of generality, we will suppose $ n_3 = 1 $ and that $ P_3 $ is normal.
+Take a subgroup $ S $ that is one of the Sylow $ 2 $-subgroups.
+We can now generate a subgroup that is $ H = P_3 \times S $.
+However, since $ P_3 $ is normal, we know that we end up with an element of order $ 6 $, which contradicts one of our assumptions.
+We can apply this argument symmetrically to the case where $ n_2 = 1 $.
+Thus, we know that we have $ n_3 = 4 $ and $ n_2 = 3 $.
+\\ \\
+Moving forward, we will invoke Lecture 9: Groups Acting on Sets.
+Allow our group $ G $ to act on our Sylow $ 3 $-subgroups (by conjugation).
+Beautifully, we know that this group action can only permute the Sylow $ 3 $-subgroups.
+Therefore, this arises naturally to give us a surjective homomorphism $ \phi $ between $ G $ and $ S_4 $, namely:
+\[
+\phi : G \to S_4
+\]
+Now, denote $ x \in P_3 : |x| = 3 $ where $ P_3 $ is one of the Sylow $ 3 $-subgroups.
+By Exam I, Question 2, Part ii, we actually know the structure of the conjugacy classes of the elements of order $ 3 $.
+In particular, we know that all of the elements of order $ 3 $ are contained in the Sylow $ 3 $-subgroups and they together form a conjugacy class.
+Note that this conjugacy class has $ 8 $ elements and is more generally an orbit.
+Therefore, we know that stabilizer of any element is of order $ 3 $.
+\\ \\
+Now, for an element $ x \in P_3 $, we know that it commutes with all of the elements in $ P_3 $, since $ P_3 $ is cyclic, i.e.\ $ P_3 $ is in the stabilizer of $ x $.
+Since $ |P_3| = 3 $ and the order of the stabilizer of $ x $ is also $ 3 $, $ P_3 $ must actually be the stabilizer.
+Therefore, the stabilizer of any element is the Sylow $ 3 $-subgroup it comes from.
+\\ \\
+Furthermore, the stabilizer of the conjugacy class is the intersection of the stabilizer of each element.
+The intersection of the stabilizers of each element is simply the intersection of the Sylow $ 3 $-subgroups, which we know is trivial.
+Therefore, the stabilizer of the conjugacy class is trivial.
+Since this is not just any stabilizer, but specifically the stabilizer of a conjugacy class, we have found some information about the normalizers of these elements.
+In particular, the intersection of the normalizers of the Sylow $ 3 $-subgroups must be trivial.
+\\ \\
+Looking back to $ \phi $, we know that by definition, $ K $ must be contained in the intersection of the normalizers of the Sylow $ 3 $-subgroups.
+But, as we just demonstrated, this intersection is trivial; thus $ K $ is trivial.
+By the First Isomorphism Theorem in Lecture 5 (Theorem 5.11), we know that $ S_4 \cong G / K = G $.
+Therefore, we know that any group $ G $ of order $ 24 $ with no element of order $ 6 $ is isomorphic to the symmetric group $ S_4 $.
+\QED{}
+
+\section{}
+\label{sec:Question2}
+
+Note that all of the non-zeros elements of the field form a cyclic, multiplicative group of order $ p^{m} - 1 $.
+(I honestly have no clue why this is true, but it was in lecture, so bully for us!)
+Pick arbitrary $ \alpha $ as a generator of this group.
+Now, take the product $ \pi $ of all distinct group elements:
+\[
+\pi = \prod_{i = 1}^{p^{m} - 2} \alpha^i
+\]
+Note that $ \alpha \times \alpha^{p^{m} - 2} = p^{m} - 1 = 1 $.
+In fact, we can pair off all of the elements on the ends to form the identity.
+Since $ p $ is odd, we know that $ p^{m} $ is odd.
+Thus $ p^{m} - 2 $ is odd as well.
+Therefore, there will be one element in the middle that cannot pair off.
+This element as order $ \frac{1 + (p^m - 2)}{2} = \frac{p^m - 1}{2} $.
+As a sanity check, note that $ p^m - 1 $ is even, so this all makes sense.
+Therefore, we know that, in fact $ \pi = \alpha^{\frac{p^m - 1}{2}} $.
+But, if we square this element:
+\[
+\pi^2 = \left(\alpha^{\frac{p^m - 1}{2}} \right)^2 = \alpha^{p^m - 1} = 1
+\]
+Since $ \pi^2 = 1 $, we know that $ \pi = \pm 1 $.
+However, if $ \pi = 1 $, then the order of $ \alpha $ would be $ \frac{p^m - 1}{2} $, a contradiction.
+Therefore, $ \pi = -1 $.
+\QED{}
+
+\section{}
+\label{sec:Question3}
+Denote $ tr_t $ to be the ``term-wise trace'' for convenience.
+\[
+A =
+tr_t \left(\begin{bmatrix}
+    \alpha^2 & \alpha^3 & \alpha^4 \\
+    \alpha^3 & \alpha^4 & \alpha^5 \\
+    \alpha^4 & \alpha^5 & \alpha^6
+\end{bmatrix} \right) =
+\begin{bmatrix}
+    0 & 1 & 0 \\
+    1 & 0 & 1 \\
+    0 & 1 & 1
+\end{bmatrix}
+\]
+This was quite easy to find.
+In particular, we note that $ \alpha^3 = \alpha + 1 $.
+Therefore, $ \alpha \times \alpha^3 = \alpha^2 + \alpha $.
+By Lemma 14.7, we know that the trace of $ \alpha^4 $ is $ 0 $.
+We also know that the trace splits the powers of $ \alpha $ into $ 2 $, with half evaluating to $ 1 $ and the other half evaluating to $ 0 $.
+And this how we found $ A $.
+We can now easily form $ B = A^{-1} $.
+\[
+B =
+\begin{bmatrix}
+    1 & 1 & 1 \\
+    1 & 0 & 0 \\
+    1 & 0 & 1
+\end{bmatrix}
+\]
+\\ \\
+By rigorously applying the trace rules for the dual basis, we generate:
+\begin{align}
+    \beta_0 &= \alpha^2 + 1 \\
+    \beta_1 &= \alpha \\
+    \beta_2 &= 1
+\end{align}
+We can generate a matrix of coordinates:
+\[
+\Gamma =
+\begin{bmatrix}
+    1 & 0 & 1 \\
+    0 & 1 & 0 \\
+    1 & 0 & 0
+\end{bmatrix}
+\]
+Thus, we complete our calculations.
+\QED{}
+
+\section{}
+\label{sec:Question4}
+
+For there to be a subgroup $ G $ of $ K* $ such that $ |G| = 24 $, by Lagrange's Theorem, $ |K*| = 24 \times n $ where $ n $ is some strictly positive integer.
+However, we know that $ K* $ is cyclic and we can write $ K* = \langle x | x^{24 \times n} = 1 \rangle $.
+Therefore, to generate $ G $, we only have one choice:
+\[
+\langle x^n \rangle
+\]
+since there are exactly $ 24 $ distinct arbitrary powers of $ x^n $ in this subgroup.
+If we take an arbitrary power $ x^c $ where $ c $ does not divide the order of $ K* $, we would just regenerate $ K* $ again.
+Otherwise, we would find another cyclic group.
+This follows from the structure of cyclic groups and their respective subgroups.
+\\ \\
+Therefore, if $ G_1 $ and $ G_2 $ both have order $ 24 $, they must be generated by an element of $ \{x^n, {(x^n)}^2, \ldots, {(x^n)}^{23}\} $.
+By the structure of cyclic groups (and subgroups), these generators generate equivalent groups (subgroups).
+Thus $ G_1 = G_2 $.
+\QED{}
+
+\section{}
+\label{sec:Question5}
+
+Sadly, we will approach this via a dressed-up brute force.
+I tried all of the factorizations that I say do not work.
+\\ \\
+Note that $ p_0(x) = x^5 + x^2 + 1 $ clearly has no linear factors, i.e.\ $ 0 $ or $ 1 $.
+Therefore, it also cannot have factors of order $ 5 $.
+$ x $ and $ x + 1 $ also do not divide $ p_0 $, which tell us that $ p_0 $ cannot have factors of order $ 4 $ either.
+$ x^2 $, $ x^2 + x $, $ x^2 + 1 $, and $ x^2 + x + 1 $ also do not divide $ p_0 $ and so $ p_0 $ also has no factors of order $ 3 $ either.
+Thus, $ p_0 $ is irreducible.
+\\ \\
+Let us try $ p_1(x) = x^6 + x + 1 $.
+Again, no linear factors, so no factors of order $ 6 $.
+It has no factors of order $ 1 $ ($ x $ or $ x + 1 $), so $ p_1 $ has no factors of order $ 5 $.
+It has no factors of order $ 2 $ ($ x^2 $, $ x^2 + x $, $ x^2 + 1 $, and $ x^2 + x + 1 $), so it also has no factors of order $ 4 $.
+Finally, $ x^3 $, $ x^3 + 1 $, $ x^3 + x $, $ x^3 + x^2 $, $ x^3 + x + 1 $, $ x^3 + x^2 + 1 $, $ x^3 + x^2 + x $, and $ x^3 + x^2 + x + 1 $ do not divide $ p_1 $, so it has no factors of order $ 3 $.
+Therefore, $ p_1 $ is irreducible.
+\\ \\
+Finally, note that $ p_1(y^{-1}) = 1 + {(y^{-1})}^5 + {(y^{-1})}^6 = p_2(z) $ where $ z = y^{-1} $ and $ p_2(x) = x^6 + x^5 + 1 $.
+Therefore, $ p_2 $ is also irreducible.
+(As a sanity check, none of the previous factors that we tried for $ p_1 $ divide $ p_2 $.)
+\QED{}
+
+\section{}
+\label{sec:Question6}
+
+First, label $ q_1 = x^3 + x + 1 $ and $ q_2 = x^3 + x^2 + 1 $.
+Note that $ q_1(x^{-1}) = q_2 $ and $ q_1 = q_2(x^{-1}) $.
+Thus, if $ \alpha $ is a root of $ q_1 $, then $ \alpha^{-1} $ has to be a root of $ q_2 $ (and vice versa).
+Since there is a bijective correspondence between elements and their inverses, we know that there is a bijective correspondence between the roots of $ q_1 $ and $ q_2 $.
+In particular, we know we have three distinct elements: $ \alpha_0 = \alpha $, $ \alpha_1 = \alpha^2 $, and $ \alpha_2 = \alpha^3 = \alpha + 1 $ of $ q_1 $.
+Allow $ \beta_0 $, $ \beta_1 $, $ \beta_2 $ to be the respective inverses that correspond to $ q_2 $.
+Therefore, we know that any field automorphism $ \phi : K \to L $ is completely determined by $ \phi(\alpha) $.
+In addition, $ \alpha $ could be mapped to any of the inverses, i.e.\ the three $ \beta $s.
+Therefore, these are the three possible choices for $ \phi(\alpha) $.
+\QED{}
+
+\section{}
+\label{sec:Question7}
+
+\subsection{Part i}
+\label{sec:7Parti}
+
+This actually follows directly from the linearity of the trace.
+We see that $ \tr{(\gamma)} = 0 \iff \gamma = 0 $.
+Therefore, $ ax = 0 $ for every field element $ x $.
+The only $ a $ with this property is $ 0 $ itself.
+\QED{}
+
+\subsection{Part ii}
+\label{sec:7Partii}
+
+By the linearity of the trace, we see that $ \tr{(x^2y + xy^2)} = \tr{(x^2 y)} + \tr{(xy^2)} $.
+For $ \tr{(x^2y + xy^2)} = 0 $, we know that either $ \tr{(x^2 y)} = \tr{(xy^2)} = 0 $ or $ \tr{(x^2 y)} = \tr{(xy^2)} = 1 $.
+Suppose the $ 0 $ case.
+Quickly, by Part i, we see that $ \tr{(xy^2)} = 0 \implies y^2 = 0 $.
+If $ y^2 = 0 $ then $ y = 0 $.
+Since we are interested in the non-zero $ y $ values, we throw this out.
+\\ \\
+Thus, take $ \tr{(x^2 y)} = \tr{(xy^2)} = 1 $.
+To solve these equations, if $ y = y^2 $ (i.e.\ they are not distinct) then $ y = 1 $.
+Otherwise, we have \textit{at most} two distinct elements $ y $ and $ y^2 $ that correctly solve our equation.
+Therefore, we have \textit{at most} $ 3 $ distinct, non-zero elements: $ 1 $, $ y $, and $ y^2 $.
+
+\subsection{Part iii}
+\label{sec:7Partiii}
+
+Let us restate our problem in terms of what we have learned from Part ii.
+First, we see that where $ y = 1 $, this condition is always satisfied, regardless of the parity of $ m $.
+Next, we want to show that $ y = y^2 $ if and only if $ m $ is odd; in addition, we want to show that there exists a distinct $ y : y \neq y^2 $ that satisfies our trace equations in Part ii if and only if $ m $ is even.
+\\ \\
+First, note that only $ 2^{m-1} $ elements evaluate to $ 1 $ under the trace function.
+If $ m $ is odd, then $ m - 1 $ is even.
+However, note that if $ m - 1 $ is even, we can find integer power $ \frac{m - 1}{2} $.
+In that case, we can find $ y = \lambda^{\frac{m - 1}{2}} $.
+But then, this implies that $ y^2 = \lambda^{m - 1} $.
+Therefore, we can see that $ y $ and $ y^2 $ are not distinct.
+Furthermore, where $ y = y^2 $, we know that the only element for which this is true is $ 1 $ (note that in $ \mathbb{F}_2 $, $ \pm 1 = 1 $).
+\\ \\
+When $ m $ is even, then $ m - 1 $ is odd.
+Therefore, we cannot find a corresponding integer power $ \frac{m - 1}{2} $, and thus there exists a solution $ y $ and $ y^2 $ such that $ y \neq y^2 $.
+\QED{}
+
+\end{document}
