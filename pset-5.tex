@@ -1,0 +1,705 @@
+\documentclass[letterpaper]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{nth}
+
+% Comment the following lines to use the default Computer Modern font
+% instead of the Palatino font provided by the mathpazo package.
+% Remove the 'osf' bit if you don't like the old style figures.
+\usepackage[T1]{fontenc}
+\usepackage[sc,osf]{mathpazo}
+
+\newcommand*{\QED}{\hfill\ensuremath{\square}}%
+
+\DeclareMathOperator{\rank}{rank}
+
+% Set your name here
+\def\name{Problem Set 5}
+
+
+\geometry{
+  body={6.5in, 8.5in},
+  left=1.0in,
+  top=1.25in
+}
+
+% Customize page headers
+\pagestyle{myheadings}
+\markright{\name}
+\thispagestyle{empty}
+
+% Custom section fonts
+\usepackage{sectsty}
+\sectionfont{\rmfamily\mdseries\Large}
+\subsectionfont{\rmfamily\mdseries\itshape\large}
+
+% Other possible font commands include:
+% \ttfamily for teletype,
+% \sffamily for sans serif,
+% \bfseries for bold,
+% \scshape for small caps,
+% \normalsize, \large, \Large, \LARGE sizes.
+
+% Don't indent paragraphs.
+\setlength\parindent{0em}
+
+\begin{document}
+
+{\huge \name}
+
+% Alternatively, print name centered and bold:
+%\centerline{\huge \bf \name}
+
+\vspace{0.25in}
+
+Dev Dabke \\
+MATH 501: Introduction to Algebraic Structures I \\
+October 4, 2016 \\
+Prof.\ Calderbank \\
+
+\section{Question 1}
+\label{sec:Question1}
+
+First, let us develop some useful labels for our 4-by-4 matrices:
+
+\begin{align*}
+    A &=
+    \begin{bmatrix} + & & & \\ & + & & \\ & & + & \\ & & & + \end{bmatrix}
+    \\
+    B &=
+    \begin{bmatrix} & + & & \\ - & & & \\ & & & - \\ & & + & \end{bmatrix}
+    \\
+    C &= \begin{bmatrix} & & - & \\ & & & - \\ + & & & \\ & + & & \end{bmatrix}
+    \\
+    D &=
+    \begin{bmatrix} & & & - \\ & & + & \\ & - & & \\ + & & & \end{bmatrix}
+    \\
+\end{align*}
+
+Next, we will take elements of $ D_4 $:
+
+\begin{align*}
+    I_2 &= \begin{bmatrix} + & \\ & + \end{bmatrix}
+    \\
+    x &= \begin{bmatrix} & + \\ + & \end{bmatrix}
+    \\
+    xz &= \begin{bmatrix} & - \\ + & \end{bmatrix}
+    \\
+    xzx &= \begin{bmatrix} - & \\ & + \end{bmatrix}
+\end{align*}
+
+Thus, we can write that:
+\begin{align}
+    A &= I_2 \otimes I_2 \label{eqA} \\
+    B &= xzx \otimes xz \label{eqB} \\
+    C &= x \otimes xz \label{eqC} \\
+    D &= x \otimes xzx \label{eqD}
+\end{align}
+
+\section{Question 2}
+\label{sec:Question2}
+
+We will prove this by induction.
+Our inductive hypothesis is:
+\[
+    e_v = e_{v_{m-1}} \otimes \ldots \otimes e_{v_{0}}
+\]
+
+As a base case, we will prove the $ m = 0 $ case (a very simple case).
+Here, $ v = (v_0) $.
+$ v_0 $ can either be $ 0 $ or $ 1 $.
+If $ v_0 = 0 $, then $ e_{v_0} = e_0 = (1,0) $.
+Trivially, $ e_v = e_{(v_0)} = (1,0) $.
+If $ v_0 = 1 $, then $ e_{v_0} = e_1 = (0,1) $.
+Trivially, $ e_v = e_{(v_0)} = (0,1) $.
+Thus, where $ m = 0 $, $ e_v = e_{v_0} $.
+\\ \\
+Now, assuming the $ m $ case, we will prove the $ m + 1 $ case.
+Construct a binary, $ (m + 1) $-tuple $ w $, i.e.\ $ w = (w_m, w_{m-1}, \ldots, w_0) $.
+Construct $ u : u = (w_{m-1}, w_{m-2}, \ldots, w_0) $.
+For $ u $, by our inductive hypothesis, we know that:
+$$ e_u = e_{w_{m-1}} \otimes \ldots \otimes e_{w_{0}} $$
+
+We will now construct a useful vector $ x : x = e_{w_m} \otimes e_u $.
+We will show that $ e_w = x $, which in turn will demonstrate that $ e_w = e_{w_m} \otimes e_{w_{m-1}} \otimes \ldots \otimes e_{w_{0}} $.
+Conveniently, $ w_m $ can only have two values $ 0 $ or $ 1 $.
+Let us investigate what happens in each case.
+\\ \\
+Where $ w_m = 0 $, we see that $ e_{w_m} = e_0 = (1,0) $.
+Thus $ x = (1,0) \otimes e_u $, which looks like $ x = (e_u, \vec{0}) $, where $ \vec{0} $ is the vector of all $ 0 $ entries with the same length as $ e_u $.
+In short, the first $ 2^{m-1} $ terms of $ x $ are the terms of $ e_u $ and the next $ 2^{m-1} $ terms are all $ 0 $.
+Note that we have constructed a vector with length $ 2^{m-1} + 2^{m-1} = 2(2^{m-1}) = 2^1 2^{m-1} = 2^{(1 + m - 1)} = 2^m $.
+We can finally see what is actually going on:
+we are taking a binary number and adding a new bit; in particular, we are adding a most-significant digit (bit).
+\\ \\
+Therefore, in this case, we have added an extra $ 0 $ to our number on the left side, i.e.\ as the most-significant digit (bit).
+An arbitrary number $ k $ written out with $ m $ digits that has a $ 0 $ added as the most-significant digit (bit) does not change value.
+Therefore, when $ w_m $ is $ 0 $, we do not change the value of what this number represents from the value that $ u $ represents.
+In short, the representation vector is simply twice as long; we copy the original part of the vector, and fill the rest of the bits with $ 0 $s, as the $ 1 $ will already be in the right position.
+This would look like $ x = (e_u, \vec{0}) $, which is exactly what we get.
+If we inspect $ e_w $, we see that we get a vector with a $ 1 $ in the same spot as $ e_u $, just with twice the length.
+Therefore, where $ w_m = 0 $, we see that $ e_w = x = e_{w_m} \otimes e_u $.
+\\ \\
+Similarly, where $ w_m = 1 $, we see that $ e_{w_m} = e_1 = (0,1) $.
+We yield $ x = (0,1) \otimes e_u $, which looks like $ x = (\vec{0}, e_u) $, where $ \vec{0} $ is as it was before.
+We again have constructed a vector of length $ 2^m $.
+Let us once more consider the argument by looking at what $ w_m $ represents.
+If it is a $ 1 $, we are constructing a new number with $ 1 $ as its most-significant digit (bit).
+Designate $ y $ as the number that $ u $ encodes in binary.
+It is in the $ m $ position, so our new number $ 2^{m - 1} + y $.
+In short, in our $ 2^m $ representation vector, we have to shift over wherever our $ 1 $ is by $ 2^{m - 1} $ spots to add the value $ 2^{m - 1} $.
+Note that this is not a special process for powers of two.
+In fact, for any representation vector, to add any value $ z $ to our current representation, we would just need to move our $ 1 $ over by $ z $ spots.
+\\ \\
+What would this new representation vector look like with our $ 1 $ shifted over by $ 2^{m-1} $?
+It would look like $ x = (\vec{0}, e_u) $!
+Looking at $ e_w $, we have correctly shifted over the $ 1 $ in the correct spot, which would $ 2^{m - 1} $ places over to the right.
+Again, $ e_w = x = e_{w_m} \otimes e_u $
+\\ \\
+Looking across the quad to the ECE department, we see that we have in fact constructed a decoder.
+Since we have that $ e_w = e_{w_m} \otimes e_u $ no matter the value of $ w_m $, we can make our formal conclusion by substitution.
+Since $ e_u = e_{w_{m-1}} \otimes \ldots \otimes e_{w_{0}} $, we see that:
+$$ e_w = e_{w_m} \otimes e_{w_{m-1}} \otimes \ldots \otimes e_{w_{0}} $$
+\QED{}
+
+\section{Question 3}
+\label{sec:Question3}
+
+We will prove this by exhaustion.
+\\ \\
+First, we are going to inspect $ e_{v_{i} + a_{i}} $ and $ e_{v_{i}} \begin{bmatrix} & + \\ + & \end{bmatrix}^{a_{i}} $.
+In particular, we will show that:
+\[
+e_{v_{i} + a_{i}} = e_{v_{i}} \begin{bmatrix} & + \\ + & \end{bmatrix}^{a_{i}}
+\]
+To start, we will need to have a few facts at our disposal:
+\begin{align}
+    0 + 0 &= 1 + 1 &= 0 \\
+    0 + 1 &= 1 + 0 &= 1
+\end{align}
+and:
+\begin{align}
+    \begin{bmatrix} & + \\ + & \end{bmatrix}^{0} &= \begin{bmatrix} + & \\ & + \end{bmatrix} \\
+    \begin{bmatrix} & + \\ + & \end{bmatrix}^{1} &= \begin{bmatrix} & + \\ + & \end{bmatrix}
+\end{align}
+
+Now, we know that $ v_{i} $ and $ a_{i} $ can each either be $ 0 $ or $ 1 $.
+We will also note $ x^1 = \begin{bmatrix} & + \\ + & \end{bmatrix} $ and $ x^0 = \begin{bmatrix} + & \\ & + \end{bmatrix} $
+Let us enumerate all of the possibilities:
+\begin{center}
+\begin{tabular}{c | c | c | c }
+\hline
+$ v_i $ & $ a_i $ & $ e_{v_i + a_i} $ & $ e_{v_i} x^{a_i} $ \\
+\hline
+\hline
+ 0 & 0 & $ e_0 = (1, 0) $ & $ (1, 0) x^0 = (1, 0) $ \\
+ 0 & 1 & $ e_1 = (0, 1) $ & $ (1, 0) x^1 = (0, 1) $ \\
+ 1 & 0 & $ e_1 = (0, 1) $ & $ (0, 1) x^0 = (0, 1) $ \\
+ 1 & 1 & $ e_0 = (1, 0) $ & $ (0, 1) x^1 = (1, 0) $
+
+\end{tabular}
+\end{center}
+
+As we can see, we have proven that
+\begin{equation}
+    \label{eqn:eviadao}
+    e_{v_{i} + a_{i}} = e_{v_{i}} \begin{bmatrix} & + \\ + & \end{bmatrix}^{a_{i}}
+\end{equation}
+\\ \\
+Next, we will introduce a fact about the Kronecker product for matrices:
+\begin{equation}
+(A \otimes B) (C \otimes D) = AC \otimes BD
+\label{eqn:kronecker-product}
+\end{equation}
+where the products $ AC $, $ BD $, and $ (A \otimes B) (C \otimes D) $ are well-defined.
+\\ \\
+Now, we can finally tie all of this together to yield our proof.
+First, let us consider the structure of $ e_{v + a} $.
+For convenience, let us write $ v = (v_0, \ldots, v_{m - 1}) $ and $ a = (a_0, \ldots, a_{m - 1}) $.
+We see that $ v + a = (v_0 + a_0, \ldots, v_{m - 1} + a_{m - 1}) $.
+By our proof for Question~\ref{sec:Question2}, then
+\begin{equation}
+    \label{eqn:evplusa}
+e_{v + a} = e_{v_{m - 1} + a_{m - 1}} \otimes \ldots \otimes e_{v_0 + a_0}
+\end{equation}
+\\ \\
+If we look at $ e_v D(a, 0) $, we yield something similar.
+Since $ e_v = e_{v_{m - 1}} \otimes \ldots \otimes e_{v_0} $ (by Question~\ref{sec:Question2}) and (by definition) $ D(a, 0) = x^{a_{m - 1}} \otimes \ldots \otimes x^{a_{0}} $, we can use the fact in Equation~\ref{eqn:kronecker-product} and the associativity of the Kronecker product to see that
+\begin{equation}
+    \label{eqn:evdao}
+    e_v D(a, 0) = (e_{v_{m - 1}} \otimes \ldots \otimes e_{v_0})(x^{a_{m - 1}} \otimes \ldots \otimes x^{a_{0}}) = e_{v_{m - 1}} x^{a_{m - 1}} \otimes \ldots \otimes e_{v_0} x^{a_{0}}
+\end{equation}
+\\ \\
+Finally, let us combine Equation~\ref{eqn:eviadao}, Equation~\ref{eqn:evplusa}, and Equation~\ref{eqn:evdao} to formally conclude our proof.
+\begin{align*}
+    e_{v + a} &= e_{v_{m - 1} + a_{m - 1}} \otimes \ldots \otimes e_{v_0 + a_0} &\text{by Equation~\ref{eqn:evplusa}} \\
+    e_{v + a} &= e_{v_{m - 1}} x^{a_{m - 1}} \otimes \ldots \otimes e_{v_0} x^{a_{0}} &\text{substitution by Equation~\ref{eqn:eviadao}} \\
+    e_{v + a} &= e_v D(a, 0) &\text{by Equation~\ref{eqn:evdao}}
+\end{align*}
+\QED{}
+
+\section{Question 4}
+\label{sec:Question4}
+
+This proof will follow a similar train of though as Question~\ref{sec:Question3}.
+\\ \\
+Let us look at the product $ e_v D(0, b) $ (using Question~\ref{sec:Question2})
+\[
+e_v D(0, b) = (e_{v_{m - q}} \otimes \ldots \otimes e_{v_0})(z^{b_{m - 1}} \otimes \ldots \otimes z^{b_{0}})
+\]
+
+Recall the convenient property in Equation~\ref{eqn:kronecker-product}:
+\begin{equation}
+(A \otimes B) (C \otimes D) = AC \otimes BD
+\tag{\ref{eqn:kronecker-product} revisited}
+\end{equation}
+By this property:
+\[
+e_v D(0, b) = (e_{v_{m - q}} \otimes \ldots \otimes e_{v_0})(z^{b_{m - 1}} \otimes \ldots \otimes z^{b_{0}}) = e_{v_{m - q}} z^{b_{m - 1}} \otimes \ldots \otimes e_{v_0}z^{b_{0}}
+\]
+
+We will also note $ z^1 = \begin{bmatrix} + & \\ & - \end{bmatrix} $ and $ z^0 = \begin{bmatrix} + & \\ & + \end{bmatrix} $
+\\ \\
+We will now use another ``truth table'' to exhaustively show what happens with the different possible values of $ v_i $ and $ b_i $ respectively:
+
+\begin{center}
+\begin{tabular}{c | c | c | c }
+\hline
+$ v_i $ & $ b_i $ & $ e_{v_i} $ & $ e_{v_i} z^{b_i} $ \\
+\hline
+\hline
+ 0 & 0 & $ e_0 = (1, 0) $ & $ (1, 0) z^0 = (1, 0) = e_0 $ \\
+ 0 & 1 & $ e_1 = (0, 1) $ & $ (1, 0) z^1 = (1, 0) = e_0 $ \\
+ 1 & 0 & $ e_1 = (0, 1) $ & $ (0, 1) z^0 = (0, 1) = e_1 $ \\
+ 1 & 1 & $ e_0 = (1, 0) $ & $ (0, 1) z^1 = (0, -1) = -e_1 $
+
+\end{tabular}
+\end{center}
+
+Interestingly, we see that $ e_{v_i} z^{b_i} = e_{v_i} $ \textit{unless} $ v_i = b_i = 1 $.
+In the case that $ v_i = b_i = 1 $, we see that $ e_{v_i} z^{b_i} = -e_{v_i} $
+Let us say that $ \delta_i = 1 \iff v_i = b_i = 1 $ and $ \delta_i = 0 $ otherwise.
+Now, we have certain properties of this binary multiplication, namely:
+\begin{align*}
+    (0)(0) &= 0 \\
+    (0)(1) &= 0 \\
+    (1)(0) &= 0 \\
+    (1)(1) &= 1
+\end{align*}
+
+Fortunately, this aligns with exactly the function we hoped to describe with $ \delta_i $.
+Therefore, we write $ \delta_i = (v_i)(b_i) $
+\\ \\
+Thus, we can finally equate the terms of $ e_v $ with the terms in the form of $ e_{v_i} z^{b_i} $.
+Namely:
+\[
+e_{v_i} z^{b_i} = {(-1)}^{\delta_i} e_{v_i}
+\]
+
+Therefore, by substitution:
+\begin{equation}
+\label{eqn:q4subs}
+e_v D(0, b) = e_{v_{m - 1}} z^{b_{m - 1}} \otimes \ldots \otimes e_{v_0}z^{b_{0}} = {(-1)}^{\delta_{m - 1}} e_{v_{m - q}} \otimes \ldots \otimes {(-1)}^{\delta_0} e_{v_0}
+\end{equation}
+
+Fortunately, we can now invoke another property of the Kronecker product:
+\begin{equation}
+\label{eqn:kronecker-scalar}
+    (cA) \otimes B = A \otimes (cB) = c(A \otimes B)
+\end{equation}
+where $ c $ is some scalar.
+Thus, we can ``collect'' the $ \delta $ terms all onto the left side of the Kronecker product:
+\[
+ {(-1)}^{\delta_{m - 1}} e_{v_{m - q}} \otimes \ldots \otimes {(-1)}^{\delta_0} e_{v_0} = \left[{(-1)}^{\delta_{m - 1}} \ldots {(-1)}^{\delta_0} \right] \left(e_{v_{m - q}} \otimes \ldots \otimes e_{v_0} \right)
+\]
+\\ \\
+We will now work with the $ \delta $ terms.
+In particular, we will aggregate the exponents:
+\[
+{(-1)}^{\delta_{m - 1}} \ldots {(-1)}^{\delta_0} = {(-1)}^{\delta_{m - 1} + \cdots + \delta_0}
+\]
+Recall our definition of $ d_i $, in that $ d_i = (v_i)(b_i) $.
+Thus, $ \delta_{m - 1} + \cdots + \delta_0 = (v_{m - 1})(b_{m - 1}) + \cdots + (v_0)(b_0) $.
+By definition $ b v^T = (v_{m - 1})(b_{m - 1}) + \cdots + (v_0)(b_0) $.
+Combining these two equations yield
+\[
+{(-1)}^{\delta_{m - 1} + \cdots + \delta_0} = {(-1)}^{b v^T}
+\]
+Finally, we put everything together:
+\begin{equation}
+\label{eqn:q4gather}
+    \left[{(-1)}^{\delta_{m - 1}} \ldots {(-1)}^{\delta_0} \right] \left(e_{v_{m - q}} \otimes \ldots \otimes e_{v_0} \right) = {(-1)}^{b v^T} \left(e_{v_{m - q}} \otimes \ldots \otimes e_{v_0} \right)
+\end{equation}
+
+We can now formally complete the proof
+We combine Equation~\ref{eqn:q4subs} and Equation~\ref{eqn:q4gather} to see that:
+\[
+e_v D(0, b) = e_{v_{m - 1}} z^{b_{m - 1}} \otimes \ldots \otimes e_{v_0}z^{b_{0}} = {(-1)}^{\delta_{m - 1}} e_{v_{m - q}} \otimes \ldots \otimes {(-1)}^{\delta_0} e_{v_0} = {(-1)}^{b v^T} \left(e_{v_{m - q}} \otimes \ldots \otimes e_{v_0} \right)
+\]
+Since $ e_v = \left(e_{v_{m - q}} \otimes \ldots \otimes e_{v_0} \right) $ proved in Question~\ref{sec:Question2}, we can conclude that:
+\[
+e_v D(0, b) = {(-1)}^{b v^T} e_v
+\]
+\QED{}
+
+\section{Question 5}
+\label{sec:Question5}
+
+\subsection{Part i}
+\label{sub:5Parti}
+
+To show that $ G $ is a group, we have to show that
+\begin{enumerate}
+    \item the operator is associative
+    \item that the operator permits an inverse
+    \item that the group is closed (to be pedantic, that the group operator has the same domain and codomain, namely the set of matrices)
+\end{enumerate}
+
+First, we know that the operator is associative since matrix multiplication is associative.
+Second, we will prove that the operator permits a well-defined inverse.
+Note that an element $ A = D(a,b) = D(a,0)D(0,b) $ ultimately looks like:
+\[
+A = D(a,0)D(0,b) = D(a,b) = (x^{a_{m - 1}} \otimes \ldots \otimes x^{a_{0}}) (z^{b_{m - 1}} \otimes \ldots \otimes z^{b_{0}}) = (x^{a_{m - 1}} z^{b_{m - 1}}) \otimes \ldots \otimes  (x^{a_{0}} z^{b_{0}})
+\]
+As a result from linear algebra, we know that the product of two non-singular matrices is also non-singular.
+Since $ x $ and $ z $ are non-singular and $ x^0 = z^0 = I_2 $ is non-singular, we see that every term $ x^{a_i} z^{b_i} $ is also non-singular and that $ \rank{(x)} = \rank{(z)} = 2 $
+More precisely, $ k_i = x^{a_i} z^{b_i} $ has rank $ 2 $, since it is a non-singular $ 2 $-by-$ 2 $ matrix.
+We will now invoke a useful property of the Kronecker product, namely that:
+$$ \rank{(C \otimes D)} = \rank{(C)}\rank{(D)} $$
+Therefore, we see that $ A $ has rank $ 2m $, since it is the Kronecker product of $ m $ matrices with rank $ 2 $.
+Since it is a $ 2m $-by-$ 2m $ matrix, and thus square, and has full rank, it is non-singular.
+Since it is non-singular, it has an inverse.
+Thus, the operator permits a well-defined inverse.
+\\ \\
+Finally, we need to show that the group is closed.
+Recall the property of the Kronecker product in Equation~\ref{eqn:kronecker-product}:
+\begin{equation}
+(A \otimes B) (C \otimes D) = AC \otimes BD
+\tag{\ref{eqn:kronecker-product} revisited}
+\end{equation}
+What we want to show is that the group operator (matrix multiplication) is closed, i.e.\ if we multiply two elements of the group, we will get a result also in the group.
+Let us take another generic element $ B \in G : B = D(a', b') $ and take its product with $ A $:
+\[
+AB = D(a,b)D(a',b') = \left[(x^{a_{m - 1}} z^{b_{m - 1}}) \otimes \ldots \otimes (x^{a_{0}} z^{b_{0}}) \right] \left[(x^{a'_{m - 1}} z^{b'_{m - 1}}) \otimes \ldots \otimes  (x^{a'_{0}} z^{b'_{0}}) \right]
+\]
+Using our handy property in Equation~\ref{eqn:kronecker-product}:
+\begin{equation}
+\label{eqn:kron-ab-expansion}
+    \left[(x^{a_{m - 1}} z^{b_{m - 1}}) \otimes \ldots \otimes (x^{a_{0}} z^{b_{0}}) \right] \left[(x^{a'_{m - 1}} z^{b'_{m - 1}}) \otimes \ldots \otimes  (x^{a'_{0}} z^{b'_{0}}) \right] = (x^{a_{m - 1}} z^{b_{m - 1}} x^{a'_{m - 1}} z^{b'_{m - 1}}) \otimes \ldots \otimes (x^{a_{0}} z^{b_{0}} x^{a'_{0}} z^{b'_{0}})
+\end{equation}
+
+Now, we are allowed to have anything that looks like $ \pm D(a, b) $, so we will proceed accordingly.
+What we will demonstrate is that:
+$ x^r z^s x^t z^u = {(-1)}^k x^v z^w $
+for some $ k $.
+\\ \\
+Conveniently, we see that $ r $, $ s $, $ t $, and $ u $ must be either $ 0 $ or $ 1 $.
+If $ s = 0 $, since this produces the identity, we generate something in the form:
+\[
+x^r x^t z^u = x^{r + t} z^u
+\]
+so, $ v = r + t $, $ u = w $, and $ k = 0 $; our equality is satisfied.
+Similarly, if $ t = 0 $, then $ w = s + u $ and $ v = r $ ($ k = 0 $).
+If $ s = t = 0 $, then $ v = r $ and $ w = u $ ($ k = 0 $).
+\\ \\
+Now, we will use the fact that $ xz = -zx $ (i.e.\ these element anti-commute).
+If $ r = u = 0 $, and $ s = t = 1 $, then we see that we directly use the property of anti-commuting, in that:
+\[
+z^1 x^1 = (-1) x^1 z^1
+\]
+Now, assume either $ r = 0 $ or $ u = 0 $.
+In this case, we can ``move'' the $ z $ or $ x $ terms together, with a ``sign penalty,'' i.e.\ $ k = 1 $.
+Now, for every term $ (x^{a_{i}} z^{b_{i}} x^{a'_{i}} z^{b'_{i}}) $, we have that:
+\[
+(x^{a_{i}} z^{b_{i}} x^{a'_{i}} z^{b'_{i}}) = {(-1)}^{k_i} x^{c_i} z^{d_i}
+\]
+Putting this all together, where $ K $ is the sum of the $ k_i $ terms:
+\[
+AB = (x^{a_{m - 1}} z^{b_{m - 1}} x^{a'_{m - 1}} z^{b'_{m - 1}}) \otimes \ldots \otimes (x^{a_{0}} z^{b_{0}} x^{a'_{0}} z^{b'_{0}}) = {(-1)}^{K} D(c, d)
+\]
+Since $ {(-1)}^{K} D(c, d) $ is $ \pm D(c, d) $, we have shown that the product $ AB $ is indeed in the group.
+Thus, we have closure.
+\\ \\
+Because we have elucidated these three properties, we know that we do indeed have a group with our group operator as matrix multiplication.
+\\ \\
+Finally, we will demonstrate that
+\[
+D(a,b) D(a', b') = {(-1)}^{a'b^T + b'a^T} D(a', b') D(a, b)
+\]
+Let us inspect a particular term $ x^{a_i} z^{b_i} x^{a'_i} z^{b'_i} $.
+We are going to ``move'' the $ x^{a'_i} $ ``across'' the $ z^{b_i} $ term.
+If $ a'_i = 0 $ or $ b_i = 0 $, this is trivial since at least one of the terms becomes an identity.
+If $ a'_i = 1 $ and $ b_i = 1 $, then we have to do some work.
+Since $ xz = -zx $ (they anti-commute), we know that:
+$$ x^{a_i} zx z^{b'_i} = x^{a_i} x(-1)z z^{b'_i} = (-1) x^{a_i} xz z^{b'_i} $$
+We can summarize all of this as:
+$$ x^{a_i} z^{b_i} x^{a'_i} z^{b'_i} = \left[{(-1)}^{a'_i b_i} \right] x^{a_i} x^{a'_i} z^{b_i} z^{b'_i} $$
+Fortunately, powers of $ x $ commute with each other as do powers of $ z $.
+Thus:
+\[
+\left[{(-1)}^{a'_i b_i} \right] x^{a_i} x^{a'_i} z^{b_i} z^{b'_i} =
+\left[{(-1)}^{a'_i b_i} \right] x^{a'_i} x^{a_i} z^{b'_i} z^{b_i}
+\]
+
+Now we will ``move'' the $ z^{b'_i} $ ``across'' the $ x^{a_i} $.
+Symmetrically, we find that:
+\[
+x^{a'_i} x^{a_i} z^{b'_i} z^{b_i} = \left[{(-1)}^{b'_i a_i}\right] x^{a'_i} z^{b'_i} x^{a_i} z^{b_i}
+\]
+Putting this all together, we yield that:
+\[
+x^{a_i} z^{b_i} x^{a'_i} z^{b'_i} = \left[{(-1)}^{a'_i b_i} \right] \left[{(-1)}^{b'_i a_i}\right] x^{a'_i} z^{b'_i} x^{a_i} z^{b_i}
+\]
+and finally:
+\[
+x^{a_i} z^{b_i} x^{a'_i} z^{b'_i} = \left[{(-1)}^{a'_i b_i + b'_i a_i} \right] x^{a'_i} z^{b'_i} x^{a_i} z^{b_i}
+\]
+For convenience, denote $ \delta_i = a'_i b_i + b'_i a_i $.
+
+We move back to the general terms:
+\[
+AB = (x^{a_{m - 1}} z^{b_{m - 1}} x^{a'_{m - 1}} z^{b'_{m - 1}}) \otimes \ldots \otimes (x^{a_{0}} z^{b_{0}} x^{a'_{0}} z^{b'_{0}})
+\]
+We substitute in what we have learned to yield:
+\[
+(x^{a_{m - 1}} z^{b_{m - 1}} x^{a'_{m - 1}} z^{b'_{m - 1}}) \otimes \ldots \otimes (x^{a_{0}} z^{b_{0}} x^{a'_{0}} z^{b'_{0}}) = ({(-1)}^{\delta_{m - 1}} x^{a_{m - 1}} z^{b_{m - 1}} x^{a'_{m - 1}} z^{b'_{m - 1}}) \otimes \ldots \otimes ({(-1)}^{\delta_{0}} x^{a_{0}} z^{b_{0}} x^{a'_{0}} z^{b'_{0}})
+\]
+By Equation~\ref{eqn:kronecker-scalar} (the scalar multiplication property of the Kronecker product), we can ``aggregate'' the $ \delta $ terms.
+Therefore:
+\begin{multline}
+\label{eqn:q5pilong}
+ AB = ({(-1)}^{\delta_{m - 1}} x^{a_{m - 1}} z^{b_{m - 1}} x^{a'_{m - 1}} z^{b'_{m - 1}}) \otimes \ldots \otimes ({(-1)}^{\delta_{0}} x^{a_{0}} z^{b_{0}} x^{a'_{0}} z^{b'_{0}})
+ = \\
+  \left[{(-1)}^{\delta_{m-1}} \ldots {(-1)}^{\delta_{0}}\right] \left[(x^{a_{m - 1}} z^{b_{m - 1}} x^{a'_{m - 1}} z^{b'_{m - 1}}) \otimes \ldots \otimes (x^{a_{0}} z^{b_{0}} x^{a'_{0}} z^{b'_{0}}) \right]
+\end{multline}
+Now let us focus on the $ \delta $ terms:
+\[
+{(-1)}^{\delta_{m-1}} \ldots {(-1)}^{\delta_{0}}
+=
+{(-1)}^{\delta_{m-1} + \cdots + \delta_{0}}
+\]
+Recalling our definition of $ \delta_i = a'_i b_i + b'_i a_i $.
+Using a simple result from linear algebra, we see that:
+$$ \delta_{m - 1} + \cdots + \delta = a'b^T + b'a^T $$
+Thus:
+\[
+{(-1)}^{\delta_{m-1}} \ldots {(-1)}^{\delta_{0}}
+=
+{(-1)}^{\delta_{m-1} + \cdots + \delta_{0}}
+=
+{(-1)}^{a'b^T + b'a^T}
+\]
+We can substitute this result back into Equation~\ref{eqn:q5pilong}, we see that:
+\[
+AB = \left[{(-1)}^{a'b^T + b'a^T}\right]\left[(x^{a_{m - 1}} z^{b_{m - 1}} x^{a'_{m - 1}} z^{b'_{m - 1}}) \otimes \ldots \otimes (x^{a_{0}} z^{b_{0}} x^{a'_{0}} z^{b'_{0}}) \right]
+\]
+
+By symmetry, we see that the last expression enclosed in brackets is actually just $ BA $, i.e.
+\[
+BA = \left[(x^{a_{m - 1}} z^{b_{m - 1}} x^{a'_{m - 1}} z^{b'_{m - 1}}) \otimes \ldots \otimes (x^{a_{0}} z^{b_{0}} x^{a'_{0}} z^{b'_{0}}) \right]
+\]
+
+Thus, we put this all together and yield:
+\[
+AB = \left[{(-1)}^{a'b^T + b'a^T}\right] BA
+\]
+or equivalently by plugging in the definitions of $ B $ and $ A $:
+\[
+D(a,b)D(a',b') = \left[{(-1)}^{a'b^T + b'a^T}\right] D(a',b')D(a,b)
+\]
+
+\QED{}
+
+\subsection{Part ii}
+\label{sub:5Partii}
+
+We are going to see what happens when we square $ A = D(a,b) $, some non-identity element.
+Jumping to our Kronecker product definition defined in Equation~\ref{eqn:kron-ab-expansion}, we see that:
+\[
+A^2 = AA = (x^{a_{m - 1}} z^{b_{m - 1}} x^{a_{m - 1}} z^{b_{m - 1}}) \otimes \ldots \otimes (x^{a_{0}} z^{b_{0}} x^{a_{0}} z^{b_{0}})
+\]
+Looking at a particular element $ x^{a_{i}} z^{b_{i}} x^{a_{i}} z^{b_{i}} $, we will ``inner'' terms by the same logic as before:
+\[
+x^{a_{i}} z^{b_{i}} x^{a_{i}} z^{b_{i}}
+=
+{(-1)}^{a_i b_i} x^{a_{i}} x^{a_{i}} z^{b_{i}} z^{b_{i}}
+\]
+We will now return to the Kronecker products of all the terms and again ``aggregate'' the ones.
+Since we have now performed this operation twice on this problem set already, the details are extremely clear.
+Thus, we will simply move from result to result:
+\[
+A^2
+=
+(x^{a_{m - 1}} z^{b_{m - 1}} x^{a_{m - 1}} z^{b_{m - 1}}) \otimes \ldots \otimes (x^{a_{0}} z^{b_{0}} x^{a_{0}} z^{b_{0}})
+=
+{(-1)}^{\sum_i a_i b_i}
+(x^{a_{m - 1}} x^{a_{m - 1}} z^{b_{m - 1}} z^{b_{m - 1}}) \otimes \ldots \otimes (x^{a_{0}} x^{a_{0}} z^{b_{0}} z^{b_{0}})
+\]
+Note that $ \sum_i a_i b_i = ab^T $.
+Thus:
+\[
+A^2 =
+{(-1)}^{ab^T}
+(x^{a_{m - 1}} x^{a_{m - 1}} z^{b_{m - 1}} z^{b_{m - 1}}) \otimes \ldots \otimes (x^{a_{0}} x^{a_{0}} z^{b_{0}} z^{b_{0}})
+\]
+Interestingly, we see that every term is now in the form $ x^l x^l z^k z^k $.
+Since $ z^2 = x^2 = I_2 $, i.e.\ $ |x| = |z| = 2 $, we see that $ x^l x^l z^k z^k = x^{2l} z^{2k} = (I_2)(I_2) = I_2 $.
+Thus, we rewrite $ A^2 $ to be:
+\[
+{(-1)}^{ab^T}
+(I_2) \otimes \ldots \otimes (I_2)
+\]
+Now note that $ (I_2) \otimes \ldots \otimes (I_2) = I_{2m} $.
+Thus, we see that $ A^2 = {(-1)}^{ab^T} I_{2m} $, which is very nice indeed.
+$ ab^T $ can either be $ 0 $ or $ 1 $, thus we see that where it is $ 0 $, $ A^2 = I_{2m} $, which makes $ |A| = 2 $.
+If $ ab^T = 1 $, then $ A^2 = -I_{2m} $.
+In this case, note that $ A^3 = A^2 A = -A $.
+Thus, we know that the order of $ A $ cannot be $ 3 $.
+But, as is obvious, $ A^2 = -I_{2m} \implies A^4 = I_{2m} $.
+Thus, for a non-identity element $ A $, it must have either order $ 2 $ or order $ 4 $.
+\QED{}
+
+\section{Question 6}
+\label{sec:Question6}
+Note that the first six rounds will help us determine the actual bit sequence, while the \nth{7} round will simply tell us if we are working with the positive Walsh function or the negative one.
+Thus, without loss of generality, we will assume we are working with only the positive Walsh functions, and we will return to the parity issue later.
+\\ \\
+First, pick some fixed $ a \in \mathbb{F}_2^6 $.
+This vector $ a $ characterizes the Walsh function $ W_a $ of the Grand Prize Door.
+Now, every round of the first six rounds proceeds as follows:
+\begin{enumerate}
+    \item The host picks some vector $ b \in \mathbb{F}_2^6 $
+    \item We pick some vector $ c \in \mathbb{F}_2^6 $
+    \item The host tells us if $ W_a(b) = W_a(c) $
+\end{enumerate}
+Let us enumerate what the Walsh function actually does.
+We see that we take the product of all of the terms of the vector $ a $ with some input vector $ b $.
+If $ a_i = b_i = 1 $, then $ a_i b_i = 1 $; otherwise $ a_i b_i = 0 $.
+We take each term $ a_i b_i $ and sum them to get some odd or even number, which results in either a $ -1 $ or $ 1 $ output.
+In essence, the Walsh function issues a parity bit over the number of bits where $ a_i b_i = 1 $.
+What we are curious about, though, is in what happens when we just change one bit of the input vector.
+If $ a_i = 1 $, then changing the bit of the input vector will indeed change the result of the Walsh function.
+If $ a_i = 0 $, then changing the bit of the input vector will not change the result of the Walsh function.
+\\ \\
+Now that we have some intuition of the Walsh function, let us inspect a particular round.
+Suppose the host has picked vector $ b = (b_1, \ldots, b_6) $ and we are interested in divining the value of bit $ k $.
+We take $ b_k $ and we flip it to produce $ c = (b_1, \ldots, \overline{b_k}, \ldots, b_6) $.
+Let us investigate what happens to the result of the Walsh function.
+\\ \\
+Suppose $ b_k = 0 $.
+If $ a_k = 0 $, then setting $ c_k = 1 $ would result in no change in the output of the Walsh function.
+However, if $ a_k = 1 $, then setting $ c_k = 1 $ would result in a change in the parity of the Walsh function.
+\\ \\
+What happens when $ b_k = 1 $?
+If $ a_k = 0 $, then setting $ c_k = 0 $ would result in no change in the output of the Walsh function.
+However, if $ a_k = 1 $, then setting $ c_k = 0 $ would result in a change in the parity of the Walsh function.
+\\ \\
+What we have shown is that to divine the value of a particular $ a_k $, given some input $ b $, we simply need to flip bit $ k $.
+Therefore, our strategy is as follows:
+\begin{enumerate}
+    \item For round $ k $, take the host's input $ b $ and flip bit $ k $ to produce $ c $.
+    \item Ask if $ W_a(b) = W_a(c) $.
+    \item If true, then $ a_k = 0 $; if false, then $ a_k = 1 $.
+\end{enumerate}
+
+Finally, we reach our \nth{7} round.
+We will denote our final guess vector $ g $.
+If there are no entries that are $ 1 $, i.e.\ we have determined that $ a = \vec{0} $, then ignore this round as it does not matter.
+If there exists at least one entry that is a $ 1 $, pick the first entry.
+Ask about its parity.
+If it is $ + $, then we have the positive Walsh function characterized by $ a $, i.e.\ set $ g = a $.
+If it is $ - $, then we have the negative Walsh function characterized by $ -a $, i.e.\ set $ g = -a $.
+\\ \\
+Now we can conclude: pick the door that corresponds to the Wash function characterized by $ g $, which will win us the Hawaiian vacation.
+\QED{}
+
+\section{Question 7}
+\label{sec:Question7}
+
+We will invoked a theorem that we proved on an earlier homework.
+In particular, we know that the largest possible order of an element in a symmetric group $ S_N $ is the $ lcm $ of the partitions of $ N $.
+For $ S_1 $, $ S_2 $, $ S_3 $, and $ S_4 $, this number is $ 1 $, $ 2 $, $ 3 $, and $ 4 $ respectively.
+In $ S_5 $, note that there does exist an element of order $ 6 $, e.g.
+ $ (123)(45) $.
+\\ \\
+Why is this important?
+Simply, to construct a map $ \rho : G \to S_N $, we need to map $ G $ into a subgroup of $ S_N $.
+However, to satisfy the requirement that $ \rho $ be injective and homomorphic, we must find an element in $ S_N $ of order $ 6 $.
+Since there exists an element in $ C_6 $ of order $ 6 $ and $ \rho $ preserves group structure, this requirement must be met.
+(Trivially, $ S_5 $ contains elements of all orders less than $ 6 $, so we know we have covered everything in $ C_6 $. This is seen by fixing $ i $ points, which results in a cycle of order of $ 6 - i $.)
+By what we have shown above, $ N = 5 $ is the smallest such $ N $ for which this is possible.
+Thus, by definition, $ d(C_6) = 5 $.
+Additionally, $ |C_6| = 6 $.
+Thus
+\[
+\alpha(C_6) = d(C_6) / |C_6| = 5/6
+\]
+\QED{}
+
+\section{Question 8}
+\label{sec:Question8}
+
+\subsection{Part i}
+\label{sub:8Parti}
+
+First, note that we will always be able to find a faithful collection.
+In particular, we see that the collection with just the trivial subgroup will indeed always be faithful.
+Now, let us inspect the sums over faithful collections.
+We are going to transform it a little by multiplying through with the constant $ |G| $, i.e.\ the order of the group:
+\[
+|G| \sum_{i}^{r} \frac{1}{|H_i|} = \sum_{i}^{r} \frac{|G|}{|H_i|}
+\]
+
+Multiplying through a sum with a non-zero constant, i.e. $ |G| $, still maintains this is a minimization problem.
+Now, note that $ |A_i| = |G|/|H_i| $.
+Thus, we are now trying to minimize the sums:
+\[
+\sum_i^{r} |A_i|
+\]
+Suppose that we have now indeed found such a minimal sum, which must exist since we must \textit{at least} one faithful collections.
+Denote this minimal sum $ \sum_{i}^{r'} |A'_i| $
+Since a faithful group action must induce an injective homomorphism into $ S_l $ for some $ l $, we can now draw from the definition of the Cayley Constant.
+In essence, we see that we have to be able to sum the orders of the left cosets $ A'_i $, which will in fact correspond to partitions of $ S_N $.
+For this to fit, we quite literally have to find an $ N $ large enough.
+For example, we could map each $ A'_i $ to a cycle of length $ |A'_i| $.
+The $ lcm $ of the partitions of $ S_N $ indicate how large we are able to get.
+Therefore, drawing from our argument for Question~\ref{sec:Question7}, we see that $ d(G) $, i.e.\ the smallest such $ N $ for which there is an injective homomorphism will indeed correspond to the sums of the orders of $ A'_i $.
+Therefore, we see that $ d(G) = \sum_i^{r} |A'_i| $.
+Dividing by $ |G| $, we yield $ d(G) / |G| = \sum_i^{r} |A'_i| / |G| = \sum_i^{r} \frac{1}{|A'_i|} $.
+Since $ d(G) / |G| = \alpha(G) $ (by definition), we can formally conclude:
+\[
+\alpha(G) = \min{\sum_i^{r} \frac{1}{|A_i|}}
+\]
+
+\subsection{Partii}
+\label{sub:8Partii}
+
+An interesting property of the quaternions is that all subgroups of the $ \mathbb{Q}_8 $ are normal.
+In addition, if we inspect the lattice, we see that all subgroups ``go through'' the one generated by $ \langle -1 \rangle $.
+\\ \\
+Now, let us try to find faithful collections $ I $.
+If we allow just one subgroup in this collection, we see that any subgroup besides the one generated by the identity ($ \langle 1 \rangle $) will result in a non-trivial normal subgroup in the intersection of the collection, namely itself.
+In fact, if we try to find a faithful collection $ I $ without the subgroup generated by the identity, we will always have $ \langle -1 \rangle  $ in the intersection by the structure of this group.
+Since $ \langle -1 \rangle $ is normal and is certainly nontrivial, we see that we must always include the $ \langle 1 \rangle $ in our colleciton $ I $ to generate a faithful collection.
+\\ \\
+We now reintroduce the result from the previous part.
+Denote $ S $ as the subsgroup generated by $ \langle 1 \rangle $.
+Note that $ |S| = 1 $.
+Furthermore, $ 1 / |S| = 1 $.
+In particular, note that this trivial subgroup is the only subgroup that has order $ 1 $.
+Therefore, it also is the only subgroup with inverse order $ 1 $.
+Thus, any sum over the inverse orders of the subgroups that is a faithful collection for the quaternions will have to be \textit{at least} greater than or equal to $ 1 $.
+For all faithful collecitons $ I_i $, designate this sum of inverse orders as $ \sigma(I_i) = \sigma_i $
+In short, we know that $ \sigma_i \geq 1 $
+\\ \\
+Finally, pick the collection $ I_0 = \{S\} $.
+This clearly only has the trivial subgroup as its intersection.
+Now, we can clearly see that $ \sigma_0 = 1 $.
+Thus to formally conclude, we see that since $ \sigma_i \geq 1 $ and that we have indeed found a faithful collection $ I $ where the equality is true, i.e.\ $ \sigma_0 $, that the minimum across the $ \sigma_i $s is in fact $ 1 $.
+Therefore, $ \alpha\left(\mathbb{Q}_8\right) = 1 $.
+\QED{}
+
+\end{document}
