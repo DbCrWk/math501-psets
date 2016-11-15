@@ -1,0 +1,988 @@
+\documentclass[letterpaper]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{centernot}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{nth}
+
+% Comment the following lines to use the default Computer Modern font
+% instead of the Palatino font provided by the mathpazo package.
+% Remove the 'osf' bit if you don't like the old style figures.
+\usepackage[T1]{fontenc}
+\usepackage[sc,osf]{mathpazo}
+
+\newcommand*{\QED}{\hfill\ensuremath{\square}}%
+
+\makeatletter
+\renewcommand{\@seccntformat}[1]{%
+  \ifcsname prefix@#1\endcsname
+    \csname prefix@#1\endcsname
+  \else
+    \csname the#1\endcsname\quad
+  \fi}
+% define \prefix@section
+\newcommand\prefix@section{Question \thesection}
+\makeatother
+
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\lcm}{lcm}
+
+% Set your name here
+\def\name{Exam I (Midterm)}
+
+
+\geometry{
+  body={6.5in, 8.5in},
+  left=1.0in,
+  top=1.25in
+}
+
+% Customize page headers
+\pagestyle{myheadings}
+\markright{\name}
+\thispagestyle{empty}
+
+% Custom section fonts
+\usepackage{sectsty}
+\sectionfont{\rmfamily\mdseries\Large}
+\subsectionfont{\rmfamily\mdseries\itshape\large}
+
+% Other possible font commands include:
+% \ttfamily for teletype,
+% \sffamily for sans serif,
+% \bfseries for bold,
+% \scshape for small caps,
+% \normalsize, \large, \Large, \LARGE sizes.
+
+% Don't indent paragraphs.
+\setlength\parindent{0em}
+
+\begin{document}
+
+{\huge \name}
+
+% Alternatively, print name centered and bold:
+%\centerline{\huge \bf \name}
+
+\vspace{0.25in}
+
+Dev Dabke \\
+MATH 501: Introduction to Algebraic Structures I \\
+October 20, 2016 \\
+Prof.\ Calderbank \\
+
+\section*{Duke Community Standard}
+
+I attest that to the best of my knowledge this submission complies with the Duke Community Standard.
+In particular, I assert that:
+\begin{enumerate}
+    \item I will not lie, cheat, or steal in my academic endeavors;
+    \item I will conduct myself honorably in all my endeavors; and
+    \item I will act if the Standard is compromised.
+\end{enumerate}
+This wording of the standard was in current use at the time of submission, as documented on the Duke Community Standard website: \href{https://studentaffairs.duke.edu/conduct/about-us/duke-community-standard}{https://studentaffairs.duke.edu/conduct/about-us/duke-community-standard}.
+\\ \\
+Signed, \\
+Devavrat V. Dabke
+
+\section*{Approach and Introduction}
+To prepare myself for this exam, I careful reviewed the lecture slides and homework problems (problem sets), not to memorize the content, but to categorize the content.
+In particular, for each question, I tried to tease out all of the possible topics covered.
+Then, I went to the appropriate lecture slides and problem sets to investigate the facts I knew.
+In this way, I rediscovered many gems, including a few lemmata that turned out to be particularly powerful.
+I also realized that in solving some of the homework problems, I had already thought about and solved a few of the questions; for example, Question 9 had a nice counterexample that was investigated in Homework 2.
+Therefore, while solving questions, most of my time was spent reading and rereading.
+Fortunately, I could generally ``smell'' the theorems in a topic that I applied, and I essentially wrought each question until I could reframe it into a recognizable set of assumptions for a fact or proposition.
+If I thought a fact might be particularly opaque, or perhaps unclear as to its provenance, I indicated appropriate citations.
+\\ \\
+Through investigating certain questions, like Question 8 and 10, I ended up devising a couple of solutions and only left the best answer.
+Other solutions might not show full work if they required tedious computations that are not particularly illustrative.
+I outlined how I actually went about performing calculations if the answer is ``easy to verify'' but ``difficult to compute.''
+Technically, this should be okay, since (if you are very lucky), you could actually guess the correct answer and simply verify that it is indeed correct!
+For example, Question 5 required matrix inversion, and I could not find a simpler way other than actually doing the calculation.
+For the sake of everyone involved, I did not wrote out the steps of putting this $ 8 \times 8 $ matrix it into row-reduced echelon form.
+\\ \\
+All in all, I spent (approximately) $ 35 $ hours actually working on the problem set (my later answers are probably less coherent with the sleep deprivation).
+I hope anyone reading this exam is at least entertained by my thought processes.
+For fun's sake, I also included some of my own reflections and thoughts on a problem if they seemed to add character to the solution.
+
+\section{}
+\label{sec:Question1}
+
+\subsection{Part i}
+\label{subs:1Parti}
+
+We can broadly state the steps of this proof as:
+\begin{enumerate}
+    \item that the centralizer of all of the elements of order $ 3 $ is simply the cyclic subgroup of that element itself, its inverse, and the identity; and thus the centralizer has order $ 3 $
+    \item By Lemma 5.8 in Lecture 5: the conjugacy class of an element of order $ 3 $ is size $ N /3 $
+\end{enumerate}
+However, we have many theorems (Sylow, Lagrange) and small lemmata to invoke at various stages to make all of our information ``flow'' together.
+Therefore, we proceed with the rigorous proof.
+\\ \\
+Using Sylow's Theorem, can find the Sylow $ 3 $-subgroups.
+In particular, we know that $ N = 3^1 m $ where $ 3 $ does not divide $ m $.
+This satisfies the conditions of Sylow's Theorem where $ m = m $, $ e = 1 $, $ p = 3 $.
+Since $ 3 $ is prime, we know a subgroup with an element of order $ 3 $ has two elements of order $ 3 $ and the identity to form a cyclic subgroup of order $ 3 $.
+Since we have $ \frac{2N}{3} $ elements, we know that we in fact have $ \frac{N}{3} $ cyclic subgroups of order $ 3 $.
+\\ \\
+Investigating further, we note two important results.
+First, by Theorem 11.4 (Lecture 11), we know that none of these groups is normal.
+Second, by Theorem 11.2 (Lecture 11), we know that each Sylow $ 3 $-subgroup conjugates into another Sylow $ 3 $-subgroup.
+Since we have enumerated the Sylow $ 3 $-subgroups, we can put these results together to note that no one subgroup on its own forms a conjugacy class, and in particular each element of order $ 3 $ must conjugate into the elements of another subgroup.
+What that means is that an element of order $ 3 $ will always conjugate to something of order $ 3 $, but never to itself or its inverse (or obviously the identity).
+\\ \\
+Now, take elements $ f, x $ with order $ 3 $ such that $ f \neq x $ and $ f \neq x^{-1} $.
+Let us conjugate $ x $ and see what happens.
+\[
+fxf^{-1} = y : y \not\in \{1, x, x^{-1} = x^{2}\}
+\]
+We see that $ fxf^{-1} = 1 \implies x = 1 $ (not possible since $ x $ is order $ 3 $) and by the statements above, we know that we cannot map back to $ x $ or $ x^{-1} $.
+We thus have $ \frac{2N}{3} - 2 = 2m - 2 $ elements that therefore do not commute with $ x $.
+Importantly, we know that $ {2N}{3} - 2 $ will not divide $ N =  3m $.
+Moreover, note that $ x $ commutes with itself, $ x^{-1} $ and $ 1 $.
+This allows us to construct the \textit{centralizer} of $ x $ with respect to $ G $ denoted $ C_G(x) $.
+In particular, this is a subgroup and thus has order that divides the order of the group by Lagrange's Theorem.
+Combining all of these ``accounting'' facts together, we yield that the order of the centralizer of $ x $ in $ G $ is $ 3 $; symbolically: $ \left|C_G(x) \right| = 3 $.
+In fact, the centralizer is itself the cyclic subgroup of $ \{1, x, x^{-1} = x^{2}\} $.
+We now invoke Lemma 5.8 in Lecture 5: it states that the number of conjugates of an element is equal to the index of its centralizer with respect to the group.
+The number of conjugates of $ x $ is this equal to
+\[
+\left[G : C_G(x) \right] = N / 3
+\]
+by definition of index and our Lemma 5.8.
+Therefore, the elements of order $ 3 $ split broadly into two conjugacy classes (since we analyzed the elements using with an arbitrary two of the $ 2N/3 $ elements of order $ 3 $).
+By what we had shown previously, we know that for any of the Sylow $ 3 $-subgroups, an element $ z \neq 1 $ is in the other conjugacy class from $ z^{-1} = z^{2} \neq 1 $.
+\QED{}
+
+\subsection{Part ii}
+\label{subs:1Partii}
+
+This part is a little subtle.
+I greatly appreciated the hint to analyze the structure of $ S_4 $, which has well-know conjugacy classes: cycles of the same length.
+We can use the intuition built by this fact and the intuition built by Part i of the problem to come up with the proof that follows.
+\\ \\
+We will invoke Sylow's Theorem to find $ 3 $-subgroups.
+We find similar results as Part i, including the fact that we have generated cyclic subgroups because of the prime power order fact.
+We will now determine the centralizer of an arbitrary element $ x : |x| = 3 $.
+\\ \\
+Begin by following the same steps in Part i to see that $ 2N/3 - 2 $ elements do not commute with $ x $; in short, we finished quickly before with the statement that $ 2N/3 $ does not divide $ N $.
+The problem is that $ 2N/3 $ can divide $ 2N $.
+This how we use the extra assumption of there being no elements of order $ 6 $.
+That fact will show us that we know that the centralizer has only the three elements outlined above.
+Then, we can say (again by Lemma 5.8 in Lecture 5) that the size of the conjugacy class of $ x $ is:
+\[
+\left[G : C_G(x) \right] = 2N / 3
+\]
+Plus, by Theorem 11.2 (Sylow in Lecture 11), as before, we know that the conjugacy class of an element in a Sylow $ 3 $-subgroup will fall in another Sylow $ 3 $-subgroup.
+Thus, every element of order $ 3 $ has $ 2N/3 $ (non-identity) elements, all of which have order $ 3 $, in its conjugacy class.
+Since there are $ 2N/3 $ elements of order $ 3 $, we can see that all elements of order $ 3 $ thus fall in one conjugacy class!
+\\ \\
+This is a very nice result, but we still need to prove that the extra assumption of there being no elements of order $ 6 $ cements the size of the centralizer of an element of order $ 3 $.
+We know that the centralizer is a subgroup, and thus must have order that divides $ 2N $ by Lagrange's Theorem.
+We also know that we have $ 3 $ elements in the centralizer already.
+However, we also know that none of the other elements of order $ 3 $ (all $ 2N/3 - 2 $ of them) are allowed to fall into the centralizer.
+So we know that we have some $ |C_G(x)| = a : 3 \geq a \geq 4N / 3 + 2 $ and that $ a | 2N $.
+However, note that $ \lcm{(2, 3)} = 1 $ since $ 2 $ and $ 3 $ are prime.
+If we try to construct a subgroup out of the elements $ x $ and $ y : |y| = 2 $, we fail since we would be required to have an element of order $ 6 $, which is a contradiction.
+Therefore, if we inspect the lattice by applying Lagrange's Theorem, we can clearly see that the centralizer must in fact have order $ 3 $ as desired.
+\QED{}
+
+\section{}
+\label{sec:Question2}
+
+\subsection{Part i}
+\label{subs:2Parti}
+
+Let us first investigate what subsets of $ 4 $ vertices look like.
+If we pick $ 4 $ nodes in the outer ring, we are guaranteed that at least $ 2 $ will be connected (in fact, there will be $ 3 $ edges).
+If we pick $ 4 $ nodes in the inner ring, we know, again, that at least $ 4 $ will be connected (in fact, there will be $ 3 $ edges).
+If we pick $ 3 $ nodes in the outer ring, there will be at least $ 1 $ edge.
+Similarly, if we pick $ 4 $ nodes in the inner ring, there will be at least $ 2 $ edges.
+Thus, to find a co-clique, we know that we have to pick exactly $ 2 $ nodes in the outer ring and $ 2 $ nodes in the inner ring.
+In particular, since vertices can only be joined if and only if they are disjoint, we can see what a co-clique must be: all vertices $ (i,j) $ where $ i $ is fixed and $ j \in \{1, \ldots, 3\} $ (and by definition, $ j \neq i $).
+Without loss of generality, we will index $ C_i $ to be the co-clique that maintains $ i $ as the constant index in the pair $ (i, j) $.
+We will also enumerate them in the order $ (i', j') $ so that $ i' < j' $:
+\begin{enumerate}
+    \item $ C_1 = \{(1,2), (1,3), (1,4), (1,5)\} $
+    \item $ C_2 = \{(1,2), (2,3), (2,4), (2,5)\} $
+    \item $ C_3 = \{(1,3), (2,3), (3,4), (3,5)\} $
+    \item $ C_4 = \{(1,4), (2,4), (3,4), (4,5)\} $
+    \item $ C_5 = \{(1,5), (2,5), (3,5), (4,5)\} $
+\end{enumerate}
+
+Now, let us consider the kernel of $ \phi $.
+By definition $ \ker{\phi} = \{ \pi_e \in Aut(\Gamma) : \phi(\pi_e) = (C_1)(C_2)(C_3)(C_4)(C_5) \} $.
+Consider an automorphism that is not the trivial automorphism.
+Suppose that our automorphism permutes $ (i, j) $ to $ (i', j') $ (we know our non-trivial automorphism must exchange at least one pair of vertices).
+We know that $ (i, j) $ must be in co-cliques $ C_i $ and $ C_j $ and $ (i', j') $ must be in co-cliques $ C_{i'} $ and $ C_{j'} $.
+We also can see that $ (i, j) = (i', j') \iff C_i, C_j = C_{i'}, C_{j'} $, which means that the two pairs of co-cliques in which these vertices participate will only coincide if the vertices were the same to begin with.
+\\ \\
+Since automorphisms have to be edge preserving, we know that to maintain co-cliques, permuting $ (i, j) $ to $ (i', j') $ has to permute $ C_i $ to $ C_{i'} $ or $ C_{i'} $ and $ C_{j} $ to $ C_{j'} $.
+If we want $ C_i $ to permute to $ C_{i} $ itself and $ C_j $ to $ C_j $, then $ (i,j) = (i', j') $.
+Therefore, for our automorphism to avoid permuting \textit{any} co-cliques, it must avoid permuting \textit{any} points; but by definition, this must be the trivial automorphism.
+Thus, an automorphism that does not permute the co-cliques must itself be the trivial automorphism.
+Formally, this means $ \ker{\phi} = \langle 1 \rangle $.
+\QED{}
+
+\subsection{Part ii}
+\label{subs:2Partii}
+
+The stabilizer of $ A $ would be any permutation $ \pi : \pi(x) = x, \pi(y) = y $.
+As we have shown above, we know that for $ \pi(x) = x $, we have to ensure that the co-cliques $ C_3 $ and $ C_4 $ map to themselves or to each other.
+In addition, for $ \pi(y) = y $ to be true, the co-cliques $ C_3 $ and $ C_5 $ have to map to themselves or to each other.
+For these constraints to hold, we can see that $ C_3 $ has to map to itself.
+If $ C_3 $ maps to $ C_3 $, then $ C_4 $ also must map $ C_4 $ by our first constraint.
+Similarly, $ C_5 $ must map to $ C_5 $ by our first constraint.
+Thus, the stabilizer is $ \{(1)(2)(3)(4)(5), (12)(3)(4)(5)\} $, as we can either retain $ C_1 $ and $ C_2 $ or swap them.
+\\ \\
+To prove that $ G $ acts transitively, note that two distinct vertices $ x $ and $ y $ must share one common index and not share the other index.
+Therefore, without loss of generality, denote $ x = (i, j) $ and $ y = (i, j') $.
+Since we have a total of five indices, denote this set as $ \{a, b, i, k , j'\} $.
+Let us examine the stabilizer $ S_G $ of $ \{x, y\} $.
+By a similar logic, we see that $ S_G $ cannot permute $ C_i $ since we have to preserve $ (i, j) $ and $ (i, j') $.
+Next, since $ C_i $ is fixed, we know that $ C_j $ becomes fixed to be able to maintain $ (i, j) $.
+Finally, $ C_{j'} $ must also be maintained.
+Therefore, the stabilizer contains two elements: $ \{1, (nm) \} $, which allows permutations of $ C_n $ to $ C_m $ or the identity.
+Since swapping $ C_n $ and $ C_m $ is permitted in $ G $, and each represents a set of points that are not joined, we have found a permutation that will move points that are not joined to other points that are not joined.
+Since we chose arbitrary points to begin with, this argument applies to all points that are not joined, and since we can pick any combination $ n, m $, we know we can cover all points.
+\QED{}
+
+\subsection{Part iii}
+\label{subs:2Partiii}
+
+The second pentagon is:
+\[
+\{ (3,4), (3,5), (1,2), (2,5), (1,4) \}
+\]
+Although it is not explicitly stated, let us assume that $ x $ and $ y $ are distinct.
+Therefore, for $ x $ and $ y $ to not be connected, we know that they must share \textit{exactly} one index in common, i.e.\ without loss of generality, denote $ x = (i, j) $ and $ y = (i, k) $.
+Now, let us find how many pentagons we can draw.
+\\ \\
+For there to be a pentagon, we know that there must be one point that connects to both $ x $ and $ y $.
+This point must be unique, as to be able to connect to $ x $ and $ y $, it must have label $ (u, v) $ where $ \{u, v\} $ is disjoint from $ \{i, j, k\} $ by definition of the pairing rules.
+Note that this set $ \{u, v\} $ since there are only five total indices and we have already used three of them.
+Since $ (u, u) $ and $ (v,v) $ do not exist and $(u, v) = (v, u) $, we know there is only one point.
+Therefore, any valid pentagon must involve $ x, y, z = (u,v) $.
+What about the other two points of the pentagon?
+\\ \\
+We know that each node only connects to three nodes.
+We have already included the unique point that connects $ x $ and $ y $, so $ x $ and $ y $ can each only connect to two other nodes.
+Depending on how these nodes connect, we could have no pentagons, or at most four pentagons.
+Denote these two nodes that $ x $ connects to as $ s, s' $ and denote the two nodes that $ y $ connects to as $ t, t' $.
+Since $ x $ is disjoint with both $ s $ and $ s' $, and we have already captured the point that is disjoint with both $ x $ and $ y $, we know that these points must not connect with $ y $.
+$ y $ follows the same pattern.
+Since we know that $ x $ and $ y $ share $ i $ in common, what we end up with is that $ s, s' = (m*, j') $ for $ m* $ to be one of the two indices not in $ \{i, j, j'\} $, while $ t, t' = (m, j) $.
+Without loss of generality, set $ s = (m, j') $, $ s = (m', j') $ and $ t = (m, j) $ and $ t' = (m', j') $ where $ m $ is one of the indices in $ m* $ and $ m' $ to be the other.
+Thus, we see that $ s $ and $ t' $ must connect and $ s' $ and $ t $ must connect, since they are disjoint.
+Our result?
+We have two pentagons: $ \{x, y, z, s, t'\} $ and $ \{x, y, z, s', t\} $.
+\QED{}
+
+\subsection{Part iv}
+\label{subs:2Partiv}
+
+First, note that the pentagon P ``eats up'' two of the three edges for any node.
+More formally, all points in the graph have exactly three edges.
+A point $ p_i $ in the pentagon has two edges, each to exactly one other node in the pentagon (by definition).
+Thus, for any point $ p_i $, there exists a node $ p_i' $ that is ``fixed'' to every $ p_i $; in short, there is a bijective map between the nodes in the pentagon and the nodes not in the pentagon.
+Therefore, any permutation of the pentagon is in bijective correspondence with a permutation of the ``inner pentagon'' so we only have to worry about permuting the pentagon at hand.
+At any rate, we can rotate the pentagon by 2pi / 5, or we can reflect the pentagon across an axis that is the perpendicular line from a vertex to the opposite edge
+The stabilizer is the symmetry group of the pentagon.
+Let us investigate the symmetry group of the pentagon in terms of permutations of the co-cliques.
+\\ \\
+By using some similar ``magic'' as our reasoning in Part iii, what we can see is that to perform a reflection, we need to have some permutation of order $ 2 $.
+In particular, if we look at holding $ (1, 2) $ fixed and flipping the pentagon, we see that we need to use $ (45) $.
+This generalizes to the fact that to hold a particular vertex fixed, we look at the indices of the elements to the left and right.
+Although these vertices have four total indices, they have to use only $ 3 $ distinct indices by the structure of the Peterson Graph.
+They must share index $ i $ and thus have $ a, b $ as their unique indices that only one has.
+Interestingly, $ (a, b) $ is the ``fixed'' inner node (i.e.\ $ p_j' $) of the node that we want to reflect across (i.e.\ $ p_j $)!
+Therefore, if we permute with $ (ab) $, we will flip the pentagon.
+Let us enumerate moving clockwise:
+\begin{enumerate}
+    \item $ (3, 4), (3, 5) : (45) $
+    \item $ (1, 2), (2, 4) : (14) $
+    \item $ (3, 5), (1, 5) : (13) $
+    \item $ (2, 4), (3, 4) : (23) $
+    \item $ (1, 4), (1, 2) : (24) $
+\end{enumerate}
+
+What about rotations of the pentagon?
+We can visualize the co-cliques like five crescent moons---graceful arcs---that begin and end with outer nodes and have in the middle two inner nodes.
+Let us look at the ``right-handed'' arcs at each node (as there will also be a ``left-handed'' one that goes the other direction, since each node is involved in two co-cliques, i.e.\ arcs).
+We need to shift these arcs from one to the other.
+If we begin at the arc that starts from $ (1,2) $ ($ C_1 $), we see that it has to move to the one starting from $ (3,5) $, which is $ C_3 $.
+\\ \\
+Following this pattern, we yield the permutation $ (13254) $.
+This has order $ 5 $, and thus characterizes the rotations of the pentagon.
+Since $ 5 $ is prime, we have also found a cyclic subgroup.
+In particular, if we join the $ 2 $-cycle permutations with the one $ 5 $-cycle, we have found a group of $ 10 $ elements.
+This is exactly what we would expect since the rotations and reflections of the pentagon are characterized by $ D_{10} $ (i.e.\ the dihedral group of order $ 10 $).
+Therefore, this is the set of permutations that is the Stabilizer of $ P $.
+\QED{}
+
+\subsection{Part v}
+\label{subs:2Partv}
+
+By Part iv, we know that there $ 2 \times 5 = 10 $ symmetries for a pentagon.
+Since $ |S_5| / 10 = 120 / 10 = 12 $, we see that we must have at least $ 12 $ pentagons.
+To explain this insight geometrically, we know that we have a total of $ 120 $ valid permutations.
+But, we also see that for every pentagon, we know that we must have $ 10 $ permutations of the Peterson graph that correspond to a symmetry of each pentagon.
+We do not know if a permutation affects multiple pentagons, therefore we can only conclude that we have \textit{at least} $ 12 $ pentagons.
+\\ \\
+If we label a pentagon $ ABCDE $ where $ AC $ is our particular point, we also see that we have found one pentagon for the point pairings $ AD, BD, BE, CE $, a total of $ 5 $ points.
+To construct other pentagons, we could simply apply an automorphism to ``insert'' other points into our pentagon; this is allowed since an automorphism maintains edges between nodes.
+We have a total of $ 120 $ valid automorphisms.
+However, we know that we have $ 5 $ points pairings for pentagon, thus we only have \textit{at most} $ 120 / 5 = 24 $ valid options left.
+Invoking Part iii, we see that for any two points that are not connected, there are exactly $ 2 $ pentagons.
+Thus, there can be \textit{at most} $ 24 / 2 = 12 $ total pentagons, since we have not demonstrated that we have avoided further duplication of the pentagons.
+However, instead of going through the effort of to trying to prove it:
+\\ \\
+Combining our two statements that there are at least $ 12 $ pentagons and at most $ 12 $ pentagons, we know that there are \textit{exactly} $ 12 $ pentagons.
+\QED{}
+
+\section{}
+\label{sec:Question3}
+First, suppose we have two elements $ x $ and $ y $ that are not identity elements.
+Now, suppose that $ x = x^{-1} \implies |x| = 2 $, we would have a subgroup generated by $ \langle x | x^2 = 1 \rangle $ (i.e.\ the conjugacy class of $ x $).
+It would have order $ 2 $.
+By Lagrange's Theorem, this is impossible since $ |G| $ is odd, so $ 2 $ cannot divide $ |G| $.
+Alternatively, $ x $ could be the identity, but this would contradict our hypothesis.
+\\ \\
+Now, suppose we found $ y : yxy^{-1} = x^{-1} $.
+This implies that $ xy^{-1} = x^{-1} y $, which means we have found a conjugacy class with $ x $ and $ y $.
+Since $ y \neq y^{-1} $, again by what we have shown before, we know that our conjugacy class would have even order $ 2i $.
+Again, this is not possible, as $ 2i $ cannot divide $ |G| $.
+Alternatively, $ y $ could be the identity, but this would also contradict our hypothesis.
+\\ \\
+Formally, we can conclude that a group of odd order, and if $ x \in G $ and $ x \neq 1 $, then $ x $ and $ x^{-1} $ are not conjugate in $ G $.
+\QED{}
+
+\section{}
+\label{sec:Question4}
+
+First, note that for there to be well-defined inverses, we know that we must have nonsingular matrices.
+Therefore, we know that none of these matrices have an eigenvalue of $ 0 $, by definition of nonsingular matrices.
+In addition, we can rephrase the question to see what we are looking for.
+In particular, note that if $ g(v) = v $ can be written as:
+\[
+g(v) = 1v
+\]
+Allowing $ A = g $, $ x = v $, $ \lambda = 1 $, we see that:
+\[
+Ax = \lambda x
+\]
+where $ x \neq 0 $ satisfies the definition that $ x $ is a an \textit{eigenvector} of $ A $ and $ 1 $ is its associated \textit{eigenvalue}.
+In particular, note that we want to show that all of the matrices in the group have a common eigenvector.
+First, let us introduce a fact about eigenvectors:
+\[
+A(Ax) = A(\lambda x) = \lambda Ax = \lambda \lambda x = \lambda^2 x
+\]
+In particular, note that $ A^i x = \lambda^i x $.
+Since we are looking for $ \lambda = 1 $, what we want to find is some vector that stays constant under multiplication of arbitrary powers of the group.
+\\ \\
+Now, refer to Lecture 9: we see some suspiciously similar notation on Slide 3.
+Essentially, over the set $ A : A = \mathbb{F}_2^5 $, we want to show that we have non-trivial stabilizer.
+However, note that $ |G| = 128 $ while $ |A| = 32 $.
+But, we already know that one vector, the $ 0 $ vector must be in this stabilizer.
+Therefore, for this ``accounting'' of orders to hold, we know that there must be one more vector of the $ 31 $ possible remaining vectors that also exists in the stabilizer.
+Thus, we know we have at least one more (I suspect actually $ 3 $ more, but we do not need to prove that) vector that is also in the stabilizer of $ A $.
+Therefore, we have found our non-zero vector that is indeed an eigenvector of all of the matrices.
+\\ \\
+To conclude formally: we know that there is a non-zero vector in $ \mathbb{F}_2^5 $ such that $ \forall g \in G, \, g(v) = v $.
+\QED{}
+
+\section{}
+\label{sec:Question5}
+
+For this question, we will move fluidly between vector indexed by a binary tuple and base-10 equivalents.
+For example $ e_7 = e_{(111)} $.
+
+\subsection{Part i}
+\label{subs:5Parti}
+
+Note that for $ i \neq 0 $, we have $ z_i $ that has a $ 1 $ in the first position, $ 1 $ in the $ i^{th} $ position, and $ 0 $ everywhere else.
+Let us compute $ z'_0 = -z_0 + (z_1 + \cdots + z_7) $.
+We yield $ z'_0 = (9/2) e_0 + 1/2 \sum_{b \neq 0} e_b $.
+Now, if we take
+\[
+z = z'_0 - z_0 = \left[(9/2) e_0 + 1/2 \sum_{b \neq 0} e_b \right] - \left[(5/2) e_0 + 1/2 \sum_{b \neq 0} e_b \right] = (4/2) e_0 = 2 e_0
+\]
+we see that $ z = 2 e_0 $.
+Since, $ D_8 $ is generated by $ 2 e_0 $ and $ e_0 + e_a $ (known by an assumption given via email), we know that we can generate $ D_8 $.
+\\ \\
+Next, take $ x = z_0 - z $.
+\[
+x = z_0 - z = (5/2) e_0 + 1/2 \sum_{b \neq 0} e_b - 2 e_0 =
+(5/2 - 2) e_0 + 1/2 \sum_{b \neq 0} e_b =
+(1/2) e_0 + 1/2 \sum_{b \neq 0} e_b =
+1/2 \sum_{b} e_b
+\]
+Thus, $ x = 1/2 \sum_{b} e_b $.
+Since we have generated $ x $ and $ D_8 $, we know we can create $ D_8 + x $.
+Thus, since we also generated $ D_8 $, we know we can make $ D_8 \cup (D_8 + x) $.
+Therefore, we can generate $ E_8 = D_8 \cup (D_8 + x) $.
+\QED{}
+
+\subsection{Part ii}
+\label{subs:5Partii}
+
+A valid code $ c $ has to lie in the null-space of the generator matrix $ P $.
+Using the formula as given, we can write out the Walsh matrix (n.b.\ this is not quite the Walsh matrix, but it does represent it in some reasonable sense, so we will continue to call it that), where the $ a^{th} $ row is $ w_a $:
+\begin{equation}
+    \label{eqn:walsh-matrix}
+    W =
+    \begin{bmatrix}
+        3 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+        1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
+        1 & 1 & 0 & 0 & 1 & 1 & 0 & 0 \\
+        1 & 0 & 0 & 1 & 1 & 0 & 0 & 1 \\
+        1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 \\
+        1 & 0 & 1 & 0 & 0 & 1 & 0 & 1 \\
+        1 & 1 & 0 & 0 & 0 & 0 & 1 & 1 \\
+        1 & 0 & 0 & 1 & 0 & 1 & 1 & 0
+    \end{bmatrix}
+\end{equation}
+
+Without using any computational tools, we can see that the product $ WP = 0 $, where $ 0 $ is the zero matrix.
+Therefore, all of the rows of the Walsh matrix (i.e.\ these Walsh functions) are indeed Hamming codes.
+It is important to note that the sum of any Hamming codes must be a valid Hamming code.
+To prove this fact, take $ h_1 $ and $ h_2 $ as two valid Hamming codes: note that $ P(h_1 + h_2) = P(h_1) + P(h_2) = 0 + 0 = 0 $.
+\\ \\
+How do we know that we captured \textit{all} of the valid Hamming codes though?
+By the Rank-Nullity Theorem, (shoutout to Prof.\ Pierce for stressing the importance of this Theorem in Linear Algebra), we can see that we have satisfied the dimensionality of the null-space with $ W $.
+Thus, we have found the entire space of Hamming codes.
+\\ \\
+We can also see this result in another way.
+In addition, if look at $ P $, we notice an interesting pattern:
+\begin{enumerate}
+    \item The first vector guarantees that a valid code must have an even number of 1s
+    \item The second vector guarantees an even number of ones in the last four bits
+    \item The third vector guarantees an even number of ones in the \nth{3}, \nth{4}, \nth{7}, and \nth{8} spots
+    \item The fourth vector guarantees an even number of ones in the even bit positions
+\end{enumerate}
+
+To have a valid Hamming code, we know that we need to have $ n $ ones where $ n $ is even by (1).
+If $ n = 0, 8 $, these are clearly valid (and the vectors are trivial).
+If $ n = 4 $, certain positions work (i.e.\ the bits cannot cross into ``odd'' blocks).
+If $ n = 2 $, it is impossible to place two $ 1 $s that pass all vectors.
+By symmetry, if $ n = 6 $, it is impossible to place two $ 0 $s anywhere that would pass all vectors.
+We can see that we have \textit{at least} captured all of these possible vectors in the Walsh matrix.
+However, since $ PW = 0 $, we know we have also capture \textit{at most} these possible vectors.
+Thus, we can indeed captured all of the possible codes, and therefore these vectors must generate $ \Lambda(C) $.
+\QED{}
+
+\subsection{Part iii}
+\label{subs:5Partiii}
+
+By brute force, we see that:
+\begin{align}
+M_1 &=
+    \begin{bmatrix}
+        5/2 & 1/2 & 1/2 & 1/2 & 1/2 & 1/2 & 1/2 & 1/2 \\
+        1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+        1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+        1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+        1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+        1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+        1 & 0 & 0 & 0 & 0 & 0 & 0 & 1
+    \end{bmatrix} \\
+M_2 &=
+    \begin{bmatrix}
+        3 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+        1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
+        1 & 1 & 0 & 0 & 1 & 1 & 0 & 0 \\
+        1 & 0 & 0 & 1 & 1 & 0 & 0 & 1 \\
+        1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 \\
+        1 & 0 & 1 & 0 & 0 & 1 & 0 & 1 \\
+        1 & 1 & 0 & 0 & 0 & 0 & 1 & 1 \\
+        1 & 0 & 0 & 1 & 0 & 1 & 1 & 0
+    \end{bmatrix} \\
+\end{align}
+
+Performing the computations, we find that:
+\[
+M_1 M_1^T =
+\begin{bmatrix}
+    16 & 6 & 6 & 6 & 6 & 6 & 6 & 6 \\
+    6 & 4 & 2 & 2 & 2 & 2 & 2 & 2 \\
+    6 & 2 & 4 & 2 & 2 & 2 & 2 & 2 \\
+    6 & 2 & 2 & 4 & 2 & 2 & 2 & 2 \\
+    6 & 2 & 2 & 2 & 4 & 2 & 2 & 2 \\
+    6 & 2 & 2 & 2 & 2 & 4 & 2 & 2 \\
+    6 & 2 & 2 & 2 & 2 & 2 & 4 & 2 \\
+    6 & 2 & 2 & 2 & 2 & 2 & 2 & 4
+\end{bmatrix}
+\]
+and
+\[
+M_2 M_2^T =
+\begin{bmatrix}
+    8 & 3 & 3 & 3 & 3 & 3 & 3 & 3 \\
+    3 & 2 & 1 & 1 & 1 & 1 & 1 & 1 \\
+    3 & 1 & 2 & 1 & 1 & 1 & 1 & 1 \\
+    3 & 1 & 1 & 2 & 1 & 1 & 1 & 1 \\
+    3 & 1 & 1 & 1 & 2 & 1 & 1 & 1 \\
+    3 & 1 & 1 & 1 & 1 & 2 & 1 & 1 \\
+    3 & 1 & 1 & 1 & 1 & 1 & 2 & 1 \\
+    3 & 1 & 1 & 1 & 1 & 1 & 1 & 2
+\end{bmatrix}
+\]
+\\
+Let us now compute some fundamental volumes by considering fundamental tiles (centered at the origin).
+For $ \frac{1}{2} \mathbb{Z}^8 $, we know that the fundamental tile is a eight-dimensional hypercube.
+We can therefore investigate the length of one dimension:
+since these are half-integers, we know that the length of one dimension is $ \frac{1}{2} $.
+Thus the fundamental volume is $ {\left(\frac{1}{2} \right)}^8 $.
+\\ \\
+Moving forward, it is clear that $ \mathbb{Z}^8 $ has fundamental volume $ 1 $; by our lattice structure, we can see that $ E_8 $ must also have fundamental volume $ 1 $.
+\\ \\
+Note that $ D_8 $ doubles exactly one dimension from $ E_8 $, and thus must have a fundamental volume that is twice that of $ D_8 $.
+Therefore, the fundamental volume is $ 2 $.
+\\ \\
+Skipping down to the double integers, $ 2 \mathbb{Z}^8 $, we see that this hypercube has length $ 2 $ on each dimension, and so has fundamental volume $ 2^8 $.
+The valid Hamming codes constrict four of the dimensions and forces them to have length $ 1 $ instead of length $ 2 $.
+Thus cuts our volume down by $ 2^4 $ (and means that the fundamental tile is a hyper-prism), and so the fundamental volume is $ 2^4 $.
+\QED{}
+
+\subsection{Part iv}
+\label{subs:5Partiv}
+
+We are looking for some matrix $ C : CM_1 = M_2 $.
+Note that since $ M_1 $ is invertible, we know that $ C = M_2 M_1^{-1} $.
+We find that:
+\[
+C =
+\begin{bmatrix}
+    4 & -1 & -1 & -1 & -1 & -1 & -1 & -1 \\
+    2 & -1 & 0 & -1 & 0 & -1 & 0 & -1 \\
+    2 & 0 & -1 & -1 & 0 & 0 & -1 & -1 \\
+    2 & -1 & -1 & 0 & 0 & -1 & -1 & 0 \\
+    2 & 0 & 0 & 0 & -1 & -1 & -1 & -1 \\
+    2 & -1 & 0 & -1 & -1 & 0 & -1 & 0 \\
+    2 & 0 & -1 & -1 & -1 & -1 & 0 & 0 \\
+    2 & -1 & -1 & 0 & -1 & 0 & 0 & -1
+\end{bmatrix}
+\]
+
+We can also see this another way.
+Recall our definition of the constant vector of $ 1 / 2 $ from before that we called $ x $.
+We see that $ z_0 + x = v_0 $.
+Substituting in what $ x $ represents, we see that:
+\[
+v_0 = 4z_0 - z_1 - z_2 - z_3 - z_4 - z_5 - z_6 - z_7
+\]
+If we look closely, we see that this is indeed the coefficients along the first row of $ C $ as expected.
+Since these vectors form a basis for our space, we know that we have unique representations of all vectors in $ \mathbb{R}^8 $.
+This proceeding along this way, we yield the same matrix.
+In addition, since $ M_1 $ has a unique inverse and multiplication is a valid map---in particular a map has a unique output for an input---we know that this map $ C $ is actually the unique linear transformation.
+\QED{}
+
+\section{}
+\label{sec:Question6}
+
+\subsection{Part i}
+\label{subs:6Parti}
+
+Note that this is the Walsh-Hadamard Transform (cf.\ Slide 3 of Lecture 7).
+Calling this matrix $ H $, if we use the map $ \phi : \mathbb{R}^3 \to \mathbb{R}^3 $ defined as:
+\[
+\phi : x \mapsto Hx
+\]
+then this is a reflection about the axis characterized by the span of $ \frac{1}{2} (1, 1) $.
+For clarity's sake, let us rewrite this matrix as a product of reflections:
+\[
+H =
+\frac{1}{2}
+\begin{bmatrix}
+    1 & 1 \\ 1 & -1
+\end{bmatrix}
+\]
+\QED{}
+
+\subsection{Part ii}
+\label{subs:6Partii}
+
+We are negating the axes and permuting them $ (123) $.
+Note that we are permuting $ (123) $ after reflecting across the plane that is orthogonal to the y-axis and then reflecting across the place that is orthogonal to the z-axis.
+Note that $ (123) = (13)(12) $, which are indeed each reflections (i.e.\ swapping axis $ a $ and $ b $ while keeping $ c $ still is a reflection across the plane where $ a = b $ and $ c = 0 $).
+This becomes:
+\[
+\begin{bmatrix}
+0 & -1 & 0 \\
+0 & 0 & -1 \\
+-1 & 0 & 0
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 0 & 0 \\
+0 & -1 & 0 \\
+0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & -1
+\end{bmatrix}
+\begin{bmatrix}
+0 & 1 & 0 \\
+1 & 0 & 0 \\
+0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+0 & 0 & 1 \\
+0 & 1 & 0 \\
+1 & 0 & 0
+\end{bmatrix}
+\]
+\QED{}
+
+\section{}
+\label{sec:Question7}
+
+Denote our arbitrary group $ G $, which has order $ 1755 $ by assumption.
+Let us apply Sylow's Theorem.
+Note that $ 1755 = 13 \times 5 \times 3^3 $.
+Therefore, we can find the Sylow $ 13 $-, $ 5 $-, and $ 3 $-subgroups, and most importantly, how many exist of each.
+\\ \\
+Denote $ n_p $ to the be the number of Sylow $ p $-subgroups.
+By the properties of Sylow subgroups, we know that $ n_{13} $, $ n_5 $, and $ n_3 $ must divide $ 5 \times 3^3 $, $ 13 \times 3^3 $, and $ 13 \times 5 $ respectively.
+Thus we know that:
+\begin{align}
+    n_{13} &\in \{1, 5, 3, 15, 9, 45, 27, 135 \} \\
+    n_{5} &\in \{1, 13, 3, 39, 9, 117, 27, 351 \} \\
+    n_{3} &\in \{1, 13, 5, 65 \}
+\end{align}
+
+In addition, $ n_p \equiv 1 \mod{p} $.
+Let us take each collection and take their values modulo their respective prime.
+\begin{align}
+    (1, 5, 3, 15, 9, 45, 27, 135) &\equiv (1, 5, 3, 2, 9, 6, 1, 5) &\mod{13}  \\
+    (1, 13, 3, 39, 9, 117, 27, 351) &\equiv (1, 3, 3, 4, 4, 2, 2, 1) &\mod{5} \\
+    (1, 13, 5, 65) &\equiv (1, 1, 2, 2) &\mod{3}
+\end{align}
+
+Thus, we can conclude that $ n_{13} $ is either $ 1 $ or $ 27 $; $ n_{5} $ is either $ 1 $ or $ 351 $; and $ n_3 $ is either $ 1 $ or $ 65 $.
+Each Sylow subgroup has prime power order, we know that each of these subgroups must be cyclic.
+The order of each Sylow subgroup is thus the prime $ p $ that characterizes it, i.e.\ the Sylow $ 13 $-subgroups have order $ 13 $; the Sylow $ 5 $-subgroups have order $ 5 $; and the Sylow $ 3 $-subgroups have order $ 3 $.
+Thus, none of the Sylow subgroups can be trivial.
+In addition, none of the Sylow subgroups are in fact $ G $, since $ 13 \neq 1755 $, $ 5 \neq 1755 $, and $ 3 \neq 1755 $.
+Now, we also have a beautiful result that, if any of the $ n_i $s is $ 1 $, then we know that the corresponding Sylow $ i $-subgroup must be normal.
+Thus, if $ n_{13} = 1 $, or $ n_{5} = 1 $, or $ n_{3} = 1 $, then we would have a nontrivial, normal subgroup $ S $ that did not equal the group $ G $.
+We will use this fact to prove our statement by contradiction.
+\\ \\
+First, assume that $ G $ is simple.
+By the fact we just proved, neither $ n_{13} $, $ n_5 $, nor $ n_3 $ can equal $ 1 $.
+Thus, $ n_{13} = 27 $; $ n_5 = 351 $; and $ n_3 = 65 $.
+Note that these Sylow subgroups are all distinct, i.e.\ any two Sylow subgroups have trivial intersection.
+Since the Sylow $ 13 $-subgroups are cyclic (for the same reason as before), we know that there are $ 12 $ non-identity elements in each Sylow $ 13 $-subgroup.
+By a similar logic, there are $ 4 $ non-identity elements in each Sylow $ 5 $-subgroup and $ 2 $ non-identity elements in each Sylow $ 3 $-subgroup.
+Since they are distinct, we can directly count how many elements we have, which we denote $ t $.
+We will also include our identity element in this counting.
+Putting this all together, we see that:
+\[
+t = \left[n_{13} \times (13 - 1) \right] + \left[n_{5} \times (5 - 1) \right] + \left[n_{3} \times (3 - 1) \right] + 1 = (27 \times 12) + (351 \times 4) + (65 \times 2) + 1 = 1859
+\]
+Uh oh.
+We know that our group order is $ 1755 $.
+It is, therefore, a contradiction that we have \textit{at least} $ 1859 $ elements.
+Therefore, one of the $ n_i $s must be $ 1 $, and thus we must have at least one Sylow subgroup that is normal in $ G $.
+Thus, $ G $ cannot be simple.
+\\ \\
+To formally conclude, we see that we picked an arbitrary $ G : |G| = 1755 $.
+Thus, we can see that any group of order $ 1755 $ cannot be simple.
+\QED{}
+
+
+\section{}
+\label{sec:Question8}
+
+\subsection{Part i}
+\label{subs:8Parti}
+
+Let us take an arbitrary element $ xyx^{-1}y^{-1} \in N $.
+By the definition of a homomorphism, we know that:
+\[
+\phi \left(xyx^{-1}y^{-1} \right) = \phi(x) \phi(y) \phi(x^{-1}) \phi(y^{-1})
+\]
+In addition, since $ \phi(1) = 1 $, we can easily see:
+\[
+1 = \phi(1) = \phi \left(y y^{-1} \right) = \phi(y)\phi(y^{-1})
+\]
+Therefore, $ \phi(y) $ and $ \phi(y^{-1}) $ are inverses, i.e.\ $ \phi^{-1}(y) = \phi(y^{-1}) $.
+Putting this all together, we see that:
+\begin{equation}
+    \label{eqn:homo-commutator-forward-long}
+\phi \left(xyx^{-1}y^{-1} \right) = \phi(x) \phi(y) \phi^{-1}(x) \phi^{-1}(y)
+\end{equation}
+
+The implication of Equation~\ref{eqn:homo-commutator-forward-long} might be difficult to see, so allow $ \rho_x = \phi(x) $ and $ \rho_y = \phi(y) $.
+Rewriting Equation~\ref{eqn:homo-commutator-forward-long}, we see that:
+\[
+\phi \left(xyx^{-1}y^{-1} \right) = \rho_x \rho_y \rho^{-1}_x \rho^{-1}_y
+\]
+$ \rho_x \rho_y \rho^{-1}_x \rho^{-1}_y $ is in the commutator of $ G' $; in other words $ \rho_x \rho_y \rho^{-1}_x \rho^{-1}_y \in N' $.
+Tying this all together, we have thus shown that $ \phi \left(xyx^{-1}y^{-1} \right) \in N' $ as desired.
+Importantly, since we chose arbitrary $ x $ and $ y $, we know that our conclusion holds for all elements of $ G $, and thus all elements $ xyx^{-1}y^{-1} \in N $.
+If we rewrite $ n = xyx^{-1}y^{-1} $, we know that:
+\begin{equation}
+    \label{eqn:homo-commutator-forward-short}
+\forall n \in N, \, \phi(n) \in N'
+\end{equation}
+\\ \\
+Next, begin with an arbitrary element $ \rho_x \rho_y \rho^{-1}_x \rho^{-1}_y \in N' $.
+Since $ \phi $ is surjective, we know that:
+\[
+\forall g' \in G, \, \exists g \in G : \phi(g) = g'
+\]
+Therefore, we know that for $ \rho_x $ there must exist some $ x : \phi(x) = \rho_x $.
+Symmetrically, we know there must also be a $ y \in G : \rho(y) = \phi(y) $.
+Putting this all together, we know that for an arbitrary element $ \rho_x \rho_y \rho^{-1}_x \rho^{-1}_y \in N' $ that there exist $ x, y : \rho_x \rho_y \rho^{-1}_x \rho^{-1}_y = \phi(x) \phi(y) \phi^{-1}(x) \phi^{-1}(y) $.
+As we had demonstrated earlier, we know that $ \phi^{-1} (x) = \phi(x^{-1}) $ and $ \phi^{-1} (y) = \phi(y^{-1}) $.
+There, we put this all together to yield:
+\[
+\rho_x \rho_y \rho^{-1}_x \rho^{-1}_y = \phi(x) \phi(y) \phi(x^{-1}) \phi(y^{-1})
+\]
+By using our nifty homomorphism, we know that $ \phi(x) \phi(y) \phi(x^{-1}) \phi(y^{-1}) = \phi \left(xyx^{-1}y^{-1} \right) $.
+By definition, $ xyx^{-1}y^{-1} \in N $.
+To make the implication of this statement clear, let us label our arbitrary elements $ n' = \rho_x \rho_y \rho^{-1}_x \rho^{-1}_y \in N' $ and $ n = xyx^{-1}y^{-1} \in N $.
+What we have shown is that
+\begin{equation}
+    \label{eqn:homo-commutator-backwards}
+\forall n' \in N, \, \exists n \in N : n' = \phi(n)
+\end{equation}
+
+To formally conclude, by Equation~\ref{eqn:homo-commutator-forward-short} and Equation~\ref{eqn:homo-commutator-backwards}, we see that $ \phi(N) = N' $.
+\QED{}
+
+\subsection{Part ii}
+\label{subs:8Partii}
+
+We know that the commutator subgroup trivially contains the identity by definition.
+Next, let us consider different combinations of $ i $, $ j $, $ k $, and their inverses in the form of the commutator ($ xyx^{-1}y^{-1} $).
+First, note that by the identity $ i^2 = j^2 = k^2 = (-1) $, that cubing these elements yield their inverses, and cubing their inverses yields the elements back.
+In addition, we see that $ {(-1)}^2 = 1 $.
+Although we will not reproduce the tedious computations here, we used our fact about the inverses and through the rigorous application of the multiplication rules, we found:
+\begin{enumerate}
+    \item Two elements, each in $ \{i, j, k, i^{-1}, j^{-1}, k^{-1} \} $ yield $ (-1) $
+    \item One element from $ \{i, j, k, i^{-1}, j^{-1}, k^{-1} \} $ and $ (-1) $ yield $ 1 $
+    \item $ (-1) $ with $ (-1) $ also yield $ (1) $
+    \item One element from $ \{i, j, k, i^{-1}, j^{-1}, k^{-1} \} $ and $ 1 $ yields $ 1 $ (trivially)
+    \item $ (-1) $ with $ 1 $ yields $ 1 $ (trivially)
+    \item $ 1 $ with $ 1 $ yields $ 1 $ (trivially)
+\end{enumerate}
+
+Thus (by ``perfect induction'') we see that the commutator subgroup is $ \{1, -1\} $ for the quaternion group $ \mathbb{Q}_8 $.
+\\ \\
+n.b.\ we could use the fact that $ (-1) $ commutes with everything: then we could show, for any non-identity elements $ x, y $ who are also not $ -1 $, that $ xyx^{-1}y^{-1} = xy(-1)x(-1)y = 1{(xy)}^2 = (-1) $.
+
+\QED{}
+
+\subsection{Part iii}
+\label{subs:8Partiii}
+
+Denote $ H $ to be the subgroup of two $ 2 $-cycles in $ A_4 $, i.e.\ the three elements in the form $ (ab)(cd) $ along with the identity.
+We know that $ H $ is normal in $ A_4 $.
+Let us then consider the quotient group $ K = A_4 / H $.
+This group $ K $ is abelian (this follows from the fact that elements of $ H $ are of order $ 2 $ and are composed of disjoint cycles).
+By the given facts in this question, we know that our commutator subgroup must be contained in this subgroup.
+Since the commutator subgroup has to be a subgroup of $ H $ and normal, we know that it is either the entire subgroup $ H $ or just the trivial subgroup.
+\\ \\
+Take arbitrary element $ x \in H $.
+We know $ x^{-1} \in H $.
+Since $ H $ is normal, we know for $ y \in A_4 $ that $ yx^{-1}y^{-1} $ in $ H $.
+Moreover, we know that this subgroup is closed by definition, so $ x\left(yx^{-1}y^{-1} \right) \in H $.
+Since a trivial element must either come from $ H $ or of the $ 3 $-cycles, we can see that \textit{all} commutators must are in $ H $.
+Now, note that the commutator is not always trivial, as this would imply that the group $ A_4 $ is Abelian, which it is not.
+In the previous section of the proof, we concluded the fact we established before that the commutator subgroup has to be either all of $ H $ or the trivial subgroup.
+Since we have \textit{at least one} non-trivial commutator, we know that the commutator subgroup cannot be the trivial subgroup.
+It must thus be $ H $, which is the group of two $ 2 $-cycles:
+\[
+H = \{1, (12)(34), (13)(24), (14)(23) \}
+\]
+\QED{}
+
+\subsection{Part iv}
+\label{subs:8Partiv}
+
+Consider the sign function $ \sigma $.
+We know it is a surjective group homomorphism on $ S_4 $.
+In particular, it splits $ S_4 $ into permutations with an odd number of transposition and permutations with an even number of transposition (see Lecture 5, Slides 5--6).
+In particular, $ \sigma $ maps to the group $ G = \{1, -1\} $ with the group operator as multiplication.
+We know that this group is Abelian: $ (1)(1) = 1 = (1)(1) $, $ (1)(-1) = (-1) = (-1)(1) $, $ (-1)(-1) = 1 = (-1)(-1) $ and so it must have trivial commutator subgroup.
+\\ \\
+We will now invoke Part i: we need to find $ N \in S_4 $ such that $ \sigma(N) = \{1\} $.
+By construction of the sign function, we know that $ A_4 $ is the subgroup that maps to $ 1 $.
+Therefore, $ A_4 $ is the commutator subgroup in $ S_4 $.
+\QED{}
+
+\subsection{Part v}
+\label{subs:8Partv}
+
+Let us use the fact we proved in Part i.
+Note that we have a surjective group homomorphism between $ 2T $ and $ A_4 \cong T $.
+From Slide 5 of Lecture 10, we know that $ \phi : SU_2 \to SO_3 $ is a surjective group homomorphism.
+From Part iii, we know that $ T $ has as its commutator subgroup the $ 180 $-degree rotations (i.e.\ two $ 2 $-cycles in $ A_4 $).
+It seems like this fact alone motivated Part i, and thus we can simply find all elements of $ 2T $ that map to the $ 180 $-degree rotations in $ T $.
+By Theorem 10.4, we know that there is a 1-to-1 (bijective) correspondence between subgroups of $ SU_2 $ closed under negation and subgroups of $ SO_3 $.
+Denote $ H $ before as the group of two $ 2 $-cycles.
+We see that in the pre-image of $ \phi $ that the commutator of $ 2T $ must be $ (1)H $ and $ (-1)H $.
+\\ \\
+What are these quaternions?
+Position a tetrahedron as that it has one edge that coincides with the $ x $-axis and that it is ``centered'' so that the $ xy $-plane is a plane of symmetry.
+We can now geometrically elucidate what $ 6 $ of our quaternions would look like, split into $ 3 $ groups:
+\begin{enumerate}
+    \item The $ 180 $ rotation around the $ z $-axis: $ (0, 0, 0, 1), (0, 0, 0, 1) $
+    \item The $ 180 $ rotation around the axis that hovers over the $ y $-axis, makes a $ 60 $-degree angle from the $ z $-axis, and has no $ x $ part: $ (0, 0, \frac{\sqrt{3}}{2}, \frac{1}{2}), (0, 0, -\frac{\sqrt{3}}{2}, -\frac{1}{2}) $
+    \item The $ 180 $ rotation around the axis that hovers over the $ y $-axis, makes a $ -30 $-degree angle from the $ z $-axis, and has no $ x $ part: $ (0, 0, -\frac{1}{2}, \frac{\sqrt{3}}{2}), (0, 0, \frac{1}{2}, -\frac{\sqrt{3}}{2}) $
+\end{enumerate}
+
+Taking these $ 8 $ quaternions along with the identity $ 1 $ and special $ -1 $ quaternion, we have a subgroup that contains $ 8 $ elements (i.e.\ of order $ 8 $).
+We can accept, then, this subgroup as our commutator subgroup of $ 2T $.
+\QED{}
+
+\section{}
+\label{sec:Question9}
+
+This statement is false.
+We will provide a counterexample using the dihedral group $ G = D_4 $.
+Using Question 6 of Homework 2, let us inspect our lattice.
+Take the subgroup $ K = \langle z \rangle $ and $ H = \langle z, y^2 \rangle $.
+We see that $ K $ is normal in $ H $ (this follows quickly from the identity $ zy^2 = y^2 z $).
+In addition, note that $ H $ is normal in $ G $.
+However, $ K $ is certainly not normal in $ G $.
+\\ \\
+Let us formally conclude by saying that $ K \trianglelefteq H, \, H \trianglelefteq G \centernot\implies K \trianglelefteq G $.
+\QED{}
+
+
+\section{}
+\label{sec:Question10}
+
+Proof for this question rely heavily on material in Problem Set 5 and Lecture 7, and thus we will not reproduce proofs of results that were found there.
+In short, any facts proved in that homework of lecture are taken for granted and we will not necessarily cite individual facts from them.
+\\ \\
+Let us begin by noting overall that:
+To show that $ G $ is a group, we have to show that
+\begin{enumerate}
+    \item the operator is associative
+    \item that the operator permits an inverse
+    \item that the group is closed (we can use the term ``closed'' because we are essentially showing that this group is in fact a subgroup of the Heisenberg-Weyl Group)
+\end{enumerate}
+We know that matrix multiplication is associative.
+Thus, the group operator (i.e.\ matrix multiplication) is associative.
+\\ \\
+Note that on Slide 9 of Lecture 7, we know that:
+\[
+D(a, aP)D(b, bP) = {(-1)}^{b{(aP)}^T} D(a + b, aP + bP)
+\]
+Thanks to the properties of vector addition, we know that for $ c = a + b $ that $ aP + bP = (a + b)P = cP $ holds in $ \mathbb{F}_2^m $.
+Also, denote $ \delta = {(-1)}^{b{(aP)}^T} $.
+Rewriting:
+\[
+D(a, aP)D(b, bP) = {(-1)}^{\delta} D(c, cP)
+\]
+Since we allow any $ \pm D(x, xP) $, we know that we can safely ignore the sign since both $ D(c, cP) $ and $ -D(c, cP) $ are included.
+This shows closure.
+\\ \\
+To find an inverse for an element, simply generate $ u $ such that $ a + u = 0 $ (where $ 0 $ is the $ 0 $ vector).
+Since $ x^0 = z^0 = I_2 $ and $ m $ Kronecker products of $ I_2 $ will produce $ I_{2m} $, we know that $ c = 0 $ will always yield the identity (cf.\ Homework 5).
+We also the following rules about applying addition in $ F_2^m $:
+\begin{align}
+    0 + 0 &= 1 + 1 &= 0 \\
+    1 + 0 &= 0 + 1 &= 1
+\end{align}
+Therefore, we find that $ a $ can help us generate its own inverse!
+This becomes more obvious since $ a + a = 2a = 0 $.
+In addition, we also know that $ 0P = 0 $.
+Computing:
+\[
+D(a, aP) D(a, aP) = {(-1)}^{\delta_a} D(0, 0) = {(-1)}^{\delta} I_2
+\]
+However, we know that $ \delta_a = a{(aP)}^T $, and thus we know that we will always yield an even power (namely, $ 0 $).
+Thus, we know that $ D(a, aP) $ is its own inverse.
+\\ \\
+We have proven that our group operator is associative, that we have well-defined inverses, and that our (sub)set is closed.
+There we have a true (sub)group!
+\QED{}
+\\ \\
+Moving on, let us prove the fact about symmetry.
+We could use the standard proof technique to prove both directions, but instead we are going to do both simultaneously using some logical equivalences.
+\\ \\
+First, note that by our identity, we know that:
+\begin{align}
+    D(a, aP)D(b, bP) &= {(-1)}^{b{(aP)}^T} D(a + b, aP + bP) \\
+    D(b, bP)D(a, aP) &= {(-1)}^{a{(bP)}^T} D(b + a, bP + aP)
+\end{align}
+The Abelian condition is expressed as $ D(a, aP) = D(b, bP) $; therefore, we write formally:
+\begin{equation}
+    \label{eqn:10-logical-identity}
+    D(a, aP)D(b, bP) = D(b, bP) D(a, aP) \iff {(-1)}^{b{(aP)}^T} D(a + b, aP + bP) = {(-1)}^{a{(bP)}^T} D(b + a, bP + aP)
+\end{equation}
+However, note that $ (a + b) = (b + a) $.
+Now, note that $ aP + bP = (a + b)P $ and $ bP + aP = (b + a)P $; thus $ aP + bP = (a + b)P = (b + a)P = bP + aP $.
+Putting these two facts together, we see that:
+\[
+D(a + b, aP + bP) = D(b + a, bP + aP)
+\]
+By substitution, we rewrite Equation~\ref{eqn:10-logical-identity} as:
+\[
+D(a, aP)D(b, bP) = D(b, bP) D(a, aP) \iff {(-1)}^{b{(aP)}^T} D(a + b, aP + bP) = {(-1)}^{a{(bP)}^T} D(a + b, aP + bP)
+\]
+By the reflexive property (namely $ D(a + b, aP + bP) = D(a + b, aP + bP) $), we can further reduce this to:
+\[
+D(a, aP)D(b, bP) = D(b, bP) D(a, aP) \iff {(-1)}^{b{(aP)}^T} = {(-1)}^{a{(bP)}^T}
+\]
+If we call $ \delta_a = b{(aP)}^T $ and $ \delta_b = a{(bP)}^T $, we can see that:
+\[
+{(-1)}^{\delta_a} = {(-1)}^{\delta_b} \iff \delta_a = \delta_b
+\]
+Therefore, we will further distill out logical equality in Equation~\ref{eqn:10-logical-identity} to:
+\[
+D(a, aP)D(b, bP) = D(b, bP) D(a, aP) \iff \delta_a = \delta_b
+\]
+Now, let us delve into our linear algebra knowledge to see the structure of $ \delta_a = b{(aP)}^T = bP^T a^T $ and $ \delta_b = a{(bP)}^T = aP^T b^T $.
+In particular, we will write out the explicit sums for each of those terms.
+\begin{align}
+    \delta_a &= \sum_{i, j} b_i p_{ij} a_j \\
+    \delta_b &= \sum_{i, j} a_i p_{ij} b_j
+\end{align}
+where $ p_{ij} $ follows normal indexing over the matrix $ P $.
+Since $ a $ and $ b $ are vectors and both $ i $ and $ j $ iterate to $ m $, we know that $ a_i = a_j $ and $ b_i = b_j $ when $ i = j $.
+Therefore, we can switch the indexing on $ a $ and $ b $ as long as we switch the appropriate indexing on the $ p $ elements
+Namely:
+\begin{align}
+    \delta_a &= \sum_{i, j} b_i p_{ij} a_j \\
+    \delta_b &= \sum_{i, j} a_j p_{ji} b_i
+\end{align}
+Thus, we know that $ \delta_a = \delta_b \iff \sum_{i, j} b_i p_{ij} a_j = \sum_{i, j} a_j p_{ij} b_i $.
+If we look at each term in the sum, we need to show that for all $ i $ and $ j $ that:
+\[
+b_i p_{ij} a_j = a_j p_{ij} b_i
+\]
+Now, since the real numbers are commutative, we can rewrite both sides to be:
+\[
+b_i a_j p_{ij} = b_i a_j p_{ji}
+\]
+For this to hold for all $ a $ and $ b $, we can immediately see the fact arise:
+\[
+b_i a_j p_{ij} = b_i a_j p_{ji} \iff p_{ij} = p_{ji}
+\]
+Note that the condition $ p_{ij} = p_{ji} $ is, by definition, the condition that $ P $ be symmetric.
+Therefore, we can express $ p_{ij} = p_{ji} $ equivalently as $ P = P^T $.
+If we ``roll this back up'' our chain of logical equivalences, we can now say that:
+\[
+\delta_a = \delta_b \iff P = P^T
+\]
+Again, plugging this into Equation~\ref{eqn:10-logical-identity}, we result in:
+\[
+D(a, aP)D(b, bP) = D(b, bP) D(a, aP) \iff P = P^T
+\]
+which we can express in words as:
+$ X_P $ is abelian if and only if $ P $ is symmetric.
+\QED{}
+
+\end{document}
