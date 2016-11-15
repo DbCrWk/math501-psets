@@ -1,0 +1,408 @@
+\documentclass[letterpaper]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{nth}
+
+% Comment the following lines to use the default Computer Modern font
+% instead of the Palatino font provided by the mathpazo package.
+% Remove the 'osf' bit if you don't like the old style figures.
+\usepackage[T1]{fontenc}
+\usepackage[sc,osf]{mathpazo}
+
+\newcommand*{\QED}{\hfill\ensuremath{\square}}%
+
+\makeatletter
+\renewcommand{\@seccntformat}[1]{%
+  \ifcsname prefix@#1\endcsname
+    \csname prefix@#1\endcsname
+  \else
+    \csname the#1\endcsname\quad
+  \fi}
+% define \prefix@section
+\newcommand\prefix@section{Question \thesection}
+\makeatother
+
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\lcm}{lcm}
+
+% Set your name here
+\def\name{Problem Set 6}
+
+
+\geometry{
+  body={6.5in, 8.5in},
+  left=1.0in,
+  top=1.25in
+}
+
+% Customize page headers
+\pagestyle{myheadings}
+\markright{\name}
+\thispagestyle{empty}
+
+% Custom section fonts
+\usepackage{sectsty}
+\sectionfont{\rmfamily\mdseries\Large}
+\subsectionfont{\rmfamily\mdseries\itshape\large}
+
+% Other possible font commands include:
+% \ttfamily for teletype,
+% \sffamily for sans serif,
+% \bfseries for bold,
+% \scshape for small caps,
+% \normalsize, \large, \Large, \LARGE sizes.
+
+% Don't indent paragraphs.
+\setlength\parindent{0em}
+
+\begin{document}
+
+{\huge \name}
+
+% Alternatively, print name centered and bold:
+%\centerline{\huge \bf \name}
+
+\vspace{0.25in}
+
+Dev Dabke \\
+MATH 501: Introduction to Algebraic Structures I \\
+October 14, 2016 \\
+Prof.\ Calderbank \\
+
+\section{}
+\label{sec:Question1}
+
+This question was solved using an origami model of a cube and some fiddling around.
+Parts i, ii, iii each describe the overall gist of the conjugacy class and then list off the quaternions necessary for the operation.
+Note that a quaternion in the form
+\[
+q = q_0 + q_1 i + q_2 j + q_3 k
+\]
+performs a rotation about $ (q_1, q_2, q_3) $ in $ \mathbb{R}^3 $ by angle $ 2 \theta : q_0 = \cos{\theta} $.
+Moreover, if we use pure unit quaternions (i.e.\ the first term is $ 0 $), we can perform reflections of $ x = (x_1, x_2, x_3) $ across the plane through the origin that is perpendicular to $ q' = (q_1, q_2, q_3) $ with the map $ x \mapsto q'xq' $.
+This is all taken for granted from the Supplemental Notes on Quaternions.
+\\ \\
+The quaternion pairs are listed as $ q $, $ q^{-1} $, to be able to form the map $ \rho : x \mapsto qxq^{-1} $ where $ x $ is the quaternion that represents a 3D coordinate.
+This is a rotation.
+
+\subsection{Part i}
+\label{subs:1Parti}
+
+These are $ 180 $ degree rotations about a coordinate axis.
+
+\begin{itemize}
+    \item $ (12)(34) $: $ (0, -1, 0, 0) $, $ (0, 1, 0, 0) $ (x-axis)
+    \item $ (13)(24) $: $ (0, 0, 0, 1) $, $ (0, 0, 0, -1) $ (z-axis)
+    \item $ (14)(23) $: $ (0, 0, -1, 0) $, $ (0, 0, 1, 0) $ (y-axis)
+\end{itemize}
+
+
+\subsection{Part ii}
+\label{subs:1Partii}
+
+These are $ 120 $ degree rotations about one of the diagonals.
+Since each diagonal is characterized by two vertices, the permutations come in pairs, with each vertex acting as an axis of rotation.
+Since the two vertices are in opposite directions, each pair of permutations contains a clockwise rotation and the corresponding counter-clockwise rotation.
+
+\begin{itemize}
+    \item $ (123) $: $ \frac{1}{2} (1, 1, -1, 1) $, $ \frac{1}{2} (1, -1, 1, -1) $
+
+    \item $ (132) $: $ \frac{1}{2} (1, -1, 1, -1) $, $ \frac{1}{2} (1, 1, -1, 1) $
+
+    \item $ (124) $: $ \frac{1}{2} (1, -1, -1, 1) $, $ \frac{1}{2} (1, 1, 1, -1) $
+
+    \item $ (142) $: $ \frac{1}{2} (1, 1, 1, -1) $, $ \frac{1}{2} (1, -1, -1, 1) $
+
+    \item $ (134) $: $ \frac{1}{2} (1, -1, 1, 1) $, $ \frac{1}{2} (1, 1, -1, -1) $
+
+    \item $ (143) $: $ \frac{1}{2} (1, 1, -1, -1) $, $ \frac{1}{2} (1, -1, 1, 1) $
+
+    \item $ (234) $: $ \frac{1}{2} (1, 1, 1, 1) $, $ \frac{1}{2} (1, -1, -1, -1) $
+
+    \item $ (243) $: $ \frac{1}{2} (1, -1, -1, -1) $, $ \frac{1}{2} (1, 1, 1, 1) $
+\end{itemize}
+
+
+
+\subsection{Part iii}
+\label{subs:1Partiii}
+
+These are $ 90 $ degree rotations around the coordinate axes.
+
+\begin{itemize}
+    \item $ (1234) $: $ \frac{1}{\sqrt{2}} (1, 0, 0, 1) $, $ \frac{1}{\sqrt{2}} (1, 0, 0, -1) $
+    \item $ (1432) $: $ \frac{1}{\sqrt{2}} (1, 0, 0, -1) $, $ \frac{1}{\sqrt{2}} (1, 0, 0, 1) $
+
+    \item $ (1324) $: $ \frac{1}{\sqrt{2}} (1, 1, 0, 0) $, $ \frac{1}{\sqrt{2}} (1, -1, 0, 0) $
+    \item $ (1423) $: $ \frac{1}{\sqrt{2}} (1, -1, 0, 0) $, $ \frac{1}{\sqrt{2}} (1, 1, 0, 0) $
+
+    \item $ (1243) $: $ \frac{1}{\sqrt{2}} (1, 0, 1, 0) $, $ \frac{1}{\sqrt{2}} (1, 0, -1, 0) $
+    \item $ (1342) $: $ \frac{1}{\sqrt{2}} (1, 0, -1, 0) $, $ \frac{1}{\sqrt{2}} (1, 0, 1, 0) $
+\end{itemize}
+
+
+
+\subsection{Part iv}
+\label{subs:1Partiv}
+
+First, note that $ q_1 = (1 + k) / \sqrt{2} $ corresponds to $ \frac{1}{\sqrt{2}} (1, 0, 0, 1) $ and $ q_2 = (i + j) / \sqrt{2} $ corresponds to $ \frac{1}{\sqrt{2}} (0, 1, 1, 0) $.
+The first quaternion represents $ 90 $ degree (clockwise) rotations about the z-axis.
+The second quaternion represents reflections across the z-axis, or as $ 180 $ degree rotations about the axis $ (1, 1, 0) $.
+In particular, note that the order of $ q_1 $ and $ q_2 $ is $ 4 $ and $ 2 $ respectively.
+Beautifully, we see that $ q_1 q_2 = j $, $ q_1 q_1 = k $, $ q_2 q_1 = i $, and $ q_2 q_2 = -1 $.
+In fact, this group $ H $ is the quaternion group.
+At any rate, let us interpret the quotient group $ H / \langle -1 \rangle $ geometrically.
+\\ \\
+Since we see that $ q_2 q_2 $ is the same as rotating by $ 180 $ degrees twice or reflecting twice, what we essentially looking at is an identity operation up to orientation.
+Basically, the quotient group that we have here is the ``same'' as the group itself.
+Therefore, the geometry remains the same: it is any rotation that can be performed by $ 90 $ degree rotations of the cube around the z-axis, or $ 180 $ degree rotations about the $ (1, 1, 0) $ axis (i.e.\ flipping the cube upside down), to which the z-axis is orthogonal.
+
+\subsection{Part v}
+\label{subs:1Partv}
+
+To understand what is happening here, we will tease out the geometry of the permutations.
+Without loss of generality, we will assign vertices $ 0 $ and $ 6 $ as the vertices in diagonal $ 1 $; vertices in $ 1 $ and $ 7 $ in diagonal $ 2 $; vertices in $ 2 $ and $ 4 $ in diagonal $ 3 $; and vertices $ 3 $ and $ 5 $ in diagonal $ 4 $.
+Now, we can plainly see that $ (0264) $ exchanges diagonals $ 1 $ and $ 3 $, while $ (1375) $ exchanges diagonals $ 2 $ and $ 4 $.
+In sum $ (0264)(1375) $ together exchange diagonals that are across from each other.
+\\ \\
+Next, we turn to $ (421) $ and $ (635) $, which are a bit harder to see.
+(To confess, my origami cube model and sketches proved essential.)
+In short, $ (421) $ permutes the adjacent diagonals $ 2 $ and $ 3 $.
+Basically, we can see this by virtue of the fact that $ (421) $ does not touch vertex $ 7 $, which is the other vertex involved in this pair of diagonals.
+Essentially, the other three vertices move around, which simply exchanges these two adjacent diagonals.
+By symmetry, we see that $ (635) $ permutes the adjacent diagonals $ 1 $ and $ 4 $.
+\\ \\
+Because we can exchange diagonals that are across from each other and diagonals that are adjacent to each other, we can exchange any two diagonals.
+(We can use the ``across'' diagonal exchanges to move diagonal $ 1 $ next to diagonal $ 2 $ using the $ 1 $ and $ 3 $ exchange.
+Then, we can use the $ 2 $ and $ 3 $ ``adjacent'' diagonal exchange to now exchange diagonals $ 1 $ and $ 2 $.
+Similarly, diagonals can be ``moved into place'' even if we did not start with every possible exchange pairing.)
+Therefore, we can generate all of $ S_4 $, since we know permutations of the diagonals are isomorphic to $ S_4 $.
+We can also see this result more algebraically.
+For example, using the (confusingly) similar notation for permuting diagonals, we know we can perform $ (23) $ and $ (14) $.
+In addition, we can do $ (13) $ and $ (24) $.
+If we apply $ (13)(23) $, we see that it is equivalent to $ (12) $.
+If we apply $ (14)(13)(12) $, we have generated $ (1234) $.
+\\ \\
+By Question 3 on Homework 3, we know that the symmetric group $ S_4 $ is generated by $ (1234) $ and $ (12) $.
+Since we have demonstrated that $ (0264)(1375) $ and $ (421)(635) $ can create $ (1234) $ and $ (12) $, we know that $ (0264)(1375) $ and $ (421)(635) $ can in fact generate $ S_4 $.
+\QED{}
+
+\section{}
+\label{sec:Question2}
+
+The tetrahedra are quite simple to find.
+Pick an arbitrary face $ F $ of the cube and label a vertex $ 1 $.
+Label the remaining vertices clockwise in order as $ 2 $, $ 3 $, and $ 4 $.
+Now, following the diagram in Question~\ref{sec:Question1}, find the points $ 1' $, $ 2' $, $ 3' $, and $ 4' $ that correspond to the vertices across the diagonal from $ 1 $, $ 2 $, $ 3 $, and $ 4 $ respectively.
+The two tetrahedra are characterized by vertices $ 1, 3, 2', 4' $ and $ 2, 4, 1', 3' $.
+How do we verify this fact?
+Notice that every pair of points are opposite each other across a face, i.e. $ 1 $ and $ 3 $ are clearly opposite each other and $ 2' $ and $ 4' $ are clearly opposite each other (by our definition).
+However, if we check $ 1 $ with $ 2' $ and $ 4' $ and $ 3 $ with $ 2' $ and $ 4' $, they are indeed across a face diagonal.
+Since no three points are co-linear, we know that any three points define an equilateral triangle.
+Since all four equilateral triangles are similar, we have constructed a tetrahedron.
+For the vertices $ 2, 4, 1', 3' $, by the symmetries of the cube, we know that we have also found another tetrahedron.
+Thus, we have found two tetrahedra.
+\\ \\
+Now, let us find the relationship between the rotational symmetries $ g $ of the unit cube and the tetrahedra.
+Let us pick one of the tetrahedra $ T_1 $ defined by $ 1, 3, 2', 4' $.
+Notice that all four points lie on one of the four diagonals; in addition, none of the points lie on the same diagonal.
+Again, we defer to Question~\ref{sec:Question1}:
+since permuting the diagonals (Symmetric group $ S_4 $) is isomorphic to the octahedral group (i.e.\ the rotational symmetries of the cube), we can simply consider the permutations of the diagonals to understand the rotational symmetries of the cube.
+Now, since we only have two tetrahedra, we immediately see that we only have two possible permutations: $ \pi_1 $, which is the identity that leaves the tetrahedra be; and $ \pi_2 $, which swaps them.
+Note that for rotations, elements that are diagonally across from each other, must stay diagonally across from each other.
+Since each tetrahedra involves four points on the four distinct diagonals, we know that the ``integrity'' of the tetrahedra must be maintained.
+We either are permuting the points of one tetrahedron among each other; or we are swapping all of the points of one tetrahedron for the points of another.
+Because the four points are on different diagonals, it is impossible to just ``exchange'' one arbitrary point of one tetrahedron for another.
+The point ``carries'' with it the point on the same diagonal.
+Another way of expressing this idea is that rotations preserve length; therefore all rotations of the cube must have tetrahedra.
+And, since, geometrically, we are rotating a cube by $ 90 $ degrees in some direction, we know that the vertices of the tetrahedra are fixed.
+Therefore, all rotations must either swap the tetrahedra, or keep them in place.
+That is to say, the permutations of the diagonals map to the permutations of the tetrahedra.
+\\ \\
+Let us take a look at some permutations.
+If we perform $ (13)(2)(4) $, we see that we have rotated the cube by $ 90 $ degrees.
+This swaps ($ \pi_2 $) the tetrahedra.
+The trivial (identity) permutation $ (1)(2)(3)(4) $ obviously must keep the tetrahedra in place ($ \pi_1 $).
+Therefore, we know that we have at least one permutation of the diagonals that keeps the tetrahedra in place; and at least one permutation of the diagonals that swap the tetrahedra.
+Thus, we know that every rotational symmetry of the unit cube induces a permutation of the two tetrahedra, since we already knew that the permutations of the diagonals map to the permutations of the tetrahedra.
+\\ \\
+Next, let us prove that the map $ \pi : g \mapsto \pi_g $ is a homomorphism.
+Using our notation from before, we see that $ \pi_2 \pi_2 = \pi^2 = \pi_1 $.
+That is to say: swapping the tetrahedra twice is equivalent to keeping them in place.
+Now, take two rotational symmetries $ g_1 $ and $ g_2 $.
+There are four cases to consider:
+\begin{align}
+    \pi(g_1) \pi(g_2) &= \pi_1 \pi_1 &= \pi_1 \\
+    \pi(g_1) \pi(g_2) &= \pi_1 \pi_2 &= \pi_2 \\
+    \pi(g_1) \pi(g_2) &= \pi_2 \pi_1 &= \pi_2 \\
+    \pi(g_1) \pi(g_2) &= \pi_2 \pi_2 &= \pi_1
+\end{align}
+
+Explaining this geometrically, we see that if we perform the first rotation, it either swaps the tetrahedra, or it does not.
+The second rotation either swaps the tetrahedra or it does not.
+If the first one does not, and then the second one does not, then the tetrahedra are overall not swapped.
+If we apply our map, we see that we do not swap the tetrahedra and then we do not swap them again; therefore, the tetrahedra remain unswapped.
+If the first rotation swaps the tetrahedra and the second rotation also does; then we result is unswapped tetrahedra.
+If we apply our map, we swap the tetrahedra, we swap them again, and we yield unswapped tetrahedra.
+If one rotation swaps the tetrahedra and the other does not, we yield swapped tetrahedra.
+Applying our map, if we swap the tetrahedra and then leave them unswapped, or if we leave them unswapped and then swap them, we have indeed swapped them overall.
+Thus this map is a homomorphism.
+\\ \\
+Finally, we can see that even permutations do not swap the tetrahedra, whereas odd permutations do.
+This geometrically corresponds to making one $ 90 $-degree rotation of the cube and seeing that it swaps the tetrahedra; if we perform any two $ 90 $-degree rotations, we swap twice and end up with unswapped tetrahedra.
+Since all rotations can be composed of other rotations, we find that odd swaps end up in swapped tetrahedra overall and even swaps end up in unswapped tetrahedra.
+Thus, we the kernel of this map is the alternating group, i.e. $ \ker{\pi} = A_4 $.
+\QED{}
+
+\section{}
+\label{sec:Question3}
+
+To begin, let us introduce a fact: the alternating group $ A_4 $ is isomorphic to the tetrahedral group $ T $.
+From Question~\ref{sec:Question2}, we know that the kernel is $ A_4 $ for the map $ \phi $ the takes permutations of the diagonal to permutations of the tetrahedra as defined above.
+$ A_4 $ corresponds to not swapping the tetrahedra.
+Therefore, what we can do is show that not swapping the tetrahedra is equivalent to preserving the coloring scheme as described in the problem.
+By showing that fact, we will show that preserving the color scheme corresponds to $ \ker{\phi} $, which in turn is isomorphic to the tetrahedral group.
+Since $ \phi $ itself operated on permutations of the diagonals of the cube, which is in turn equivalent to the octahedral group $ O $, the group that we find will indeed be a well-defined subgroup of $ O $.
+In other words, we will show that rotations in $ O $ that preserve coloring defines a subgroup of $ O $ that is isomorphic to $ A_4 $.
+This subgroup is, by our introduced fact, $ T $.
+\\ \\
+Take the eight vertices of the cube.
+Note that there is a one-to-one correspondence (a bijection) between the faces of the cube and the vertices of the octahedron.
+This is a very special property in that these shapes are \textit{dual} to each other.
+We can immediately see that there is a similar one-to-one correspondence (another bijection) between the faces of the octahedron and the vertices of the square.
+Therefore, instead of considering colored faces of the octahedron, let us consider colored vertices of the cube.
+Since the vertices of the cube and the faces of the octahedron are in bijective correspondence, showing that the alternating group preserves coloring across the vertices of the cube is enough.
+\\ \\
+Now, we see that adjacent vertices have different colors by assumption from the problem statement (i.e.\ since adjacent faces of the octahedron are oppositely colored, so too are the adjacent vertices of the cube by their bijective correspondence).
+It directly follows from this coloring pattern that vertices that live on a diagonal across a face have the same color.
+We can see this, without loss of generality, by picking any face $ F $ and a vertex $ 1 $.
+Label the remaining vertices starting from $ 1 $ in a clockwise direction.
+Since $ 2 $ is adjacent to $ 1 $, it must be oppositely colored.
+Since $ 3 $ is adjacent to $ 2 $, it must be oppositely colored from $ 2 $, which means it is colored the same way as $ 1 $.
+Since $ 4 $ is adjacent to $ 1 $ as well, it must be oppositely colored.
+Therefore, $ 2 $ and $ 4 $ have the same coloring.
+Therefore, vertices that lie opposite each other across a face (i.e.\ are connected by a face diagonal) are colored the same way.
+\\ \\
+There is an interesting pattern to note here.
+The tetrahedra that we worked with in Question~\ref{sec:Question2} indeed had the property where all of the vertices were opposite each other across a face diagonal.
+Thus, if we go back to our two tetrahedra, we see that one tetrahedron contains all of the black vertices while the other contains the white vertices.
+Therefore, if we apply some rotation in the octahedral group $ O $ that swaps the tetrahedra, we also invert the coloring.
+If we apply a rotation in the octahedral group $ O $ that leaves the tetrahedra unswapped, we preserve coloring.
+Thus, we want all rotations in the octahedral group that leave the tetrahedra unswapped.
+\\ \\
+Again, from Question~\ref{sec:Question2}, we showed that the rotations that leave the tetrahedra unswapped correspond to the kernel of $ \pi $.
+By what we just showed, the rotations that leave the tetrahedra unswapped are those that preserve the coloring scheme.
+We proved that this is $ A_4 $.
+Importantly, we also had showed that the other rotations in $ O $ invert the coloring scheme.
+\\ \\
+To formally conclude, let us summarize.
+We have shown that the rotations in the octahedral group that preserve coloring correspond to $ A_4 $.
+Since the Tetrahedral group $ T $ is a subgroup of the Octahedral group $ O $ and is isomorphic to $ A_4 $, and all other rotations of $ O $ invert the color scheme, we can conclude that the subgroup of the octahedral group $ O $ that preserves the coloring of faces is indeed the tetrahedral group $ T $.
+\QED{}
+
+\section{}
+\label{sec:Question4}
+First, let us find the Sylow 7-subgroups of $ G $.
+Note that $ 168 = 7^{1} \times 24 $.
+Thus, $ |G| = p^e \times m $ where $ |G| = 168 $, $ p = 7 $, $ e = 1 $, and $ m = 24 $.
+Now, we can use Theorem 11.3, which guarantees us that:
+\begin{align}
+    n_p &| m \\
+    n_p &\equiv 1 \mod{p}
+\end{align}
+where $ n_p $ is the number of Sylow $ p $-subgroups for group $ G $.
+Thus, for $ p = 7 $, by the first condition, we know that $ n_7 | 24 $.
+This means that $ n_7 \in \{1, 3, 2, 6, 4, 12, 8, 24\} $.
+However, let us take this collection modulo $ 7 $:
+\begin{equation}
+    \label{eqn:q4-n7-mod-7}
+    (1, 3, 2, 6, 4, 12, 8, 24) \equiv (1, 3, 2, 6, 4, 5, 1, 3) \mod{7}
+\end{equation}
+Since we know that $ n_7 \equiv 1 \mod{7} $, we see that $ n_7 $ is either $ 1 $ or $ 8 $ by Equation~\ref{eqn:q4-n7-mod-7}.
+\\ \\
+We will show that $ n_7 \neq 1 $ by contradiction.
+First, assume that $ n_7 = 1 $.
+By Theorem 11.4, we know that if $ n_7 = 1 $ then we have only one Sylow 7-subgroup of $ G $; in addition, that particular subgroup also must be normal in $ G $.
+Designate this particular subgroup to be $ H $.
+We know that $ |H| = 7 $ by the definition of Sylow $ p $-subgroups.
+Since $ |H| = 7 $, we know that it cannot be simply the trivial subgroup with just the identity, and we also know that it cannot be $ G $, since $ |G| = 168 $ by assumption.
+However, the additional condition that $ G $ be simple implies there are no normal subgroups of $ G $ besides the trivial subgroup and $ G $ itself.
+But, if $ n_7 = 1 $, then $ H $ is normal in $ G $, and since $ H $ is neither trivial nor $ G $, we have a contradiction.
+Thus $ n_7 \neq 1 $.
+\\ \\
+Since there were only two options for $ n_7 $ and we have shown $ n_7 \neq 1 $, we know that $ n_7 = 8 $.
+We know how many subgroups we have of order $ 7 $, but how does this inform of us of the number of \textit{elements} of order $ 7 $?
+To find the number of elements of order $ 7 $, we need to introduce a fact: subgroups of prime power order are cyclic.
+Let us see the consequences of that statement:
+\\ \\
+First, let us consider the generator $ \langle x \rangle $ of a cyclic subgroup $ C : |C| = 7 $.
+By definition, we know that $ |x| = 7 $.
+We also know that there are only $ 7 $ elements of $ C $, including the identity.
+Although we know that the order of $ x $ is $ 7 $, what about the arbitrary multiples of $ x $?
+First, note that $ x^j = x^{(j \mod{7})} $ where $ j > 7 $ (this follows directly from the fact that $ x^7 = 1 $).
+Therefore, we know that we can just look at arbitrary multiples of $ x^i : i < 7 $.
+Where $ i = 0 $, this implies the identity element.
+So, for $ 0 < i < 7 $, let us see what happens when we find the element's order:
+\\ \\
+First, note that, again, because we have a cyclic subgroup, where $ m > 0 $:
+\[
+{(x^i)}^m = x^{im} = x^{(im \mod{7})}
+\]
+Let us denote $ \alpha = im \mod{7} $, where $ 0 \leq \alpha < 7 $.
+We are trying to find the smallest $ m : \alpha = 0 $, since this will mean that $ {(x^i)}^m = 1 $.
+However, since $ 7 $ is prime and $ 0 < i < 7 $, the smallest such $ m $ for which $ \alpha = 0 $ is in fact $ 7 $.
+Thus, we can conclude that every element of $ C $ has order $ 7 $ except for the identity itself.
+\\ \\
+Now, we can say that for every Sylow $ 7 $-subgroup, we have $ 6 $ elements with order $ 7 $.
+In addition, we know that these Sylow $ 7 $-subgroups must also be \textit{distinct}.
+If an element were in one subgroup $ H $ and in another subgroup $ S $, because each has to be cyclic and they both have the same order ($ |H| = |S| = 7 $), they would actually have to be the same subgroup.
+Since we have eight Sylow $ 7 $-subgroups, we know that we have \textit{at least} $ 8 \times 6 = 48 $ elements of order $ 7 $.
+\\ \\
+How do we know that we do not have elements of order $ 7 $ that is not in one of these subgroups?
+Well, by applying the Sylow theorem again!
+Since $ 24 = 2^3 \times 3 $, we know that, since $ 2 $ and $ 3 $ are prime, that all other elements are contained in cyclic subgroups of order $ 2 $ and $ 3 $ respectively.
+Therefore, we know that there can be no other elements of order $ 7 $ that are not contained in the Sylow $ 7 $-subgropus of $ G $.
+\\ \\
+We can now formally conclude by saying that there are $ 48 $ elements of order $ 7 $ in a simple group $ G : |G| = 168 $.
+\QED{}
+
+\section{}
+\label{sec:Question5}
+
+Since $ H $ is normal and is a Sylow $ 17 $-subgroup, we know that it must be cyclic (since $ 17 $ is prime).
+Let us now investigate the other Sylow $ p $-subgroups.
+We know that $ 3825 = 17 \times 3^2 \times 5^2 $.
+Therefore, we can find the Sylow $ 3 $-subgroup, denoted $ P_3 $, and Sylow $ 5 $-subgroup, denote $ P_5 $.
+Both of these subgroups are also cyclic.
+In addition, we will introduce a nice fact: the automorphism group of a cyclic group of prime order $ p $ has order $ p - 1 $, and the automorphism group is itself cyclic.
+Let us now conjugate elements of $ H $ to see what happens.
+\\ \\
+Since $ H $ is cyclic, we know that $ H = \langle x : x^{17} = 1 \rangle $.
+Consider $ y \in P_3 $.
+Since $ H $ is normal, we know that $ y x^i y^{-1} \in H $ for some positive integer $ i $ (i.e.\ we are considering $ x^i $, an arbitrary element of $ H $).
+Therefore, construct map $ \phi_y : x^i \mapsto y x^i y^{-1} $.
+$ \phi_y $ is an automorphism.
+We can refer to Slide 10 of Lecture 11 for this fact, but here is the reasoning as it is not fleshed out in detail in the slides:
+\\ \\
+$ \phi_y $, as we have shown, does map from $ H $ to $ H $, i.e.\ $ \phi_y : H \to H $.
+If $ \phi_y (x_0) = \phi_y(x_1) $, we know that $ y x_0 y^{-1} = y x_1 y^{-1} $.
+Multiplying $ y^{-1} $ on the left and $ y $ on the right, we see that $ x_0 = x_1 $.
+In addition, we can compute an explicit inverse, namely: $ \phi_y^{-1} = y^{-1} x y $.
+\\ \\
+Anyways, since $ \phi_y $ is an automorphism, by our fact of the automorphism group, we know that $ | \phi_y | $ must divide $ 16 $.
+However, note that $ \phi_y^3 = y^{3} x y^{-3} $.
+Since $ |y| = 3 $, we know that $ \phi_y^3 = x $.
+Therefore, the order of the $ \phi_y $ must also divide $ 3 $.
+Since $ \lcm{(3, 16)} = 1 $, we know that the order of $ \phi_y $ must in fact be $ 1 $ (since it is also at most $ 16 $).
+Thus, we know that this is in fact that identity map.
+Since $ y x y^{-1} = x $, we know that conjugation of $ y $ is trivial on $ H $, which means that elements of $ H $ commute with elements of $ P_3 $.
+\\ \\
+Now, by similar logic, we see that elements of $ H $ must also commute with elements of $ P_5 $ (by the fact that $ \lcm{(5, 16)} = 1 $ as well).
+Therefore, we know that $ H $ must commute with all elements of this group.
+By the definition of the center of a group, we know that $ H $ is in fact in the center of this group.
+\QED{}
+
+\end{document}
