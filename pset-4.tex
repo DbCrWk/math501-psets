@@ -1,0 +1,248 @@
+\documentclass[letterpaper]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{nth}
+
+% Comment the following lines to use the default Computer Modern font
+% instead of the Palatino font provided by the mathpazo package.
+% Remove the 'osf' bit if you don't like the old style figures.
+\usepackage[T1]{fontenc}
+\usepackage[sc,osf]{mathpazo}
+
+\newcommand*{\QED}{\hfill\ensuremath{\square}}%
+
+% Set your name here
+\def\name{Problem Set 4}
+
+
+\geometry{
+  body={6.5in, 8.5in},
+  left=1.0in,
+  top=1.25in
+}
+
+% Customize page headers
+\pagestyle{myheadings}
+\markright{\name}
+\thispagestyle{empty}
+
+% Custom section fonts
+\usepackage{sectsty}
+\sectionfont{\rmfamily\mdseries\Large}
+\subsectionfont{\rmfamily\mdseries\itshape\large}
+
+% Other possible font commands include:
+% \ttfamily for teletype,
+% \sffamily for sans serif,
+% \bfseries for bold,
+% \scshape for small caps,
+% \normalsize, \large, \Large, \LARGE sizes.
+
+% Don't indent paragraphs.
+\setlength\parindent{0em}
+
+\begin{document}
+
+{\huge \name}
+
+% Alternatively, print name centered and bold:
+%\centerline{\huge \bf \name}
+
+\vspace{0.25in}
+
+Dev Dabke \\
+MATH 501: Introduction to Algebraic Structures I \\
+September 27, 2016 \\
+Prof.\ Calderbank \\
+
+\section{Question 1}
+\label{sec:Question1}
+Without loss of generality, we will consider just the fundamental tiles centered at the origin.
+\\ \\
+To provide some intuition, we are trying to find, essentially, the areas of the different shapes produced in this method.
+First, we produce a hexagon that represents a Voronoi region for the generator matrix.
+We also produce a skewed rectangle (i.e.\ a parallelogram) that represents our transformation applied to the Voronoi region of a simple squre.
+In particular, we want to see, scaled to a origin-centered unit, how much of the parallelogram fits in the hexagon.
+\\ \\
+Note that in particular, the Voronoi region for the lattice produced by the standard basis vectors is a square.
+Any point whose $ x $ coordinate and $ y  $ coordinate less than $ 1/2 $ would be rounded to the origin.
+Therefore, we end up tracking $ (1/2, 1/2) $, $ (-1/2, 1/2) $, $ (1/2, -1/2) $, and $ (-1/2, -1/2) $ through this transformation.
+We see that we create a parallelogram between the points $ (3/4, \sqrt{3}/4) $, $ (1/4, -\sqrt{3}/4) $, $ (-1/4, \sqrt{3}/4) $, and $ (-3/4, -\sqrt{3}/4) $.
+\\ \\
+Now, the Voronoi region of the basis represented by the generator matrix is a hexagon with vertices at $ (\pm 1/4, \sqrt{3}/4) $, $ (\pm 1/2, 0) $, and $ (\pm 1/4, -\sqrt{3}/4) $.
+Thus, we see that geometrically, we leave out the two equilateral triangles that are part of the parallelogram and not part of the hexagon.
+These triangles represent possible values of $ (e_1, e_2) $ that give rise to an $ (m_1, m_2) $ that become an $ (l_1, l_2) $ that lie outside of the Voronoi region of fundamental tile of the generator matrix.
+In short, these points $ (x_1, x_2 $ will not produced $ (l_1, l_2) $ that are the closest in the lattice.
+\\ \\
+To perform the computation, see that the area of the hexagon is $ 6 $ triangles, whereas the area of the parallelogram is that plus $ 2 $ more triangles.
+Thus, the area of the parallelogram is $ 8 $ triangles.
+There is a $ \frac{6}{8} $ chance that our algorithm will work.
+\\ \\
+See attached proof without words for clarification and the bonus.
+\QED{}
+
+
+\section{Question 2}
+\label{sec:Question2}
+
+\subsection{Part i}
+\label{sub:2Parti}
+
+For are trying to prove that $ \Lambda $ is indeed a sublattice of $ \Lambda / 2 $.
+Fortunately, based on the statement of the question, we can take for granted that $ \Lambda / 2 $ is indeed a lattice.
+In addition, since $ \Lambda $ is also a lattice by assumption, we know that it already satisfies all of the requirements for its operators.
+Thus, we need only prove that $ \Lambda $ is a subset of $ \Lambda / 2 $.
+\\ \\
+We want to show that we have all elements of $ \Lambda $ in $ \Lambda / 2 $.
+This is quite easy to prove, since we can simply take every integer combination in $ \Lambda $ and multiply through by $ 2 $.
+This is trivially shown by
+$$ \sum_{i = 1}^{8} d_i v_i = \sum_{i = 1}^{8} 2 d_i \frac{1}{2} v_i = \sum_{i = 1}^{8} 2 d_i w_i $$
+To make this rigorously correct, we should point out that any integer multiplied by $ 2 $ is still an integer.
+This fact follows from the the fact that the integers form a multiplicative group.
+Thus, we can conclude that $ \Lambda $ is a subset of $ \Lambda $.
+\\ \\
+First, let us produce $ M / 2 $, which is simply $ M $ with each entry divided by $ 2 $.
+Note that each new vector $ v_i / 2 $ is a scalar multiple of $ v_i $, i.e.\ it lies in its span.
+Because of this fact, we know that these new vectors must also be linearly independent.
+\\ \\
+Now, we will produce $ M / 2 $, which we can easily show is a valid generator matrix for $ \Lambda / 2 $.
+In essence, if we take a scalar multiple of a basis vector, we still have produced a valid basis vector.
+To prove this more rigorously, note that, since the $ v_i $s are linearly independent, $ \sum_{i = 1}^{8} c_i v_i = 0 \implies \forall i, \, c_i = 0 $.
+Now, let $ w_i = \frac{1}{2} v_i $ be the new vectors of $ M / 2 $.
+$ \sum_{i = 1}^{8} c_i w_i = 0 \iff \sum_{i = 1}^{8} c_i \frac{1}{2} v_i = 0 \implies \frac{1}{2} \sum_{i = 1}^{8} c_i v_i = 0 \implies \sum_{i = 1}^{8} c_i v_i = 0 $.
+Since $ \sum_{i = 1}^{8} c_i w_i = 0 \implies \sum_{i = 1}^{8} c_i v_i = 0 $ and $ \sum_{i = 1}^{8} c_i v_i = 0 \implies c_i = 0 $, we know that $ \sum_{i = 1}^{8} c_i w_i = 0 \implies c_i = 0 $.
+\\ \\
+Thus, now that we have a generator matrix for each lattice, we can compute their fundamental volumes.
+To compute easily, we note that the determinant of an upper triangular matrix is the product of its diagonals.
+Furthermore, the determinant is a linear operation, and so $ \det{(A A^T)} = \det{(A)} \det{(A^T)} $.
+This math we can do in our head, and so we get that the fundamental volume of $ \Lambda $ using $ M $ is $ 2^8 $ and the fundamental volume of $ \Lambda / 2 $ using $ M / 2 $ is $ 1 $.
+(n.b.\ this is even nicer since the transpose of an upper triangular matrix is lower triangular. The determinant of a lower triangular matrix is also its diagonal, which remains the same under transposition of a square matrix. Furthermore, we are only dealing with powers of two, which is quite easy to operate on.)
+\\ \\
+Finally, we can easily see the index (which by definition is the ratio of the fundamental volumes) is $ 2^8 $.
+\QED{}
+
+\subsection{Part ii}
+\label{sub:2Partii}
+
+Note that a particular $ z \in \Lambda $ can be written as a linear combination of the $ v_i $s.
+The inner product of $ z $ with itself (i.e.\ $ (z, z) $) gives us the $ ||z||^2 $ that we looking for, in that $ (z, z) = ||z||^2 $.
+Since the inner product is the sum of the pairwise products of all of the terms of $ z $, we obtain a formula as follows:
+$$ (z, z) = \sum_{i, j} \lambda_i \lambda_j (v_i, v_j) $$
+Now, for every pair $ (i, j) $, we add both $ \lambda_i \lambda_j (v_i, v_j) $ and $ \lambda_j \lambda_i (v_j, v_i) $.
+Since $ (v_i, v_j) = (v_j, v_i) $ and $ \lambda_i \lambda_j = \lambda_j \lambda_i $, we know that $ \lambda_i \lambda_j (v_i, v_j) = \lambda_j \lambda_i (v_j, v_i) $.
+Therefore, we are adding $ 2 \lambda_i \lambda_j (v_i, v_j) $.
+\\ \\
+Now, we will consider two cases:
+for $ i \neq j $, we know that $ (v_i, v_j) \equiv 0 \mod{4} $.
+A number that is $ 0 \mod{4} $ must either be $ 0 \mod{8} $ or $ 4 \mod{8} $.
+However, since $ 2 $ is trivially $ 2 \mod{8} $, we see that $ (0)(2) = 0 \mod{8} $ and $ (4)(2) = 0 \mod{8} $.
+Therefore, $ 2 (v_i, v_j) \equiv 0 \mod{8} $.
+\\ \\
+Next, let us consider the case $ i = j $.
+In this case, we simply look to the matrix and notice that $ (v_i, v_i) \equiv 8 \mod{8} $ by a brute force computation.
+\\ \\
+At this point, we have shown that $ 2 (v_i, v_j) \equiv 0 \mod{8} $ for any $ i $ or $ j $, regardless of whether or not they are the same.
+Now, by the associativity of multiplication of integers, note that $ 2 \lambda_i \lambda_j (v_i, v_j) = \lambda_i \lambda_j 2 (v_i, v_j) $.
+Since $ 2 (v_i, v_j) \equiv 0 \mod{8} $, we see that $ \lambda_i \lambda_j 2 (v_i, v_j) \equiv \lambda_i \lambda_j (0) \mod{8} $.
+This directly implies that $ 2 \lambda_i \lambda_j (v_i, v_j) \equiv \lambda_i \lambda_j (0) \mod{8} $.
+Since this is a residue class, any integer multiple of $ 0 \mod{8} $ is still $ 0 \mod{8} $.
+Therefore, $ \lambda_i \lambda_j (0) \equiv 0 \mod{8} $.
+Since for every term in the summation $ \lambda_i \lambda_j (v_i, v_j) $ we also add $ \lambda_j \lambda_i (v_j, v_i) $ which means we are in fact adding $ 2 \lambda_i \lambda_j (v_i, v_j) $.
+Since $ 2 \lambda_i \lambda_j (v_i, v_j) \equiv 0 \mod{8} $, we see that we can transform our summation of the $ \lambda_i \lambda_j (v_i, v_j) $ terms into a summation of elements that are $ 0 \mod{8} $.
+\\ \\
+Returning back to our original few facts, we have shown that $ ||z^2|| $ is the sum of elements who are $ 0 \mod{8} $.
+Since an additive residue class has as its identity $ 0 $, the sum of all of these values also has to be $ 0 $.
+We can formally conclude that $ z \in \Lambda \implies ||z||^2 \equiv 0 \mod{8} $.
+\QED{}
+
+\subsection{Part iii}
+\label{sub:2Partiii}
+
+We see that $ 8 $ must divide into $ ||z||^2 $ by the previous part.
+Take any element $ z \in \Lambda $ and take its counterpart in $ \Lambda / 2 $, i.e.\ $ \frac{z}{2} $.
+We see that $ ||\frac{z}{2}||^2 = \frac{1}{4} ||z||^2 $.
+Thus, we see that $ 2 $ must divide $ ||\frac{z}{2}||^2 = d^2 (\Lambda / 2) $.
+Therefore, the minimum squared distance, by definition the smallest squared distance greater than $ 0 $, must be $ 2 $, since $ 2 $ is the smallest integer that $ 2 $ divides that is not $ 0 $.
+\QED{}
+
+\section{Question 3}
+\label{sec:Question3}
+
+\subsection{Part i}
+\label{sub:3Parti}
+
+Figure attached.
+Note that for $ \Lambda $, we have generator matrix $ M = \begin{bmatrix} 1 & 0 \\ 0 & \sqrt{5} i \end{bmatrix} $.
+$ V(\Lambda) = \sqrt{5} $.
+Now, if multiply $ (1 + \sqrt{5} i) $ against a generic number in the form $ (a + \sqrt{5} i b) $, we yield:
+$$ (1 + \sqrt{5} i)(a + \sqrt{5} i b) = a + \sqrt{5} i a + \sqrt{5} i b - 5b = (a - 5b) + (a + b) \sqrt{5} i $$
+Thus for $ (1 + \sqrt{5} i)\Lambda $ we have generator matrix $ N = \begin{bmatrix} 1 & -5 \\ \sqrt{5} i & \sqrt{5} i \end{bmatrix} $.
+Computing with some computational help: $ V((1 + \sqrt{5} i)\Lambda) = 6 \sqrt{5} $.
+As a sanity check, note that $ (1 + \sqrt{5} i) (1 - \sqrt{5} i) = 6 $, so satisfyingly, we see that $ (1 + \sqrt{5} i) (1 - \sqrt{5} i) V(\Lambda) = V((1 + \sqrt{5} i)\Lambda) $.
+This sanity check essentially describes the quadratic relationship between a scaled rotation in $ \mathbb{R}^2 $ and the fundamental volume (i.e.\ area in this case).
+\QED{}
+
+\subsection{Part ii}
+\label{sub:3Partii}
+
+Geometrically, we multiplying by $ (1 + \sqrt{5} i) $ is a scaled rotation.
+In particular, we are scaling by
+\[
+\left\lVert (1, \sqrt{5}) \right\rVert = \sqrt{6}
+\]
+and rotating by
+\[
+\theta = \tan^{-1}{\left(\frac{\sqrt{5}}{1}\right)}
+\]
+
+In general, multiplying by $ (a + b \sqrt{5} i) $ is a scaled rotation, with scaling:
+\[
+\left\lVert (a, b \sqrt{5}) \right\rVert = \sqrt{a^2 + 5 b^2}
+\]
+and rotating by
+\[
+\theta = \tan^{-1}{\left(\frac{b \sqrt{5}}{a}\right)}
+\]
+We can see this intuition from either the Pythagorean identities, which essentially treats each component of the basis vector as one leg of a triangle.
+We can also convince ourselves through Euler's identity.
+Essentially, the magnitude of the vector represents the \textit{scale} factor, or how much we are stretching or shrinking the basis.
+The ratio of the terms of the vector represents how much we are rotating the basis.
+\QED{}
+
+\subsection{Part iii}
+\label{sub:3Partiii}
+
+See attached.
+
+\subsection{Part iv}
+\label{sub:3Partiv}
+
+Without loss of generality, note that:
+\[
+(a + b\sqrt{5} i) \Lambda = (c + d\sqrt{5} i) \Lambda'
+\]
+can be rewritten as
+\[
+\left[(a + b\sqrt{5} i) - (c + d\sqrt{5} i) \right] \Lambda = \Lambda'
+\]
+which can be further reduced to
+\[
+\left[(a - c) + (b - d) \sqrt{5} i \right] \Lambda = \Lambda'
+\]
+Since $ a $, $ b $, $ c $, and $ d $ were picked as generic integers, and indeed can be added, subtracted, and multiplied to make other integers, we can allow $ k = a - c $ and $ l = b - d $ without loss of generality.
+Thus, we seek:
+\[
+(k + l \sqrt{5} i) \Lambda = \Lambda'
+\]
+In essence, we are trying to find a scaled rotation that transforms $ \Lambda $ into $ \Lambda' $.
+This is not possible.
+The basis vectors $ (1, 0) $ and $ (0, \sqrt{5}) $ cannot be transformed into the basis vectors $ (2, 0) $ and $ (1, \sqrt{5}) $ with integer coefficients.
+Perhaps even more persuasively is our drawing.
+We see that $ \Lambda $ has as a fundamental tile a rectangle, whereas we have a hexagon for the fundamental tile of $ \Lambda' $.
+There is simply no way to transform one into the other with a simple scaled rotation.
+\QED{}
+
+\end{document}
