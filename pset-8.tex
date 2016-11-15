@@ -1,0 +1,496 @@
+\documentclass[letterpaper]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{nth}
+
+% Comment the following lines to use the default Computer Modern font
+% instead of the Palatino font provided by the mathpazo package.
+% Remove the 'osf' bit if you don't like the old style figures.
+\usepackage[T1]{fontenc}
+\usepackage[sc,osf]{mathpazo}
+
+\newcommand*{\QED}{\hfill\ensuremath{\square}}%
+
+\makeatletter
+\renewcommand{\@seccntformat}[1]{%
+  \ifcsname prefix@#1\endcsname
+    \csname prefix@#1\endcsname
+  \else
+    \csname the#1\endcsname\quad
+  \fi}
+% define \prefix@section
+\newcommand\prefix@section{Question \thesection}
+\makeatother
+
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\tr}{Tr}
+
+% Set your name here
+\def\name{Problem Set 8}
+
+
+\geometry{
+  body={6.5in, 8.5in},
+  left=1.0in,
+  top=1.25in
+}
+
+% Customize page headers
+\pagestyle{myheadings}
+\markright{\name}
+\thispagestyle{empty}
+
+% Custom section fonts
+\usepackage{sectsty}
+\sectionfont{\rmfamily\mdseries\Large}
+\subsectionfont{\rmfamily\mdseries\itshape\large}
+
+% Other possible font commands include:
+% \ttfamily for teletype,
+% \sffamily for sans serif,
+% \bfseries for bold,
+% \scshape for small caps,
+% \normalsize, \large, \Large, \LARGE sizes.
+
+% Don't indent paragraphs.
+\setlength\parindent{0em}
+
+\begin{document}
+
+{\huge \name}
+
+% Alternatively, print name centered and bold:
+%\centerline{\huge \bf \name}
+
+\vspace{0.25in}
+
+Dev Dabke \\
+MATH 501: Introduction to Algebraic Structures I \\
+November 8, 2016 \\
+Prof.\ Calderbank \\
+
+\section{}
+\label{sec:Question1}
+
+\subsection{Part i}
+\label{subs:1Parti}
+
+First, let us make some mundane computations of the trace.
+We begin by explicitly computing the trace of $ 1 $ following the definition of a trace.
+\[
+\tr{(1)} = 1^{2^0} + 1^{2^1} + 1^{2^2} + 1^{2^3} + 1^{2^4} = 1 + 1 + 1 + 1 + 1 \equiv 1 \mod{2}
+\]
+Now, notice that $ \alpha(\alpha^5 + \alpha^3 + 1) = \alpha(0) = 0 $.
+Multiplying through yields $ \alpha^6 + \alpha^4 + \alpha = 0 $.
+Now, since the trace is linear, it immediately follows that:
+\[
+\tr{\left(\alpha^6 + \alpha^4 + \alpha \right)} = \tr{\left(\alpha^6 \right)} + \tr{\left(\alpha^4 \right)} + \tr{\left(\alpha^1 \right)} = \tr{(0)}
+\]
+We also know that $ \tr({\alpha}) = \tr({\alpha^2}) = \tr({\alpha^4}) = \tr({\alpha^8}) $.
+Substituting this identity into the equation that precedes it, we see that $ \tr{\left(\alpha^6 \right)} + 2 \tr{\left(\alpha^1 \right)} = \tr{\left(\alpha^6 \right)} = 0 $.
+We see also know that $ \tr{(\alpha^6)} = \tr{(\alpha^3)} $, so $ \tr{(\alpha^3)} = 0 $.
+\\ \\
+Next, we take our polynomial and multiply through by $ \alpha^3 $ and take the trace in a similar fashion.
+This yield $ \tr{(\alpha^8)} = 0 $, which from before, we know implies that $ \tr{(\alpha^4)} = \tr{(\alpha^2)} = \tr{(\alpha)} = 0 $.
+\\ \\
+Why did we do all of this work?
+Well, from our problem statement, we see that:
+\[
+\tr{(z)} = \tr{(z_0 \alpha^0)} + \tr{(z_1 \alpha^1)} + \tr{(z_2 \alpha^2)} + \tr{(z_3 \alpha^3)} + \tr{(z_4 \alpha^4)}
+\]
+We invoke the linearity of the trace to see that:
+\[
+\tr{(z)} = \tr{(z_0)} \tr{(\alpha^0)} + \tr{(z_1)} \tr{(\alpha^1)} + \tr{(z_2)} \tr{(\alpha^2)} + \tr{(z_3)} \tr{(\alpha^3)} + \tr{(z_4)} \tr{(\alpha^4)}
+\]
+Pleasantly, we can substitute in our values for the traces of the powers of $ \alpha $ and yield that $ \tr{(z)} = \tr{(z_0)} $.
+Thus, we know that $ \tr{(z)} = 0 \iff \tr{(z_0)} = 0 $.
+\QED{}
+
+\subsection{Part ii}
+\label{subs:1Partii}
+
+We are going to use some brute force arithmetic here to see our fact.
+First, let use the use the definition of Trace to expand $ \gamma \tr{(\theta)} + \theta \tr{(\gamma)} $.
+\[
+\gamma \tr{(\theta)} + \theta \tr{(\gamma)} = \gamma \theta + \gamma \theta^2 + \gamma \theta^4 + \gamma \theta^8 + \gamma \theta^{16} + \theta \gamma + \theta \gamma^2 + \theta \gamma^4 + \theta \gamma^8 + \theta \gamma^{16}
+\]
+Then, we compute that $ \beta^2 = \gamma^2 \theta^4 + (\gamma^2 + \gamma^4)\theta^8 + (\gamma^2 + \gamma^4 + \gamma^8) \theta^{16} + (\gamma^2 + \gamma^4 + \gamma^8 + \gamma^{16}) \theta $.
+Invoking the definition of $ \beta $, we can now explicitly compute $ \beta + \beta^2 $ (sorry):
+\[
+\beta + \beta^2 = \gamma \theta^2 + \gamma \theta^4 + 2 \gamma^2 \theta^4 + \gamma \theta^8 + 2 \gamma^2 \theta^8 + 2 \gamma^4 \theta^8 + \gamma \theta^{16} + 2 \gamma^2 \theta^{16} + 2 \gamma^4 \theta^{16} + 2 \gamma^8 \theta^{16} + \gamma^2 \theta + \gamma^4 \theta + \gamma^8 \theta + \gamma^{16} \theta
+\]
+Cancelling out all of the terms with coefficients $ 2 $ since $ 2 = 0 \mod{2} $, we yield
+\[
+\beta + \beta^2 = \gamma \theta^2 + \gamma \theta^4 + \gamma \theta^8 + \gamma \theta^{16} + \gamma^2 \theta + \gamma^4 \theta + \gamma^8 \theta + \gamma^{16} \theta
+\]
+Fortunately for us, we are in commutative land for both multiplication and addition with these field elements, so we can flip all of the $ \gamma $ and $ \theta $ terms as we please.
+Finally, note that $ 2 \gamma \theta = \gamma \theta + \theta \gamma = 0 \mod{2} $.
+If we add this ``special'' $ 0 $ to our above expression, we finally yield that:
+\[
+\beta + \beta^2 + 0 = \beta + \beta^2 = \gamma \theta + \gamma \theta^2 + \gamma \theta^4 + \gamma \theta^8 + \gamma \theta^{16} + \theta \gamma + \theta \gamma^2 + \theta \gamma^4 + \theta \gamma^8 + \theta \gamma^{16} = \gamma \tr{(\theta)} + \theta \tr{(\gamma)}
+\]
+as desired.
+\QED{}
+
+\subsection{Part iii}
+\label{subs:1Partiii}
+
+First, let us consider the scalars we can multiply by: $ 0 $ or $ 1 $.
+Therefore, for an arbitrary element $ \pi $ in our field, we can easily see that $ f(1\pi) = 1 f(\pi) $ and $ f(0\pi) = 0f(\pi) $.
+Next, take another element $ \rho $.
+Note that:
+\[
+f(\pi + \rho) = {(\pi + \rho)}^2 + {(\pi + \rho)}^8 = \pi^2 + 2\pi\rho + \rho^2 + \pi^8 + \cdots + \rho^8
+\]
+What exactly did we collapse when we wrote $ \cdots $?
+We know that it is $ 6 $ terms in the form of $ k \pi^i \rho^j $ for integers $ i $ and $ j $ where $ i + j = 8 $.
+We also know there is some coefficient $ k $.
+What are these coefficients?
+Well, we can appeal to Pascal's triangle to tell us!
+We can immediately see that (for a variety of reasons, namely that odd numbers plus even numbers are odd) all of the coefficients are event.
+Since any even number $ 2n $ has the property that $ 2n = 0 \mod{2} $, we can safely cross all of these terms out.
+We can also cross out the one $ 2 \pi\rho $ term for the same reason.
+Thus, we yield that:
+\[
+f(\pi + \rho) = \pi^2 + \rho^2 + \pi^8 + \rho^8 = (\pi^2 + \pi^8) + (\rho^2 + \rho^8) = f(\pi) + f(\rho)
+\]
+which follows from the associativity and commutativity of addition in the field.
+Thus, $ f $ is linear.
+\\ \\
+Let us now prove the second part of this question.
+By assumption $ \tr{(\gamma)} = 0 $.
+By definition of the trace, we have that:
+\[
+\tr{(\gamma)} = \gamma + \gamma^2 + \gamma^4 + \gamma^8 + \gamma^{16} = 0
+\]
+Next, note that $ {f(\gamma)}^2 + f(\gamma) = \gamma^4 + \gamma^{16} + \gamma^2 + \gamma^8 $.
+Intuitively, we can see that this looks very, very similar.
+Clearly, $ {f(\gamma)}^2 + f(\gamma) + \gamma = \tr{(\gamma)} = 0 $
+Since we are working $ \mod{2} $, we know that $ +\gamma = -\gamma $.
+Substituting, $ {f(\gamma)}^2 + f(\gamma) - \gamma = 0 \implies {f(\gamma)}^2 + f(\gamma) = \gamma $.
+\\ \\
+By a similar logic, let us compute $ {\left[f(\gamma) + 1 \right]}^2 + \left[f(\gamma) + 1 \right] + \gamma $.
+\[
+{\left[f(\gamma) + 1 \right]}^2 + \left[f(\gamma) + 1 \right] + \gamma = (1 + \gamma^2 + \gamma^8) + (\gamma^2 + \gamma^4 + \gamma^{10}) + (\gamma^8 + \gamma^{10} + \gamma^{16}) + (1 + \gamma^2 + \gamma^8) + \gamma
+\]
+By the associativity and commutative of addition, we can regroup all the terms; cross out terms with a coefficient of $ 2 $; and reduce coefficients of $ 3 $ to $ 1 $.
+\[
+{\left[f(\gamma) + 1 \right]}^2 + \left[f(\gamma) + 1 \right] + \gamma = \gamma + \gamma^2 + \gamma^4 + \gamma^8 + \gamma^{16}
+\]
+Again, we can see that $ {\left[f(\gamma) + 1 \right]}^2 + \left[f(\gamma) + 1 \right] + \gamma = \tr{(\gamma)} = 0 $.
+Again, since $ +\gamma = -\gamma $ in our field, it is clear that:
+\[
+{\left[f(\gamma) + 1 \right]}^2 + \left[f(\gamma) + 1 \right] = \gamma
+\]
+as desired.
+\QED{}
+
+\section{}
+\label{sec:Question2}
+
+We will first construct the generator matrix $ P $ for this code:\ it is made from the $ k $ vectors that act as a basis for $ C $.
+Now, we can investigate $ C^{\perp} $.
+Let us rewrite the definition of $ C^{\perp} $ in terms of our matrix $ C $:
+\[
+C^{\perp} = \{ x \in \mathbb{F}_2^N : Px = 0 \}
+\]
+where $ 0 $ is the zero vector.
+In particular, we see that $ C^{\perp} $ is the nullspace of $ P $.
+\\ \\
+Next, construct a map $ \phi : \mathbb{F}_2^N \to \mathbb{F}_2^k $.
+We let $ \phi $ represent the \textit{projection} of an arbitrary vector in $ \mathbb{F}_2^N $ to the row vectors of $ P $.
+More precisely, let $ \phi $ map an arbitrary vector in $ \mathbb{F}_2^N $ to the coordinates (with respect to the basis that is the row vectors of $ P $) of its projection.
+This is a fairly dense concept, so we will unpack it to show how it works.
+\\ \\
+First, take arbitrary vector $ x \in \mathbb{F}_2^N $.
+Now, we will project $ x $ onto $ C $ to generate some vector $ p $.
+By definition of a projection, we know that $ p \in C $.
+Now, take the row vectors of $ P $ that act as a basis of $ C $.
+Because these vectors form a basis for $ C $, we know that there is a unique linear combination of them that yield $ p $.
+More formally:
+\[
+\forall y \in C, \, \exists !c \in \mathbb{F}_2^N : Pc = y
+\]
+In particular, since $ p $ is in $ C $, we know we can find its unique \textit{coordinate} presentation $ c_p $.
+Finally, denote $ \rho : \mathbb{F}_2^N \to C $ to be the project of an arbitrary vector in $ \mathbb{F}_2^N $ onto $ C $.
+Putting this all together, we can rigorously define $ \phi $ for $ v \in \mathbb{F}_2^N $:
+\[
+\phi(v) = c_v : Pc_v = \rho_C(v)
+\]
+Since we know that a \textit{unique} projection exists for any given vector, that a projection of an arbitrary vector lands in $ C $, and that any vector in $ C $ has a unique coordinate representation, we know that this map is well-defined.
+\\ \\
+Now, note that $ \rho_C $ is a \textit{surjective} function.
+We can prove this quite simply by the fact that:
+\[
+\forall u \in C, \, \rho_C(u) = u
+\]
+by definition of a projection.
+Next, since the coordinate representation of a vector in $ C $ is unique, we know that there is a bijective correspondence between vectors in $ C $ and coordinates.
+Since $ \phi $ composes a surjective function with a bijective one, we know that $ \phi $ is surjective.
+Intuitively, this makes sense since $ \phi $ takes arbitrary vectors in $ \mathbb{F}_2^N $, maps them to their projections in $ C $, and then maps those projections to $ \mathbb{F}_2^k $.
+We could write this as:
+\[
+\phi : \mathbb{F}_2^N \to C \to \mathbb{F}_2^k
+\]
+where $ C $ is an ``intermediate'' space that connects $ \mathbb{F}_2^N $ to $ \mathbb{F}_2^k $.
+\\ \\
+Now, let us investigate the kernel of $ \phi $.
+Since $ C^{\perp} $ is the nullspace of $ P $, we know that $ \rho_C(C^{\perp}) = 0 $ by definition.
+The important bit is to realize that anything with $ 0 $ projection must be in $ C_{\perp} $ and everything in $ C^{\perp} $ has $ 0 $ projection.
+Since there is a bijective correspondence between vectors in $ C $ and their respective coordinates in $ \mathbb{F}_2^k $, we know that thus $ \ker{\phi} = C^{\perp} $.
+Since $ \phi $ is surjective and maps $ \mathbb{F}_2^N $ to $ \mathbb{F}_2^k $, we know that $ \dim{\ker{\phi}} = N - k $.
+Thus, $ \dim{C^{\perp}} = N - k $.
+\\ \\
+To conclude formally, we note that, by assumption, $ \dim{C} = k $.
+Thus:
+\[
+\dim{C} + \dim{C^{\perp}} = k + (N - k) = N
+\]
+\QED{}
+
+\section{}
+\label{sec:Question3}
+
+We genuflect to the supplementary notes, as they were quite helpful in answering this question.
+\\ \\
+First, note that at time $ t = 0 $, by construction, the $ i^{th} $ register contains the $ i^{th} $ bit of $ x $ (in dual coordinates).
+By the dual basis construction, we know that this equals $ \tr{\alpha^i x} $.
+It is evident, then, that this circuit can help us multiply through by $ \alpha $.
+In particular, at time $ t $, the content of register $ i $ represents the $ t^{th} $ component of of $ \alpha^{i} x $.
+\\ \\
+Now, look at our two output lines.
+The first represents the value of the register $ i = 5 $, i.e.
+ the value of $ \alpha^5 x $.
+The second represents the value of the register $ i = 4 $, i.e.
+ the value of $ \alpha^4 x $.
+They are connected by an xor gate, which is addition in the binary world.
+Therefore, at time $ t $, we can see that we have generated the $ t^{th} $ component of $ (\alpha^5 x) + (\alpha^4 x) $.
+Fortunately, the trace is linear.
+So, $ (\alpha^5 x) + (\alpha^4 x) = (\alpha^5 + \alpha^4)x $.
+Therefore, at time $ t $, we generate the $ t^{th} $ component of $ (\alpha^5 + \alpha^4)x $ as desired.
+\QED{}
+
+\section{}
+\label{sec:Question4}
+Again, the supplementary notes were quite helpful here.
+\\ \\
+First, note that $ y $ in primal coordinates is:
+\[
+y = \sum_{i = 0}^{5} y_i \alpha^{i}
+\]
+For a particular time $ t $, we know that at time $ t = 0 $, we see that the $ i^{th} $ register contains the $ t^{th} $ component of $ \alpha^i x $ (expressed in dual coordinates).
+Denote this register value as $ r_i(t) $.
+Thus, $ y_i \alpha^{i} \times r_j(t) = s_{ij}(t) $, where $ s_{ij}(t) $ this is the $ t^{th} $ component at time $ t $ of $ (x \times y)(\alpha_i \times \beta_j) $.
+However, by construction of the dual basis and primal basis wherein they yield $ 1 $ as the trace of their product only where $ i = j $, we see that taken over a full sum, we yield:
+\[
+\sum_{i = 0}^{5} y_i \alpha^{i} \times r_j(t) = {(x \times y)}_t
+\]
+where $ {(x \times y)}_t $ is the $ t^{th} $ component at time $ t $ of $ x \times y $ (expressed in a dual basis).
+\\ \\
+The top half the circuit implements the $ x $ part, as we showed in Question 3.
+The bottom half of the circuit implements $ y $ in a primal basis.
+The \textbf{and} gates are bitwise multiplication and the \textbf{xor} gates are bitwise addition.
+Thus, we see that this circuit implements the product we described above.
+\QED{}
+
+\section{}
+\label{sec:Question5}
+
+This question was like a Sudoku puzzle.
+By the balance rule; a restriction on the code weight; and the fact that we have a limited set of valid codewords, I pretty much just tried placing stars based on intuition until it worked.
+In particular, I broadly began by trying to find the parity of the codeword.
+Then, this forced where the $ 0 $s could be place, which generally points to a specific form for a codeword.
+At that point, it was pretty simply to determine what the codeword had to be; the form was clear and the factor that we multiplied it by was also obvious.
+It also helped that there is a lot of symmetry in these codewords to guide the intuition.
+\\ \\
+However, how do we know that these answers are correct?
+Fortuitously, solving for a codeword is tricky, but validating a codeword is actually quite simple.
+Each of the codewords begins with the initially placed starts.
+Each is balanced.
+Each has a weight of $ 8 $.
+And, each represents a valid codeword; since this is the least obvious criteria, the respective codeword is written below the grid.
+\\ \\
+Since the question simply asked us to find a valid codeword with these initial conditions, we just need to find a solution that meets these constraints.
+Incidentally, these solutions are unique, but the important bit is that we found solutions that meet the criteria.
+\QED{}
+
+\subsection{Part i}
+\label{subs:5Parti}
+
+\[
+\begin{array}{|c c|c c|c c|}
+\hline
+* &   & * &   &   &   \\
+  & * &   & * &   &   \\
+\hline
+* &   & * &   &   &   \\
+  & * &   & * &   &   \\
+\hline
+\end{array}
+\]
+\[
+(\omega \omega \, \omega \omega \, 0 0)
+\]
+
+\subsection{Part ii}
+\label{subs:5Partii}
+
+\[
+\begin{array}{|c c|c c|c c|}
+\hline
+* &   &   & * & * &   \\
+  &   & * & * &   &   \\
+\hline
+  &   &   &   &   &   \\
+  & * &   & * &   & * \\
+\hline
+\end{array}
+\]
+\[
+(0 \overline{\omega} \, 1 \omega \, 0 \overline{\omega})
+\]
+
+\subsection{Part iii}
+\label{subs:5Partiii}
+
+\[
+\begin{array}{|c c|c c|c c|}
+\hline
+  & * &   & * &   & * \\
+* &   & * &   &   & * \\
+\hline
+  &   &   &   & * & * \\
+  &   &   &   &   &   \\
+\hline
+\end{array}
+\]
+\[
+(1 0 \, 1 0 \, \omega \overline{\omega})
+\]
+
+\section{}
+\label{sec:Question6}
+
+The total number is $ 32 $.
+\\ \\
+First, note that the representation of these codewords has to be even since the first two columns has no stars (and $ 0 $ is even).
+Now, note that there only two families of codewords that we can find where one pair is the trivial pair:
+\begin{align}
+    &(00\,00\,00) \\
+    &(00\,11\,11)
+\end{align}
+These codewords each represent a family of codewords, where a family is generated by multiplying the ``base'' representation by a coefficient in $ \{0, 1, \omega, \overline{\omega} \} $.
+However, if we generically find a solution in $ (00\,aa\,a) $ where $ a \in \{0, 1, \omega, \overline{\omega} \} $, we can see that we actually only have one family, where the trivial case is a special case.
+\\ \\
+For each value of $ a $, there are exactly $ 4 $ ways a column can represent that value (I know, I was surprised, too, but this makes sense: there are $ 2^{4} $ ways stars can be arranged, but only $ 2^2 = 4 $ possible values, so our math checks out).
+However, we can only pick even representations.
+There are only two even representations $ L $ and $ R $ for each value of $ a $.
+Let us write these possible columns out ($ \_ $ means an empty entry):
+\begin{align}
+    0 &: \, (****), (\_\_\_\_) \\
+    1 &: \, (**\_\_), (\_\_**) \\
+    \omega &: \, (*\_*\_), (\_*\_*) \\
+    \overline{\omega} &: \, (*\_\_*), (\_**\_)
+\end{align}
+
+Next, note that one of these representations contains a $ * $ in the $ 0 $ position (the first row), while the other does not.
+Without loss of generality, call the representation with a $ * $ in the first row $ L $ and the other $ R $.
+To maintain parity, we can make a valid sequence with an even number of $ L $s and $ R $ columns.
+For example, $ LLLR $ is invalid while $ LLRR $ is.
+There are $ 2^3 = 8 $ ways to arrange these columns.
+Therefore, for each $ a $ we pick, there are $ 8 $ ways to generate a valid codeword.
+\\ \\
+Since we have $ 2^2 = 4 $ possible choices for $ a $, we see that we have $ 4 \times 8 = 32 $ total Golay codewords with a disjoint support.
+We can also see their format.
+\QED{}
+
+\section{}
+\label{sec:Question7}
+
+\subsection{Part i}
+\label{subs:7Parti}
+
+Let us focus on the columns that change.
+Consider an entry in the hexacode $ h_i $ that is represented by a column that permutes.
+We can write a generic expression:
+\[
+h_i = a(0) + b(1) + c(\omega) + d(\overline{\omega})
+\]
+where $ a, \, b, \, c, \, d \in \mathbb{F}_2 $
+Now, compute $ h_i' $ which represents our given permutation where we exchange the first two rows and then exchange the last two rows.
+By our generic expression, we see that:
+\[
+h_i' = b(0) + a(1) + d(\omega) + c(\overline{\omega})
+\]
+We further compute $ h_i - h_i' $ to yield:
+\[
+h_i - h_i' = (a - b)(0) + (b - a)(1) + (c - d)(\omega) + (d - c)(\overline{\omega})
+\]
+Since $ a, \, b, \, c, \, d $ are binary, we know that they commute over addition and multiplication, so we can factor our expression.
+In addition, since they are binary, we know that $ a - b = a + b $ and $ c - d = c + d $.
+Therefore, we rewrite our expression to:
+\[
+h_i - h_i' = (a + b)(0 + 1) + (c + d)(\omega + \overline{\omega})
+\]
+We also know that $ \omega + \overline{\omega} = 1 $, so we can handily substitute that in to get $ h_i - h_i' = a + b + c + d $.
+Let us now investigate why this helps us.
+\\ \\
+Since our coefficients are binary, we know that $ a + b + c + d $ will evaluate to $ 1 $ if there are an odd number of coefficients that are $ 1 $.
+This expression will evaluate to $ 0 $ if there are an even number of coefficients.
+Since $ h_i - h_i' = a + b + c + d $, we see that this expression measures the difference between a column before and after it is permuted.
+What we have demonstrated is that if our column begins with \textit{even} parity, our permutation is equivalent to adding $ 0 $.
+Beginning with a column of odd parity, our permutation is equivalent to adding $ 1 $.
+By the \textit{balance} property, we know that if we start with a representation of a valid hexacode, all of the columns have the same parity.
+Therefore, we are either add $ 1 $ to all of the columns that we permute or we are adding $ 0 $ to all of the columns that we permute.
+\\ \\
+Since the first two columns remain unchanged (i.e.\ we are adding $ 0 $ to them), we can see that this permutation represents either adding $ (00 \, 11 \, 11) $ or $ (00 \, 00 \, 00) $.
+Because $ (00 \, 11 \, 11) $ and $ (00 \, 00 \, 00) $ are valid codewords and since the Golay Code $ C_{24} $ is closed over addition, we know that adding a valid codeword to another valid codeword yields another codeword.
+Therefore, in particular, starting with a valid codeword $ c \in C_{24} $ and adding $ (00 \, 11 \, 11) $ or $ (00 \, 00 \, 00) $ will yield another valid codeword in $ C_{24} $.
+By the equivalence we have shown above of this permutation and adding either $ (00 \, 11 \, 11) $ or $ (00 \, 00 \, 00) $, we can formally conclude by saying that this permutation preserves the Golay Code $ C_{24} $.
+\QED{}
+
+\subsection{Part ii}
+\label{subs:7Partii}
+
+Note that the permutation affects all rows in the same way.
+Consider the form of an arbitrary row:
+\[
+r = (ab\,cd\,ef)
+\]
+We are creating $ r' $ after the permutation such that:
+\[
+r' = (dc\,ab\,ef)
+\]
+essentially treating the first vertical line as an axis of symmetry.
+\\ \\
+Note that we can imagine that we performing two transformations in sequence: first, we flip the first pair with the second pair.
+Then, we exchange the elements in each pair.
+Algebraically, the first transformation makes $ (cd\,ab\,ef) $ and then applying the next yields $ r' = (dc\,ab\,ef) $.
+We know that these two transformations preserve the Golay Code $ C_{24} $ by Lecture 16.
+Since we are performing two, code-preserving transformations, if we start with a valid codeword, we will end up with a valid codeword.
+\QED{}
+
+\subsection{Part iii}
+\label{subs:7Partiii}
+
+First, let us understand what this permutation does.
+We begin by investigating multiplication by $ \omega $.
+\\ \\
+Note that $ 0 \times \omega = 0 $.
+Next, $ 1 \times \omega = \omega $.
+Then, $ \omega \times \omega = \overline{\omega} $.
+Finally, $ \overline{\omega} \times \omega = 1 $.
+\\ \\
+Therefore, we see that for a particular column, a star ($ * $) is moved into the position it would take if we multiplied the value it represents by $ \omega $.
+Since each column is a linear combination of these elements, this permutation represents multiplying a column by $ \omega $.
+Our permutation is applied to every column, so in effect, we are multiplying every column by $ \omega $.
+\\ \\
+Since multiplying a valid codeword by $ \omega $ generates another valid codeword, we see that if we begin with a valid codeword and effect this permutation, we generate another valid codeword.
+Thus, this permutation preserves the Golay Code $ C_{24} $.
+\QED{}
+
+\end{document}
