@@ -1,0 +1,246 @@
+\documentclass[letterpaper]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{nth}
+
+% Comment the following lines to use the default Computer Modern font
+% instead of the Palatino font provided by the mathpazo package.
+% Remove the 'osf' bit if you don't like the old style figures.
+\usepackage[T1]{fontenc}
+\usepackage[sc,osf]{mathpazo}
+
+% Set your name here
+\def\name{Problem Set 1}
+
+
+\geometry{
+  body={6.5in, 8.5in},
+  left=1.0in,
+  top=1.25in
+}
+
+% Customize page headers
+\pagestyle{myheadings}
+\markright{\name}
+\thispagestyle{empty}
+
+% Custom section fonts
+\usepackage{sectsty}
+\sectionfont{\rmfamily\mdseries\Large}
+\subsectionfont{\rmfamily\mdseries\itshape\large}
+
+% Other possible font commands include:
+% \ttfamily for teletype,
+% \sffamily for sans serif,
+% \bfseries for bold,
+% \scshape for small caps,
+% \normalsize, \large, \Large, \LARGE sizes.
+
+% Don't indent paragraphs.
+\setlength\parindent{0em}
+
+\begin{document}
+
+{\huge \name}
+
+% Alternatively, print name centered and bold:
+%\centerline{\huge \bf \name}
+
+\vspace{0.25in}
+
+Dev Dabke \\
+MATH 501: Introduction to Algebraic Structures I \\
+September 6, 2016 \\
+Prof.\ Calderbank \\
+
+\section{Problem 1}
+\label{sec:Problem1}
+
+Using Euclid's algorithm, we see
+\begin{align}
+    1761 & = (1) 1567 & + 194 \\
+    1567 & = (8) 194 & + 15 \\
+    194 & = (12) 15 & + 14 \\
+    15 & = (1) 14 & + 1 \\
+    14 & = (14) 1 & + 0
+\end{align}
+
+Thus, the $ \gcd(1761, 1567) = 1 $ (this makes sense since $ 1567 $ is prime).
+Furthermore, if we ``bubble'' up the coefficients, we see that:
+$$ (-105) 1761 + (118) 1567 = 1 = \gcd(1761, 1567) $$
+
+\section{Problem 2}
+\label{sec:Problem2}
+
+We will prove this result by induction using the following hypothesis:
+$$ r_n = s_n a + t_n b $$
+
+First, to prove the base case $ n = 1 $, we see that $ s_1 = s_{-1} - q_1 s_0 = 1 - 0 = 1 $ and that $ t_1 = t_{-1} - q_1 t_{0} = 0 - q_1(1) = -q_1 $.
+Moreover, note that by definition of Euclid's algorithm (with some rearranging), $ r_1 = a - q_1 b = r_1 = s_1 a + t_1 b $.
+\\ \\
+Now, assuming that our inductive hypothesis holds, we move to calculate $ r_{n + 1} $. By Euclid's algorithm, we see that:
+$$ r_{n - 1} = q_n r_n + r_{n + 1} $$
+
+Substituting for $ r_{n - 1} $ and $ r_n $, we yield:
+$$ s_{n - 1} a + t_{n - 1}b = q_n (s_n a + t_n b) + r_{n + 1} $$
+
+Rearranging:
+$$ s_{n - 1}a + t_{n - 1}b - q_n s_n a - q_n t_n b = r_{n + 1} \implies (s_{n - 1} - q_n s_n)a + (t_{n - 1} - q_n t_n)b = r_{n + 1} $$
+
+By definition of $ s_{n + 1} $ and $ t_{n + 1} $, we see that we have proved our result:
+$$ s_{n + 1}a + t_{n + 1}b = r_{n } 1 $$
+
+Finally, since this holds for all $ n \geq 1 $, by definition of Euclid's algorithm, we know that $ r_{ j + 1} = 0 $ implies $ r_j = \gcd(a, b) $. Thus, for such $ r_j $, $ r_j = s_j a + t_j b = \gcd(a, b) $.
+
+\section{Problem 3}
+\label{sec:Problem3}
+
+We will also prove this result by induction with two hypotheses:
+$$ \gcd(F_n, F_{n - 1}) = 1 $$ and that $ F_n $ is odd.
+\\ \\
+To begin, we see that $ F_2 = 1 $. Thus, $ \gcd(F_2, F_1) = \gcd(1, 1) = 1 $, which satisfies our hypotheses.
+To prove that $ F_{n + 1} $ is odd, we quickly see that we are adding an odd number, $ F_n $, to an even number $ 2F_{n - 1} $.
+\\ \\
+Now that we have proven that $ F_n $ is always odd, we note that in this interesting, Fibonacci-esque sequence, it is evident by our inductive hypothesis $ \gcd(F_n, F_{n - 1}) = 1 $ that $ \gcd(F_n, 2F_{n - 1}) = 1 $ must also be true (i.e.\ $ 2 $ will never be a factor of $ F_n $).
+By the relation $ \gcd(a + b, b) = \gcd(a, b) $, $ \gcd(2F_{n - 1}, F_n) = \gcd(2F_{n - 1} + F_n, F_n) = 1 $.
+Substituting $ 2F_{n - 1} + F_n = F_n + 2F_{n - 1} = F_{n + 1} $, we arrive at our conclusion:
+$$ \gcd(F_{n + 1}, F_n) = 1 $$
+
+\section{Problem 4}
+\label{sec:Problem4}
+
+$$ 9^{1500} \equiv 01 \mod 100 $$
+
+We arrive at the above conclusion by using some rules of residue classes (n.b.\ this problem is always $ \mod 100 $).
+Precisely, note that $ 9^{5^{5^{5^{3^{2^2}}}}} = 9^{1500} $.
+As horrible as this looks, we actually have a very elegant result in that $ 9^5 \equiv 49 $ and $ 49^5 \equiv 01 $.
+Thus, $ 9^{5^{5^{5^{3^{2^2}}}}} \equiv 49^{5^{5^{3^{2^2}}}} \equiv 01^{5^{3^{2^2}}} \equiv 01 $.
+
+\section{Problem 5}
+\label{sec:Problem5}
+
+\subsection{Part i}
+\label{subs:Parti}
+
+This statement is false.
+\\ \\
+With the vector space $ \mathbb{R}^2 $ and vector addition $ + $ as our group operator, we note that we can define two subgroups $ S_0 = span\left(\begin{bmatrix} 1 \\ 0 \end{bmatrix}\right) $ and $ S_1 = span\left(\begin{bmatrix} 0 \\ 1 \end{bmatrix}\right) $.
+These subgroups inherit all of the properties of the group operator (e.g.\ associativity, well-defined inverses, etc.) and are closed under the group operator by definition of being spans of vectors.
+Note that $ \begin{bmatrix} 1 \\ 1 \end{bmatrix} $ is neither in $ S_0 $ nor in $ S_0 $, and thus must be excluded from $ S_0 \cup S_1 $. However, $ \begin{bmatrix} 1 \\ 0 \end{bmatrix} $ and $ \begin{bmatrix} 0 \\ 1 \end{bmatrix} $ are in this union (by virtue of being in their respective sets).
+Thus, this union is not closed under the group operator, since $ \begin{bmatrix} 1 \\ 0 \end{bmatrix} + \begin{bmatrix} 0 \\ 1 \end{bmatrix} = \begin{bmatrix} 1 \\ 1 \end{bmatrix} $.
+
+\subsection{Part ii}
+\label{subs:Partii}
+
+This statement is true.
+\\ \\
+Given subgroups $ S_0 $ and $ S_1 $, note that their intersection inherits all of the properties of a given group operator (e.g.\ associativity, well-defined inverses, etc.).
+The only question is: will the intersection be closed under this operator?
+Yes.
+Very briefly, we see that for $ a \in S_0 \cap S_1 $ and $ b \in S_0 \cap S_1 $, which implies $ a, b \in S_0, S_1 $.
+This implies that $ (a, b) \in S_0 $ (by definition of a subgroup) and $ (a, b) \in S_1 $ (symmetrically).
+Thus, $ (a, b) \in S_0 \cap S_1 $, demonstrating that the intersection of two subgroups is indeed a subgroup.
+
+\subsection{Part iii}
+\label{subs:Partiii}
+
+This statement is false.
+\\ \\
+For the cyclic group $ C_6 $ generated by $ \langle x | x^6 = 1 \rangle $, we see that $ xx^3 = x^4 $.
+$ |x^4| = 2 $, but $ |x| = 6 $ and $ |x^3| = 3 $, so $ lcm(6, 3) = 6 \neq 2 $.
+
+\subsection{Part iv}
+\label{subs:Partiv}
+
+This statement is false.
+\\ \\
+We will use the group of nonsingular 2-by-2 matrices with our group operator as matrix addition.
+Take $ A = \begin{bmatrix} 1 & 2 \\ 1 & 0 \end{bmatrix} $ with inverse $ A^{-1} = \frac{1}{2} \begin{bmatrix} 0 & 2 \\ 1 & -1 \end{bmatrix} $ and $ B = \begin{bmatrix} 1 & 3 \\ 1 & 0 \end{bmatrix} $ with inverse = $ B^{-1} = \frac{1}{3} \begin{bmatrix} 0 & 3 \\ 1 & -1 \end{bmatrix} $.
+$ {(AB)}^{-1} = \frac{1}{6} \begin{bmatrix} 3 & -3 \\ -1 & 3 \end{bmatrix} $ whereas $ A^{-1}B^{-1} = \frac{1}{6} \begin{bmatrix} 2 & -2 \\ -1 & 4 \end{bmatrix} $.
+
+\subsection{Part v}
+\label{subs:Partv}
+
+This statement is true.
+\\ \\
+The map $ \phi : A \mapsto {(A^T)}^{-1} $ preserves group structure, in that
+$$ \phi(AB) = \left[{(AB)}^T\right]^{-1} = {(B^T A^T)}^{-1} = A^{T^{-1}} B^{T^{-1}} = \phi(A) \phi(B) $$
+
+\section{Problem 6}
+\label{Problem6}
+
+Using Euclid's algorithm (work done on attached scratch paper, but only the results are reproduced here):
+
+\begin{align}
+    x^8 & = (x^2 + 1) (x^6 + x^4 + x^2 + x + 1) & + (x^3 + x + 1) \\
+    (x^6 + x^4 + x^2 + x + 1) & = (x^3 + 1) (x^3 + x + 1) & + x^2 \\
+    (x^3 + 1) & = (x) (x^2) & + (x + 1) \\
+    x^2 & = (x + 1) (x + 1) & + 1 \\
+    (x + 1) & = (1) (x + 1) & + 0
+\end{align}
+
+Thus, $ \gcd(x^8, x^6 + x^4 + x^2 + x + 1) = 1 $.
+\\ \\
+Furthermore:
+$$ s = (x^5 + x^4 + x^3 + x^2), t = x^7 + x^6 + x^3 + x + 1 $$
+where $ \gcd(a, b) = sa + tb $ and $ a = x^8, b = x^6 + x^4 + x^2 + x + 1 $.
+
+\section{Problem 7}
+\label{Problem7}
+
+\subsection{Part i}
+\label{Parti}
+This transformation is intuitively represented by $ zxz $ which reduces to $ -x $.
+
+\subsection{Part ii}
+\label{Partii}
+This transformation is intuitively represented by $ xzx $ which reduces to $ -z $.
+
+\subsection{Part iii}
+\label{Partiii}
+This transformation could be thought of as a counter-clockwise rotation of $ \frac{\pi}{4} $ and then a reflection across the x-axis.
+
+\subsection{Part iv}
+\label{Partiv}
+The elements in $ D_4 $ with their respective permutations are:
+
+\begin{align}
+1 & \; & (A_1)(A_2)(B_1)(B_2) \\
+y = xz & \; & (A_1 A_2)(B_1)(B_2) \\
+y^2 & \; & (A_1)(A_2)(B_1)(B_2) \\
+y^3 &\; & (A_1 A_2)(B_1B_2) \\
+z &\; & (A_1 A_2)(B_1B_2) \\
+yz &\; & (A_1 A_2)(B_1B_2) \\
+y^2 z & \; & (A_1)(A_2)(B_1B_2) \\
+y^3 z & \; & (A_1A_2)(B_1)(B_2)
+\end{align}
+
+\section{Problem 8}
+\label{Problem8}
+
+Note that every element can be expressed as either $ y^i $ or $ y^i z $ (see the textbook).
+For any element in the form $ y^i z $, we see that $ \left|y^i z\right|^2 = (y^i z)(y^i z) = y^i z y^i z $.
+Now by the second relation, we can ``move'' the right-most $ z $ into the middle.
+Thus $ \left|y^i z\right|^2 = y^i z z y^{-i} = y^i y^{-i} = 1 $.
+We can conclude that any element of the form $ y^i z $ has order $ 2 $.
+\\ \\
+Furthermore, by the given relation $ z $ has order $ 2 $.
+Similarly, since $ yz $ is in the form expressed above, it also has order $ 2 $.
+Thus, since $ z = z $ and $ yzz = y $, we can see that the original generators $ y, z $ can be transparently transformed into $ z $ (identity) and $ yz $.
+We can then conclude that $ D_N $ is generated by $ z, yz $.
+
+\section{Problem 9}
+\label{Problem9}
+
+For an arbitrary element in the form $ y^i $, note that it commutes with any other element in the form of $ y^j $, i.e. $ y^i y^j = y^j y^i $ by associativity.
+Now we will see what happens when we attempt to commute with terms in the form $ y^j z $.
+$ y^i y^j z = y^j z y^{-i} $ by associativity and the second relation.
+\\ \\
+Multiplying $ y^n = 1 $ on the right (which does not change the value), we get $ y^j z y^{-i} y^N = y^j z y^{2k - i} $ which only equals $ y^i y^j z $ if and only if $ k = i $.
+\\ \\
+Note that if you start with an element in the form $ y^i z $, then the proof still holds, since an even number of $ z $s will ``disappear'' (i.e.\ when against $ y^j z $) by the first relation and an odd number (i.e.\ when against $ y^j $) will produce the same result.
+
+\end{document}
