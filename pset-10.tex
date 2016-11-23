@@ -1,0 +1,221 @@
+\documentclass[letterpaper]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{nth}
+
+% Comment the following lines to use the default Computer Modern font
+% instead of the Palatino font provided by the mathpazo package.
+% Remove the 'osf' bit if you don't like the old style figures.
+\usepackage[T1]{fontenc}
+\usepackage[sc,osf]{mathpazo}
+
+\newcommand*{\QED}{\hfill\ensuremath{\square}}%
+
+\makeatletter
+\renewcommand{\@seccntformat}[1]{%
+  \ifcsname prefix@#1\endcsname
+    \csname prefix@#1\endcsname
+  \else
+    \csname the#1\endcsname\quad
+  \fi}
+% define \prefix@section
+\newcommand\prefix@section{Question \thesection}
+\makeatother
+
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\tr}{Tr}
+
+% Set your name here
+\def\name{Problem Set 10}
+
+
+\geometry{
+  body={6.5in, 8.5in},
+  left=1.0in,
+  top=1.25in
+}
+
+% Customize page headers
+\pagestyle{myheadings}
+\markright{\name}
+\thispagestyle{empty}
+
+% Custom section fonts
+\usepackage{sectsty}
+\sectionfont{\rmfamily\mdseries\Large}
+\subsectionfont{\rmfamily\mdseries\itshape\large}
+
+% Other possible font commands include:
+% \ttfamily for teletype,
+% \sffamily for sans serif,
+% \bfseries for bold,
+% \scshape for small caps,
+% \normalsize, \large, \Large, \LARGE sizes.
+
+% Don't indent paragraphs.
+\setlength\parindent{0em}
+
+\begin{document}
+
+{\huge \name}
+
+% Alternatively, print name centered and bold:
+%\centerline{\huge \bf \name}
+
+\vspace{0.25in}
+
+Dev Dabke \\
+MATH 501: Introduction to Algebraic Structures I \\
+November 22, 2016 \\
+Prof.\ Calderbank \\
+
+\section{}
+\label{sec:Question1}
+
+These were solved with some brute force computations.
+
+\subsection{Part i}
+\label{subsec:1Parti}
+
+\[
+\begin{bmatrix}
+    1 & 0 \\
+    0 & 7
+\end{bmatrix}
+\]
+\QED{}
+
+\subsection{Part ii}
+\label{subsec:1Partii}
+
+\[
+\begin{bmatrix}
+    1 & 0 & 0 \\
+    0 & 3 & 0
+\end{bmatrix}
+\]
+\QED{}
+
+\subsection{Part iii}
+\label{subsec:1Partiii}
+
+\[
+\begin{bmatrix}
+    1 & 0 & 0 \\
+    0 & 1 & 0 \\
+    0 & 0 & 44
+\end{bmatrix}
+\]
+\QED{}
+
+
+\section{}
+\label{sec:Question2}
+
+Note that $ g^t = \begin{bmatrix} 1 & t \\ 0 & 1 \end{bmatrix} $.
+In addition, $ \det{g} = \det{g^t} = \det{h} = 1 $.
+Thus, $ g^t $ represents adding $ t $ times the second row to the first.
+Apply $ h $ is a row switch and negating one row.
+Since we can also apply $ g^{-t} $, we can arbitrary apply $ t $ times the first row to the second if perform $ hg^{-t} $.
+Therefore, we can arbitrarily add one row to the other.
+\\ \\
+Next, we see that $ h^2 = -I_2 $, $ h^3 = -h $, and $ h = I_2 $ (like an imaginary unit!).
+This allows us arbitrary row swaps (there is only one row swap when $ n = 2 $).
+However, we have the additional restriction that elements of $ SL_2(\mathbb{Z}) $ have determinant $ 1 $.
+Since row swapping would change the parity of a matrix's determinant, we must therefore only perform ``corrective'' row swaps (i.e.\ correct for the determinant).
+\\ \\
+Using our linear knowledge, we know that all nonsingular matrices can be generated via the three types of elementary matrices.
+Since elements of $ SL_2(\mathbb{Z}) $ have determinant $ 1 $, they are all nonsingular, so we will investigate if we have properly captured all elementary matrices with $ g $ and $ h $.
+Since $ \det{AB} = \det{A}\det{B} $, i.e.\ the determinant of the product of matrices is the product of their determinants, we know that the determinant of arbitrary strings of $ g $ and $ h $ will still be $ 1 $.
+\\ \\
+The first class of elementary matrices represents adding arbitrary amounts of one row to another; by what we have shown above, this is possible with $ g $ and $ h $.
+Second, we can perform row swaps, but by the additional determinant means that we have to perform row swaps and negate a row to maintain the determinant.
+Since we perform the operation on strings of $ g $ and $ h $, we know that we since we start with a matrix of determinant $ 1 $, we can yield all possible ``legal'' row swaps that preserve the determinant.
+Finally, the last class of elementary matrices is multiplying a row by a scalar, but this class of elementary matrices also scales the determinant.
+Therefore, the only ``legal'' elementary matrix of this type is $ I_2 $, which we know we can generate as $ h^4 $.
+\\ \\
+Thus, given strings of $ h $ and $ g $, we can generate all determinant-preserving elementary matrices.
+We can start with $ h^4 = I_2 $, whose determinant is $ 1 $, and generate any other nonsingular matrix with determinant $ 1 $ with strings of $ g $ and $ h $.
+Thus we can formally conclude by saying that $ g $ and $ h $ generate $ SL_2(\mathbb{Z}) $.
+\QED{}
+
+\section{}
+\label{sec:Question3}
+
+Note that all field elements that are not $ 0 $ and $ 1 $ have inverses.
+Plus, $ xx^{-1} = 1 $.
+In addition, $ x0 = 0 $, and in particular $ 0 \times 1 = 0 $.
+Therefore, allowing $ \Omega = \{0, \, 1\} $ satisfies the two properties of the complete set of non-associates: first, every other element in the ring (field) associate with some element in $ \Omega $ and the elements of $ \Omega $ do not associate (since $ 0 \times 1 = 0 $).
+Thus, $ \{0, \, 1\} $ is the set of non-associates for any field.
+\\ \\
+We now apply the Hermite Normal Form Theorem (Theorem 21.2, Lecture 21, Slide 3).
+In general, we know that any $ N \times N $, possibly singular matrix is the left associate of an $ N \times N $ matrix with zeros above the main diagonal.
+We know that each diagonal element lies in a prescribed system of non-associates, which in this case implies that each diagonal element is either $ 1 $ or $ 0 $.
+Furthermore, if the diagonal element $ a \neq 0 $, then each element below the main diagonal lies in a complete residue system modulo $ a $, but since the only $ a : \neq = 0 $ is $ a = 1 $, and everything mod $ 1 $ is $ 0 $, we know that all entries below (and above) this diagonal entry is $ 0 $.
+Therefore, our matrix has columns that take one of two forms: a $ 1 $ on the entry that falls on the main diagonal, and $ 0 $s everywhere else in the column; or a $ 0 $ on the entry that falls on the main diagonal and possibly other values below it.
+\QED{}
+
+\section{}
+\label{sec:Question4}
+Pick $ U $ such that $ UA $ is in Smith Normal Form.
+We know that $ UA $ is a diagonal matrix.
+By Question~\ref{sec:Question3}, we know that if $ A $ is square and is possibly singular, and $ A $ has elements in a field $ F $, then its determinental divisors have to come from a prescribed set of non-associates.
+In particular, this set of non-associates is $ \{0, \, 1\} $.
+Since the entries of $ UA $ are from this prescribed set of non-associates, we know that therefore $ UA $ is a diagonal matrix with entries $ \{0, \, 1\}$.
+Note that for any diagonal matrix squared, the resultant square is also a diagonal matrix, with each entry being the square of the entry in that same position.
+Since $ 0^2 = 0 $ and $ 1^1 = 1 $, we know that $ {(UA)}^2 = UA $ since all of its elements will square to themselves.
+\QED{}
+
+\section{}
+\label{sec:Question5}
+
+Take $ H' $ as $ H $ is Smith Normal Form.
+We know that $ \det{H} = \det{H'} $.
+Thus, we see that $ \det{HH^T} = \det{H'H'^T} = \det{N I_N} = N^N $.
+In addition, $ \det{H'H'^T} = h_1^2 \cdots h_r^2 $, where the $ h_i $s are the invariants.
+Thus, $ h_1^2 \cdots h_r^2 = N^N $.
+\\ \\
+By Theorem 21.7, Lecture 21, Slide 11, we know that these matrices, $ HH^{T} $ and $ N I_N $ have the same determinental divisors since they are equivalent.
+The determinental divisors  $ d_i $ are obvious for $ N I_N $ and are in general of the form $ d_i = N^i $ by definition.
+Thus, we know that $ d_i / d_{i - 1} = N $ obviously divides $ N $.
+Since $ h_k = d_k / d_{k - 1} $, we know that $ h_k $ divides $ N $ for all $ k $.
+\QED{}
+
+\section{}
+\label{sec:Question6}
+
+Solving, we find that:
+\begin{align}
+    A &= \begin{bmatrix} 3 & 1 \\ -1 & 2 \end{bmatrix} \\
+    P^{-1} &= \begin{bmatrix} 3 & 1 \\ -1 & 0 \end{bmatrix} \\
+    Q^{-1} &= \begin{bmatrix} 1 & -2 \\ 0 & 1 \end{bmatrix} \\
+    Q &= \begin{bmatrix} 1 & 2 \\ 0 & 1 \end{bmatrix} \\
+    A' &= \begin{bmatrix} 1 & 0 \\ 0 & 7 \end{bmatrix}
+\end{align}
+to make $ A = P^{-1} A' Q^{-1} $ true.
+
+which was easy to do, since we had already computed these values from Question~\ref{sec:Question1}.
+\\ \\
+Thus, our new commensurable basis for $ \mathbb{Z}^2 $ is $ \begin{bmatrix} 3 \\ -1 \end{bmatrix}, \begin{bmatrix} 1 \\ 0 \end{bmatrix} $, as these are the columns of $ P^{-1} $.
+Computing, we also find that:
+\[
+P^{-1} A' = AQ = \begin{bmatrix} 3 & 7 \\ -1 & 0 \end{bmatrix}
+\]
+and thus the columns form the new basis for $ \Lambda $.
+Formally, we say that the new basis for $ \Lambda $ is $ \mathbb{Z}^2 $ is $ \begin{bmatrix} 3 \\ -1 \end{bmatrix}, \begin{bmatrix} 7 \\ 0 \end{bmatrix} $
+\QED{}
+
+\section{}
+\label{sec:Question7}
+
+Denote $ G $ to be the group presented by the given matrix $ A $.
+We yield the Smith Normal Form of this matrix to be $ 2 I_3 $.
+Thus the invariants are $ h_1 = h_2 = h_3 = 2 $.
+By Theorem 22.2 in Lecture 22 on Slide 7, we know that $ G = C_{h_1} \times C_{h_2} \times C_{h_3} = C_2 \times C_2 \times C_2 $.
+\QED{}
+
+\end{document}
